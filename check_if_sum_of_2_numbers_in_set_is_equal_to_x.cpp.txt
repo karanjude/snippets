@@ -1,0 +1,34 @@
+/* Given a set of integers , this program checks if there exists a number X such that 
+   sum of any two numbers in the set is X , in (nlgn) time
+
+   Author : Karan Singh
+   mail : karan.jude@gmail.com
+		
+template <class T>
+			bool _satisfied(vector<T> & v,int p,int q,int r,int x){
+				int a = v[p];
+				int b = v[q];
+				int c = v[r];
+				int r1 = a!=b ? a+b : 0;
+				int r2 = b!=c ? b+c : 0;
+				int r3 = a!=c ? a+c : 0;
+				bool rs1 = r1 == x;
+				bool rs2 = r2 == x;
+				bool rs3 = r3 == x;
+				bool result = rs1 || rs2 || rs3;
+				return result;
+			}
+
+			template < class T>
+			bool satisfied(vector<T> & v,int p,int r,int x){
+				if(p < r){
+					int q = (p+r)/2;
+					bool r1 = satisfied<T>(v,p,q,x);
+					bool r2 = satisfied<T>(v,q+1,r,x);
+					bool result = r1 || r2 || _satisfied<T>(v,p,q,r,x);
+					if(result == true)
+						return result;
+				}
+				return false;
+			}
+*/
