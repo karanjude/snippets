@@ -1,0 +1,129 @@
+<!--
+	Author : Karan Singh
+	Email : karan.jude@gmail.com
+
+-->
+<html>
+<head>
+    <script src="jquery.js" type="text/javascript"></script>
+    <script src="jquery.corner.js" type="text/javascript"></script>
+	<script src="datepicker.js" type="text/javascript"></script>
+	<script src="interface.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+
+        $(document).ready(function(){
+
+			$(".container").corner();
+			$(".child_container").corner();
+			$(".container2").corner();
+
+			$("#amount_spent").corner();
+
+			$("#expenditure_date").corner();
+
+			$("#expenditure_date").datePicker();
+
+			$("#tag").corner();
+
+			$("#add").click(function(){
+				var matched = $("#tags").contains($('#tag',this.parentNode).val() /* get the value of the tag entered by the user */).length;
+				if(matched > 0)
+					return false;												/* return if the list of tags contains the current tag */
+
+				$("#tags" /*list of tags*/).append(getHtmlForTag()).
+					find('div.added_tag:last').
+					fadeIn(400).												/* fade the last added tag */
+					find('a').													/* attach event handler to remove */
+					bind('click',function(){
+						$(this.parentNode).DropOutDown(400,function(){			/* give a drop out effect to the parent */
+							$(this).remove();									/* remove item tag when clicked */
+						});
+						return false;
+					});
+
+			});
+
+        });
+
+		var addTag = function(){
+
+		}
+
+		var getHtmlForTag = function(){
+        	var html = '<div class="added_tag"><a href="#" style="color:blue;float:right;">';
+							html += "remove";
+							html += '</a>';
+							html += '<label>';
+							html += $('#tag',this.parentNode).val();
+							html += '</label></div>';
+			return html;
+        }
+    </script>
+    <link rel="stylesheet" type="text/css" href="styles.css" title="default" media="screen"/>
+    <style type="text/css">
+
+	  .container {
+	  	padding:20px;
+	  	text-align:center;
+	  	background:#ffffcc;
+	  	color:#000000;
+	  }
+
+	  .child_container {
+	  		margin:5px 5px 0px 0px;
+	  		width: 18%;
+	  	  	padding:5px;
+	  	  	text-align:left;
+	  	  	background:#ffff99;
+	  	  	color:#000000;
+	  	  	font-size:80%;
+	  	  }
+
+	  .custombutton {
+	  		padding:0;
+	  		margin:0;
+	  		border:1px ;
+	  		background:none;
+	  		cursor:pointer;
+	  }
+
+	 .added_tag{
+	 }
+
+	 * html .custombutton {cursor:hand;}
+
+
+
+	</style>
+</head>
+<body >
+	<div class="container">
+
+
+		<div class="child_container" style="">
+				<label >Amount Spent</label>
+				<input type="text" id="amount_spent">
+
+		</div>
+		<div class="child_container" >
+
+				<label>Expenditure Date</label>
+				<input type="text" id="expenditure_date">
+				<p></p>
+		</div>
+		<div class="child_container">
+			<label >Add Labels</label>
+			<input type="text" id="tag">
+			<button class="customButton" id="add"><img src="add.png" id="z" style="vertical-align:middle;"></button>
+		</div>
+
+		<div class="child_container" id="labels">
+			<label ><b>Labels</b></label>
+			<div id="tags"></div>
+		</div>
+
+	</div>
+
+</body>
+</html>
