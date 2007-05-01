@@ -20,54 +20,54 @@ using namespace my;
 
 /*
 Problem Statement
-    	
+
 
 You are given a rectangular board containing m x n squares. Some squares on it are missing.
 
 You must color the existing squares white or black, so that the number of black squares is maximized, and no two existing squares of the same color have a common side.
 
 You are given the board as a String[] board, where the j-th character of the i-th element represents the square at row i, column j. Missing squares are denoted by '.' (dot) and existing squares are denoted by '#' (sharp). Return a String[] in the same format, where all '#' characters are replaced with lowercase 'w' for white squares and 'b' for black squares. If there are multiple solutions, return the one among them that comes first lexicographically. That is, you must minimize the first string, if there are still several solutions, minimize the second one, and so on.
- 
+
 Definition
-    	
+
 Class:	MoreBlack
 Method:	color
 Parameters:	String[]
 Returns:	String[]
 Method signature:	String[] color(String[] board)
 (be sure your method is public)
-    
- 
+
+
 Constraints
 -	board will contain between 1 and 50 elements, inclusive.
 -	Each element of board will contain between 1 and 50 characters, inclusive.
 -	All elements of board will contain the same number of characters.
 -	Each element of board will contain only '.' and '#' characters.
- 
+
 Examples
-0)	
-    	
+0)
+
 
 {".#.", "###", ".#."}
 
 Returns: {".b.", "bwb", ".b." }
 
-1)	
-    	
+1)
+
 
 {"#.#.#.", ".#.#.#", "#.#.#.", ".#.#.#", "#.#.#.", ".#.#.#"}
 
 Returns: {"b.b.b.", ".b.b.b", "b.b.b.", ".b.b.b", "b.b.b.", ".b.b.b" }
 
-2)	
-    	
+2)
+
 
 {"######"}
 
 Returns: {"bwbwbw" }
 
-3)	
-    	
+3)
+
 
 {".#.", ".#.", "###", ".#."}
 
@@ -79,8 +79,8 @@ Returns: {".w.", ".b.", "bwb", ".b." }
 	Author : Karan Singh
 	Email : karan.jude@gmail.com
 
-	Logic : choose black as your 1 st color , then greedily fill all the neighbors 
-	        now choose black as ur 1 st color , then greedily fill all the nighbors
+	Logic : choose black as your 1 st color , then greedily fill all the neighbors
+	        now choose white as ur 1 st color , then greedily fill all the nighbors
 			now with two answers available check , which has a higher black value and
 			return that
 */
@@ -117,7 +117,7 @@ public:
 				}
 			}
 		}
-	
+
 	}
 
 	int black_value(vector<string> & board){

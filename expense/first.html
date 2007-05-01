@@ -9,6 +9,8 @@
     <script src="jquery.corner.js" type="text/javascript"></script>
 	<script src="datepicker.js" type="text/javascript"></script>
 	<script src="interface.js" type="text/javascript"></script>
+	<script src="iautocompleter.js" type="text/javascript"></script>
+
 
     <script type="text/javascript">
 
@@ -27,6 +29,9 @@
 			$("#tag").corner();
 
 			$("#add").click(function(){
+				$.getJSON("tags.js",function(json){
+					alert("json data : " + json.tags[0]);
+				});
 				var matched = $("#tags").contains($('#tag',this.parentNode).val() /* get the value of the tag entered by the user */).length;
 				if(matched > 0)
 					return false;												/* return if the list of tags contains the current tag */
@@ -44,11 +49,18 @@
 
 			});
 
+			 $("#tag").Autocomplete({
+				source 		: 'tags.xml',
+				delay  		:  500,
+				helperClass : 'helper_class',
+				selectClass : 'select_class',
+
+			 });
+
         });
 
-		var addTag = function(){
 
-		}
+
 
 		var getHtmlForTag = function(){
         	var html = '<div class="added_tag"><a href="#" style="color:blue;float:right;">';
@@ -79,6 +91,12 @@
 	  	  	color:#000000;
 	  	  	font-size:80%;
 	  	  }
+
+	  .helper_class {
+	  }
+
+	  .select_class {
+	  }
 
 	  .custombutton {
 	  		padding:0;
