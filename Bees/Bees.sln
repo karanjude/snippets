@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Studio 2005
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bees", "Bees\Bees.csproj", "{CDA69A72-BE54-48D2-8682-E91745063238}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleTests", "SimpleTests\SimpleTests.csproj", "{9E975B9A-3400-4DBD-BA2F-6A7B064B31A7}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "beesPPA", "Setup1\Setup1.vdproj", "{70032A3D-860C-4210-9318-3C5974F46CBB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CDA69A72-BE54-48D2-8682-E91745063238}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDA69A72-BE54-48D2-8682-E91745063238}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDA69A72-BE54-48D2-8682-E91745063238}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDA69A72-BE54-48D2-8682-E91745063238}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E975B9A-3400-4DBD-BA2F-6A7B064B31A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E975B9A-3400-4DBD-BA2F-6A7B064B31A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E975B9A-3400-4DBD-BA2F-6A7B064B31A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E975B9A-3400-4DBD-BA2F-6A7B064B31A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70032A3D-860C-4210-9318-3C5974F46CBB}.Debug|Any CPU.ActiveCfg = Debug
+		{70032A3D-860C-4210-9318-3C5974F46CBB}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,14 @@
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\Bees.Properties.Resources.resources
+obj\Debug\Bees.csproj.GenerateResource.Cache
+bin\Debug\Bees.exe
+bin\Debug\Bees.pdb
+obj\Debug\Bees.exe
+obj\Debug\Bees.pdb
+obj\Debug\Bees.Step1.resources
+obj\Debug\Bees.Step2.resources
+obj\Debug\Bees.AddAuthor.resources
+obj\Debug\Bees.AddAddressDialog.resources
+obj\Debug\Bees.Step3.resources
+obj\Debug\Bees.AddReferenceDialog.resources
+obj\Debug\Bees.DatFile.resources
