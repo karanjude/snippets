@@ -4,6 +4,7 @@ using System.Collections;
 
 using System.Text;
 using System.IO;
+using System.Globalization;
 
 namespace Bees
 {
@@ -29,19 +30,54 @@ namespace Bees
                 map.Add(key, validate(key,upper(key, clean(value.Trim()))));
         }
 
-        private string validate(string key, string value)
+        private delegate String ValidateDelegate(String key, String value);
+
+        Dictionary<String, ValidateDelegate> keyValidatorMap = new Dictionary<string, ValidateDelegate>();
+
+        public InformationDTO()
+        {
+            keyValidatorMap.Add(InformationDTO.ITY, ValidateITY);
+            keyValidatorMap.Add(InformationDTO.APDAT, ValidateAPDAT);
+            keyValidatorMap.Add(InformationDTO.APTXT, ValidateAPTXT);
+        }
+
+        private String ValidateAPTXT(String key, String value)
+        {
+            String[] strings = value.Split(new char[] { ' '});
+            int i = 0;
+            Array.ForEach<String>(strings, new System.Action<String>(delegate(String target)
+            {
+                strings[i++] = Char.ToUpper(target[0]) + target.Substring(1);
+            }));
+            return String.Join(" ", strings);
+        }
+
+        private String ValidateAPDAT(String key, String value)
+        {
+            return new DateTimeConverter().convert(value);
+        }
+
+        private String ValidateITY(String key, String value)
         {
             bool result = false;
-            if (InformationDTO.ITY == key)
+            result = Array.Exists(ITY_VALUES, new Predicate<String>(delegate(String target)
             {
-                result = Array.Exists(ITY_VALUES, new Predicate<String>(delegate(String target)
-                {
-                    return target == value;
-                }));
-            }
+                return target == value;
+            }));
             if (result == true)
                 return value;
             return String.Empty;
+            
+        }
+
+        private string validate(string key, string value)
+        {
+            if (keyValidatorMap.ContainsKey(key))
+            {
+                ValidateDelegate validator = keyValidatorMap[key];
+                return validator(key, value);
+            }
+            return value;
         }
 
         private string upper(string key, string value)
@@ -67,6 +103,7 @@ namespace Bees
                 }
             }
             return cleanTheDirtyString(dirty, value);
+            
 
         }
 
@@ -362,6 +399,38 @@ namespace Bees
             {
                 if (map.ContainsKey(InformationDTO.ITY))
                     return map[InformationDTO.ITY];
+                return String.Empty;
+            }
+        }
+
+        private const String APDAT = "_apdat";
+
+        public String Apdat
+        {
+            set
+            {
+                setTag(InformationDTO.APDAT, value);
+            }
+            get
+            {
+                if (map.ContainsKey(InformationDTO.APDAT))
+                    return map[InformationDTO.APDAT];
+                return String.Empty;
+            }
+        }
+
+        private const String APTXT = "_aptxt";
+
+        public String Aptxt
+        {
+            set
+            {
+                setTag(InformationDTO.APTXT, value);
+            }
+            get
+            {
+                if (map.ContainsKey(InformationDTO.APTXT))
+                    return map[InformationDTO.APTXT];
                 return String.Empty;
             }
         }
