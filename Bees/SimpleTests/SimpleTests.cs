@@ -11,14 +11,16 @@ namespace Bees
     [TestFixture]
     public class SimpleTests
     {
+
         [Test]
         public void testFirstMiddleAndLastName()
         {
             String name = "Jeffrey M. Weinberg";
             Author author = new Author(name);
             Assert.AreEqual("Jeffrey", author.FirstName);
-            Assert.AreEqual("M", author.MiddleName);
+            Assert.AreEqual("M.", author.MiddleName);
             Assert.AreEqual("Weinberg", author.LastName);
+            Assert.AreEqual("*Weinberg*M.*Jeffrey", author.AuthorString);
         }
 
         [Test]
@@ -27,11 +29,39 @@ namespace Bees
             String name = "Dr. Jeffrey M. Weinberg";
             Author author = new Author(name);
             Assert.AreEqual("Jeffrey", author.FirstName);
-            Assert.AreEqual("M", author.MiddleName);
+            Assert.AreEqual("M.", author.MiddleName);
             Assert.AreEqual("Weinberg", author.LastName);
-            Assert.AreEqual("Dr", author.Title);
-            Assert.AreEqual("J.M.", author.Initials);
+            Assert.AreEqual("Dr.", author.Title);
+            Assert.AreEqual("M.", author.Initials);
+            Assert.AreEqual("*Weinberg*M.*Jeffrey*Dr.", author.AuthorString);
+
         }
+
+        [Test]
+        public void testTitleFirstMiddleLastNameEmail()
+        {
+            String name = "Dr. Jeffrey M. Weinberg jeff@hotmail.com";
+            Author author = new Author(name);
+            Assert.AreEqual("Jeffrey", author.FirstName);
+            Assert.AreEqual("M.", author.MiddleName);
+            Assert.AreEqual("Weinberg", author.LastName);
+            Assert.AreEqual("Dr.", author.Title);
+            Assert.AreEqual("M.", author.Initials);
+            Assert.AreEqual("*Weinberg*M.*Jeffrey*Dr.*jeff@hotmail.com", author.AuthorString);
+
+        }
+
+        [Test]
+        public void testAuthorAddressLinkString()
+        {
+            InformationDTO information = new InformationDTO();
+            Author karan = new Author("Karan Dude");
+            information.AddAuthor(karan);
+            StringBuilder result = new StringBuilder();
+            information.authorLine(result, karan);
+            Assert.AreEqual("_auth 0*Dude*Karan" + Environment.NewLine,result.ToString());
+        }
+
 
         [Test]
         public void TestInformationDTOIty()

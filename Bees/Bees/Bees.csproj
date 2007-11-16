@@ -56,12 +56,14 @@
     </Compile>
     <Compile Include="Address.cs" />
     <Compile Include="Author.cs" />
+    <Compile Include="DateTimeConverter.cs" />
     <Compile Include="DatFile.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="DatFile.Designer.cs">
       <DependentUpon>DatFile.cs</DependentUpon>
     </Compile>
+    <Compile Include="PatternApplier.cs" />
     <Compile Include="Reference.cs" />
     <Compile Include="Step1.cs">
       <SubType>Form</SubType>

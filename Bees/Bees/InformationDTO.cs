@@ -280,12 +280,21 @@ namespace Bees
             return numberOfAddresses;
         }
 
-        private void authorLine(StringBuilder builder, Author author)
+        public void authorLine(StringBuilder builder, Author author)
         {
-            int linkCount = authorAddressMap[author].Count;
+            int linkCount = 0;
+            if (authorAddressMap.ContainsKey(author))
+                linkCount = authorAddressMap[author].Count;
             builder.Append(Author.TAG).Append(" ");
-            builder.Append(String.Join(",", range(1, linkCount)));
+            builder.Append(CommaSeparatedAddressLinks(linkCount));
             builder.Append(author.AuthorString).Append(Environment.NewLine);
+        }
+
+        private string CommaSeparatedAddressLinks(int linkCount)
+        {
+            if (linkCount == 0)
+                return linkCount.ToString();
+              return String.Join(",", range(1, linkCount));
         }
 
         private string[] range(int initial, int final)
