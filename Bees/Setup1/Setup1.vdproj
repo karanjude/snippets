@@ -15,7 +15,7 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_120C10137AD9435FA8903DA0FE103E19"
+        "MsmKey" = "8:_01CD4907ACE042B6A64E5DB4C0098504"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -33,7 +33,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_CFCBAD09B202439994189951EC044BE7"
+        "MsmKey" = "8:_EF353003BB874DC193FC14E2FC9C8BC6"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -104,6 +104,17 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                }
+            }
         }
     }
     "Deployable"
@@ -133,9 +144,9 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_120C10137AD9435FA8903DA0FE103E19"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_01CD4907ACE042B6A64E5DB4C0098504"
             {
-            "SourcePath" = "8:..\\..\\..\\..\\..\\Desktop\\WindowsInstaller-KB893803-v2-x86.exe"
+            "SourcePath" = "8:Debug\\dotnetfx\\WindowsInstaller-KB893803-v2-x86.exe"
             "TargetName" = "8:WindowsInstaller-KB893803-v2-x86.exe"
             "Tag" = "8:"
             "Folder" = "8:_108655A582DC480BBC22FE5C2678C705"
@@ -153,9 +164,9 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CFCBAD09B202439994189951EC044BE7"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EF353003BB874DC193FC14E2FC9C8BC6"
             {
-            "SourcePath" = "8:..\\..\\..\\..\\..\\Desktop\\dotnetfx.exe"
+            "SourcePath" = "8:Debug\\dotnetfx\\dotnetfx.exe"
             "TargetName" = "8:dotnetfx.exe"
             "Tag" = "8:"
             "Folder" = "8:_108655A582DC480BBC22FE5C2678C705"
