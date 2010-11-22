@@ -1,0 +1,28 @@
+<! DOCTYPE html>
+<html>
+  <head>
+    <title>Realtime Chat</title>
+    <style>. chat-content { max-height: 200px; overflow: auto; }</style>
+  </head>
+ <body class="yui-skin-sam">
+    <div id="container">
+      <! -- a super basic login window -->
+      <div id="login">
+        <div class="hd">Enter a username</div><!-- login window titlebar -->
+        <div class="bd"><!-- login window content -->
+          <input type="text" id="username" />
+          <input type="button" id="login-button" value="Log In" />
+        </div>
+        <div class="ft"></div><!-- login window footer -->
+      </div>
+    </div>
+
+ <! -- Include a JavaScript file from Yahoo! -->
+    <script type="text/javascript" 
+       src="http://yui.yahooapis.com/2.8.0r4/build/yuiloader/yuiloader-min.js"> 
+    </script> 
+    <! -- Include our local JS file -->
+    <script type="text/javascript" src="{{ static_url('chat.js') }}"></script>
+  </body>
+</html>
+

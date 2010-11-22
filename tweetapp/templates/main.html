@@ -1,0 +1,61 @@
+<! DOCTYPE html>
+<html>
+  <head>
+    <title>Twitter / Tornado</title>
+    <script type="text/javascript" src="{{ static_url('q.js') }}"></script>
+    <script type="text/javascript" src="{{ static_url('twitter.js') }}"></script>
+    <style>
+        BODY { margin: 0px; padding: 0px; }
+        #content { width: 50%; margin: auto; }
+        #toolbar {
+            text-align: center;
+            border-bottom: solid 1px grey;
+            margin: 0px; 
+            background-color: #dfdfdf;
+        }
+      #toolbar UL { margin: 0px; }
+        #toolbar UL LI { display: inline; }
+        #waiting { text-align: center; font-style: italic; }
+    </style>
+  </head>
+  
+  <body>
+    <div id="toolbar">
+      <ul>
+        <li>
+          <input checked="yes" type="checkbox" id="all" value="1" /> 
+          <label for="all">All</label> 
+          (<span id="all-count">0</span>)
+        </li>
+        <li>
+          <input checked="yes" type="checkbox" id="hashtags" value="1" /> 
+          <label for="hashtags">#hashtags</label> 
+          (<span id="all-count">0</span>)
+        </li>
+        <li>
+          <input checked="yes" type="checkbox" id="hashtags" value="1" /> 
+          <label for="hashtags">#hashtags</label> 
+          (<span id="hashtags-count">0</span>)
+        </li>
+        <li>
+          <input checked="yes" type="checkbox" id="ats" value="1" /> 
+          <label for="ats">@ats</label> 
+          (<span id="ats-count">0</span>)
+        </li>
+        <li>
+          <input checked="yes" type="checkbox" id="retweets" value="1" /> 
+          <label for="retweets">retweets</label> 
+          (<span id="retweets-count">0</span>)
+</li>
+        <li>
+          <input checked="yes" type="checkbox" id="links" value="1" /> 
+          <label for="links">links</label> 
+          (<span id="links-count">0</span>)
+        </li>
+      </ul>
+    </div>
+    <div id="content">
+      <div id="waiting">Waiting for content...</div>
+    </div>
+  </body>
+</html>
