@@ -31,8 +31,6 @@ void print_maze(vector< pair<int,int> > with_path = vector< pair<int,int> >()){
     }
   }
 			   
-			  
-
   for(int y = 0; y != maze.size(); y++){
     for(int x = 0; x != maze[0].size(); x++){
       char c;
@@ -235,7 +233,6 @@ int main(int argc, char** argv){
   }
 
   print_maze();
-  //dfs();
 
   DFS dfs(sx, sy, ex, ey);
   search(dfs);
