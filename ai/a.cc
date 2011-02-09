@@ -21,45 +21,88 @@ void get_x_y(const string& xy, int& x, int& y){
   iss >> x >> y;
 }
 
-void print_maze(){
+void print_maze(vector< pair<int,int> > with_path = vector< pair<int,int> >()){
   cout << endl;
+  map< pair<int, int>, bool > v;
+  
+  if(with_path.size() > 0){
+    for(vector< pair<int,int> >::iterator i = with_path.begin(); i != with_path.end(); i++){
+      v.insert(make_pair(make_pair(i->first, i->second),true));
+    }
+  }
+			   
+			  
+
   for(int y = 0; y != maze.size(); y++){
     for(int x = 0; x != maze[0].size(); x++){
       char c;
-      if( sx == x && sy == y)
+      if( sx == x && sy ==  y)
 	c = 'S';
       else if( ex == x && ey == y)
 	c = 'E';
-      else 
+      else{ 
 	c = maze[y][x] == -1 ? 'N' : '*';
+	if(v.size() > 0 && v.find(make_pair(x,y)) != v.end() ){
+	  c = 'P';
+	}
+      }
       cout << c << "  ";
     }
     cout << endl;
   }
 }
 
+struct node{
+  int x,y;
+  vector< pair<int, int> > path_so_far;
+
+  node(int x_, int y_, const vector< pair<int,int> > &  path_so_far_):
+    x(x_),
+    y(y_),
+    path_so_far(path_so_far_)
+  {
+    path_so_far.push_back(make_pair(x,y));
+  }
+
+  node(const node& other){
+    x = other.x;
+    y = other.y;
+    path_so_far = other.path_so_far;
+  }
+};
+	    
+	   
+
 void dfs(){
-  stack< pair<int, int> > s;
-  s.push(make_pair(sx,sy));
+  stack< node > s;
+  s.push(node(sx,sy, vector< pair<int,int> >()));
   
   int dx[] = {-1,1,0,0};
   int dy[] = {0,0,-1,1};
   
   while(!s.empty()){
-    pair<int, int> p = s.top();
+    node p = s.top();
     s.pop();
-    cout << endl << "processing .. " << p.first << " " << p.second;
-    if(visited.find(make_pair(p.first, p.second)) != visited.end())
+
+    cout << endl << "processing .. " << p.x << " " << p.y;
+
+    if(visited.find(make_pair(p.x, p.y)) != visited.end())
        continue;
 
-    visited.insert(make_pair(p ,true));
-    if(ex == p.first && ey == p.second){
+    visited.insert(make_pair(make_pair(p.x, p.y) ,true));
+
+    if(ex == p.x && ey == p.y){
       cout << endl << "FOUND DESTINATION";
+      for(vector< pair<int,int> >::iterator i = p.path_so_far.begin(); i != p.path_so_far.end(); i++){
+	cout << endl << "(" << i->first << " , " << height - 1 - i->second << ")";
+      }
+      print_maze(p.path_so_far);
       break;
     }
+
     for(int i = 0; i < 4;i++){
-      int xx = p.first + dx[i];
-      int yy = height - 1 - p.second - dy[i];
+      int xx = p.x + dx[i];
+      int yy = p.y - dy[i];
       if (xx < 0 || xx > width-1 || yy < 0 || yy > height-1 )
 	continue;
       
@@ -67,8 +110,8 @@ void dfs(){
       if (maze[yy][xx] < 0)
 	continue;
       
-      s.push(make_pair(xx,yy));
-      visited[p] = false;
+      s.push(node(xx,yy, p.path_so_far));
+      visited[make_pair(p.x, p.y)] = false;
     }
     
   }
