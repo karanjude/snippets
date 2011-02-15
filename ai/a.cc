@@ -61,6 +61,8 @@ public:
   int x,y, cost;
   vector< pair<int, int> > path_so_far;
 
+  friend ostream& operator<<(ostream& output, const SearchNode& p);
+
   SearchNode(int x_, int y_, const vector< pair<int,int> > &  path_so_far_ , int cost_ = 1):
     x(x_),
     y(y_),
@@ -68,7 +70,7 @@ public:
     cost(cost_)
   {
     path_so_far.push_back(make_pair(x,y));
-    cost = 0;
+    cost = cost_;
   }
 
   SearchNode(const SearchNode& other){
@@ -184,8 +186,18 @@ public:
 
   };
 
+ostream& operator<<(ostream& output, const SearchNode& p) {
+  output <<  p.x << " " << p.y << " " << p.cost;
+  return output;
+}
+
 bool operator < (const SearchNode & left, const SearchNode & right){
-  return left.cost < right.cost;
+  cout << endl << left << " : " << right;
+  if( left.cost > right.cost )
+    cout << endl << left << " > " << right;
+  else
+    cout << endl << right << " > " << left;
+  return left.cost > right.cost;
 }
   
   class AStar : public SearchStrategy {
@@ -201,7 +213,7 @@ bool operator < (const SearchNode & left, const SearchNode & right){
       end_x(end_x_),
       end_y(end_y_)
     {
-      s.push(SearchNode(start_x, start_y, vector< pair<int,int> >()));
+      s.push(SearchNode(start_x, start_y, vector< pair<int,int> >(), 0));
     }
 
     bool should_search_more(){
@@ -245,9 +257,10 @@ bool operator < (const SearchNode & left, const SearchNode & right){
     int hueristic(int sx, int sy, int ex, int ey){
       int dx = abs(sx - ex);
       int dy = abs(ex - ey);
-
-      cout << endl << dx << " : " << dy;
       int v = dx + dy;
+
+      cout << endl << "HEURISTIC :"<<  sx << " : " << sy;
+      
       cout << endl << v;
       return v;
     }
