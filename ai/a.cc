@@ -287,6 +287,31 @@ class AStar : public SearchStrategy<container> {
   
 };
 
+template<typename container>  
+class UniformCost : public SearchStrategy<container> {
+  public:
+  UniformCost(int start_x_, int start_y_, int end_x_, int end_y_, int width__, int height__):
+    SearchStrategy<container>(start_x_, start_y_, end_x_, end_y_, width__, height__)
+  {
+  }
+
+  virtual bool can_generate_search_node_at(int xx , int yy){
+    return xx < 0 || xx > SearchStrategy<container>::width_ - 1 || yy < 0 || yy > SearchStrategy<container>::height_ -1;
+  }
+
+  virtual void unmark_node(const SearchNode& p){
+    visited[make_pair(p.x, p.y)] = false;
+    SearchStrategy<container>::nodes_seen++;
+  }
+
+  virtual int cost(const SearchNode& p, int xx, int yy, int ex, int ey){
+    int cost = p.cost + 1;
+    return cost;
+  }
+  
+};
+
+
 template <typename container>
 void search(SearchStrategy<container> & search_strategy){
   while(search_strategy.should_search_more()){
@@ -307,7 +332,7 @@ void search(SearchStrategy<container> & search_strategy){
   }
 }	   
 
-enum { DFS_STRATEGY, BFS_STRATEGY, A_STAR_STRATEGY };
+enum { DFS_STRATEGY, BFS_STRATEGY, A_STAR_STRATEGY , UCS_STRATEGY};
 
 int main(int argc, char** argv){
   char * file_name = NULL;
@@ -323,6 +348,9 @@ int main(int argc, char** argv){
 	strategy = A_STAR_STRATEGY;
       else if( "bfs" == strategy_string )
 	strategy = BFS_STRATEGY;
+      else if( "ucs" == strategy_string )
+	strategy = UCS_STRATEGY;
+
     }
   }
 
@@ -379,6 +407,9 @@ int main(int argc, char** argv){
   }else if( BFS_STRATEGY == strategy ){
     BFS< my_queue< SearchNode > > bfs(sx, sy, ex, ey, width, height);
     search(bfs);
+  }else if( UCS_STRATEGY == strategy ){
+    UniformCost< priority_queue< SearchNode > > ucs(sx, sy, ex, ey, width, height);
+    search(ucs);
   }
 
   file.close();
