@@ -56,6 +56,29 @@ void print_maze(vector< pair<int,int> > with_path = vector< pair<int,int> >()){
   }
 }
 
+template < class T > 
+class my_queue {
+private:
+  queue<T> q;
+
+public:
+  void push(const T& x){
+    q.push(x);
+  }
+
+  void pop(){
+    q.pop();
+  }
+
+  bool empty(){
+    return q.empty();
+  }
+
+  T top(){
+    return q.front(); 
+  }
+};
+
 class SearchNode{
 public:
   int x,y, cost;
@@ -90,102 +113,6 @@ public:
 };
 
 
-  class SearchStrategy{
-  protected:
-    int nodes_seen, path_cost;
-  public:
-    SearchStrategy():
-      nodes_seen(0),
-      path_cost(0)
-    {
-    }
-
-    virtual bool should_search_more() = 0;
-    virtual SearchNode get_next_search_node() = 0;
-    virtual bool has_reached_goal_node(const SearchNode& ) = 0;
-    virtual bool can_generate_search_node_at(int x, int y) = 0;
-    virtual void generate_search_nodes(const SearchNode& ) = 0;
-    virtual bool should_process_node(const SearchNode& ) = 0;
-    virtual void mark_node(const SearchNode& ) = 0;
-    virtual void unmark_node(const SearchNode& ) = 0;
-    virtual void process_end_node(const SearchNode& ) = 0;
-  };
-
-  class DFS : public SearchStrategy {
-  private:
-    stack<SearchNode> s;
-    map< pair<int, int>, bool > visited;
-    int start_x, start_y, end_x, end_y;
-    
-  public:
-    DFS(int start_x_, int start_y_, int end_x_, int end_y_):
-      start_x(start_x_),
-      start_y(start_y_),
-      end_x(end_x_),
-      end_y(end_y_)
-    {
-      s.push(SearchNode(start_x, start_y, vector< pair<int,int> >()));
-    }
-
-    bool should_search_more(){
-      return !s.empty();
-    }
-
-    SearchNode get_next_search_node(){
-      SearchNode node = s.top();
-      s.pop();
-      return node;
-    }
-
-    bool should_process_node(const SearchNode& p){
-      return visited.find(make_pair(p.x, p.y)) == visited.end();
-    }
-
-    void mark_node(const SearchNode& p){
-      visited.insert(make_pair(make_pair(p.x, p.y) ,true));
-      nodes_seen++;
-    }
-
-    bool has_reached_goal_node(const SearchNode& p ){
-      return (end_x == p.x && end_y == p.y);
-    }
-
-    void process_end_node(const SearchNode& p){
-      cout << endl << "FOUND DESTINATION";
-      p.print_path();
-      cout << endl << "nodes seen : " << nodes_seen;
-      cout << endl << "path cost : " << p.path_so_far.size();
-    }
-
-    void unmark_node(const SearchNode& p){
-      visited[make_pair(p.x, p.y)] = false;
-    }
-
-    bool can_generate_search_node_at(int xx , int yy){
-      return xx < 0 || xx > width-1 || yy < 0 || yy > height-1;
-    }
-
-    void generate_search_nodes(const SearchNode& p){
-      int dx[] = {-1,1,0,0};
-      int dy[] = {0,0,-1,1};
-
-      for(int i = 0; i < 4;i++){
-	int xx = p.x + dx[i];
-	int yy = p.y - dy[i];
-	if(can_generate_search_node_at(xx, yy))
-	  continue;
-      
-	cout << endl << "v : at " << xx << " " << yy << " " << maze[yy][xx];
-	if (maze[yy][xx] < 0)
-	  continue;
-      
-	s.push(SearchNode(xx,yy, p.path_so_far));
-	//visited[make_pair(p.x, p.y)] = false;
-      }
-    }
-
-  };
-
 ostream& operator<<(ostream& output, const SearchNode& p) {
   output <<  p.x << " " << p.y << " " << p.cost;
   return output;
@@ -199,74 +126,55 @@ bool operator < (const SearchNode & left, const SearchNode & right){
     cout << endl << right << " > " << left;
   return left.cost > right.cost;
 }
+
+template< typename container >
+class SearchStrategy{
   
-  class AStar : public SearchStrategy {
-  private:
-    priority_queue<SearchNode> s;
-    map< pair<int, int>, bool > visited;
-    int start_x, start_y, end_x, end_y;
-    
-  public:
-    AStar(int start_x_, int start_y_, int end_x_, int end_y_):
-      start_x(start_x_),
-      start_y(start_y_),
-      end_x(end_x_),
-      end_y(end_y_)
-    {
-      s.push(SearchNode(start_x, start_y, vector< pair<int,int> >(), 0));
-    }
+protected:
+  container s;
+  int start_x, start_y, end_x, end_y;
+  map< pair<int, int>, bool > visited;
+  int nodes_seen, path_cost;
+  int width_, height_;
+  
+public:
+  SearchStrategy(int start_x_, int start_y_, int end_x_, int end_y_, int width__, int height__):
+    start_x(start_x_),
+    start_y(start_y_),
+    end_x(end_x_),
+    end_y(end_y_),
+    nodes_seen(0),
+    path_cost(0),
+    width_(width__),
+    height_(height__)
+  {
+    s.push(SearchNode(start_x, start_y, vector< pair<int,int> >(), 0));
+  }
 
-    bool should_search_more(){
-      return !s.empty();
-    }
+  virtual bool should_search_more(){
+    return !s.empty();
+  }
 
-    SearchNode get_next_search_node(){
-      SearchNode node = s.top();
-      s.pop();
-      return node;
-    }
+  virtual SearchNode get_next_search_node(){
+    SearchNode node = s.top();
+    s.pop();
+    return node;
+  }
 
-    bool should_process_node(const SearchNode& p){
-      return visited.find(make_pair(p.x, p.y)) == visited.end();
-    }
+  virtual bool has_reached_goal_node(const SearchNode& p){
+    return (end_x == p.x && end_y == p.y);
+  }
 
-    void mark_node(const SearchNode& p){
-      visited.insert(make_pair(make_pair(p.x, p.y) ,true));
-    }
+  virtual bool can_generate_search_node_at(int xx , int yy){
+    return xx < 0 || xx > width_ - 1 || yy < 0 || yy > height_ -1;
+  }
 
-    bool has_reached_goal_node(const SearchNode& p ){
-      return (end_x == p.x && end_y == p.y);
-    }
-
-    void process_end_node(const SearchNode& p){
-      cout << endl << "FOUND DESTINATION";
-      p.print_path();
-      cout << endl << "nodes seen : " << nodes_seen;
-      cout << endl << "path cost : " << p.path_so_far.size();
-    }
-
-    void unmark_node(const SearchNode& p){
-      visited[make_pair(p.x, p.y)] = false;
-      nodes_seen++;
-    }
-
-    bool can_generate_search_node_at(int xx , int yy){
-      return xx < 0 || xx > width-1 || yy < 0 || yy > height-1;
-    }
-
-    int hueristic(int sx, int sy, int ex, int ey){
-      int dx = abs(sx - ex);
-      int dy = abs(ex - ey);
-      int v = dx + dy;
-
-      cout << endl << "HEURISTIC :"<<  sx << " : " << sy;
-      
-      cout << endl << v;
-      return v;
-    }
-
-    void generate_search_nodes(const SearchNode& p){
-      int dx[] = {-1,1,0,0};
+  virtual int cost(const SearchNode& p, int xx, int yy, int ex, int ey){
+    return 0;
+  }
+  
+  virtual void generate_search_nodes(const SearchNode& p){
+    int dx[] = {-1,1,0,0};
       int dy[] = {0,0,-1,1};
 
       for(int i = 0; i < 4;i++){
@@ -278,17 +186,109 @@ bool operator < (const SearchNode & left, const SearchNode & right){
 	cout << endl << "v : at " << xx << " " << yy << " " << maze[yy][xx];
 	if (maze[yy][xx] < 0)
 	  continue;
-      
-	int cost = p.cost + hueristic(xx, yy , end_x, end_y);
-	s.push(SearchNode(xx,yy, p.path_so_far, cost));
-	//visited[make_pair(p.x, p.y)] = false;
+	
+	int c = cost(p, xx, yy, end_x, end_y);
+ 	s.push(SearchNode(xx,yy, p.path_so_far, c ));
       }
+      
+  }
+  
+  virtual bool should_process_node(const SearchNode& p){
+    return visited.find(make_pair(p.x, p.y)) == visited.end();
+  }
+
+  virtual void mark_node(const SearchNode& p){
+    visited.insert(make_pair(make_pair(p.x, p.y) ,true));
+  }
+  
+  virtual void unmark_node(const SearchNode& p){
+    visited[make_pair(p.x, p.y)] = false;
+    nodes_seen++;
+  }
+
+  virtual void process_end_node(const SearchNode& p){
+    cout << endl << "FOUND DESTINATION";
+    p.print_path();
+    cout << endl << "nodes seen : " << SearchStrategy<container>::nodes_seen;
+    cout << endl << "path cost : " << p.path_so_far.size();
+  }
+
+};
+
+template<typename container>
+class DFS : public SearchStrategy<container> {
+  public:
+  DFS(int start_x_, int start_y_, int end_x_, int end_y_, int width__, int height__):
+      SearchStrategy<container>(start_x_, start_y_, end_x_, end_y_, width__, height__)
+    {
     }
+  
+  virtual void unmark_node(const SearchNode& p){
+    visited[make_pair(p.x, p.y)] = false;
+    SearchStrategy<container>::nodes_seen++;
+  }
+  
+  virtual bool can_generate_search_node_at(int xx , int yy){
+    return xx < 0 || xx > SearchStrategy<container>::width_ - 1 || yy < 0 || yy > SearchStrategy<container>::height_ -1;
+  }
 
-  };
+};
 
-	  
-void search(SearchStrategy& search_strategy){
+template<typename container>
+class BFS : public SearchStrategy<container> {
+  public:
+  BFS(int start_x_, int start_y_, int end_x_, int end_y_, int width__, int height__):
+      SearchStrategy<container>(start_x_, start_y_, end_x_, end_y_, width__, height__)
+    {
+    }
+  
+  virtual void unmark_node(const SearchNode& p){
+    visited[make_pair(p.x, p.y)] = false;
+    SearchStrategy<container>::nodes_seen++;
+  }
+  
+  virtual bool can_generate_search_node_at(int xx , int yy){
+    return xx < 0 || xx > SearchStrategy<container>::width_ - 1 || yy < 0 || yy > SearchStrategy<container>::height_ -1;
+  }
+
+};
+
+
+template<typename container>  
+class AStar : public SearchStrategy<container> {
+  public:
+  AStar(int start_x_, int start_y_, int end_x_, int end_y_, int width__, int height__):
+    SearchStrategy<container>(start_x_, start_y_, end_x_, end_y_, width__, height__)
+  {
+  }
+
+  virtual bool can_generate_search_node_at(int xx , int yy){
+    return xx < 0 || xx > SearchStrategy<container>::width_ - 1 || yy < 0 || yy > SearchStrategy<container>::height_ -1;
+  }
+
+  virtual void unmark_node(const SearchNode& p){
+    visited[make_pair(p.x, p.y)] = false;
+    SearchStrategy<container>::nodes_seen++;
+  }
+
+  int hueristic(int sx, int sy, int ex, int ey){
+    int dx = abs(sx - ex);
+    int dy = abs(ex - ey);
+    int v = dx + dy;
+    cout << endl << "HEURISTIC :"<<  sx << " : " << sy;
+    cout << endl << v;
+    return v;
+  }
+  
+  virtual int cost(const SearchNode& p, int xx, int yy, int ex, int ey){
+    int cost = p.cost + hueristic(xx, yy , ex, ey);
+    return cost;
+  }
+  
+};
+
+template <typename container>
+void search(SearchStrategy<container> & search_strategy){
   while(search_strategy.should_search_more()){
     SearchNode p = search_strategy.get_next_search_node();
 
@@ -307,7 +307,7 @@ void search(SearchStrategy& search_strategy){
   }
 }	   
 
-enum { DFS_STRATEGY, A_STAR_STRATEGY };
+enum { DFS_STRATEGY, BFS_STRATEGY, A_STAR_STRATEGY };
 
 int main(int argc, char** argv){
   char * file_name = NULL;
@@ -321,6 +321,8 @@ int main(int argc, char** argv){
 	strategy = DFS_STRATEGY;
       else if( "astar" == strategy_string )
 	strategy = A_STAR_STRATEGY;
+      else if( "bfs" == strategy_string )
+	strategy = BFS_STRATEGY;
     }
   }
 
@@ -369,11 +371,14 @@ int main(int argc, char** argv){
   print_maze();
 
   if( DFS_STRATEGY == strategy){
-    DFS dfs(sx, sy, ex, ey);
+    DFS< stack< SearchNode > > dfs(sx, sy, ex, ey, width, height);
     search(dfs);
   }else if( A_STAR_STRATEGY == strategy ){
-    AStar astar(sx, sy, ex, ey);
+    AStar< priority_queue< SearchNode > > astar(sx, sy, ex, ey, width, height);
     search(astar);
+  }else if( BFS_STRATEGY == strategy ){
+    BFS< my_queue< SearchNode > > bfs(sx, sy, ex, ey, width, height);
+    search(bfs);
   }
 
   file.close();
