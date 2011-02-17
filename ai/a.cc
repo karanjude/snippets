@@ -93,7 +93,6 @@ public:
     cost(cost_)
   {
     path_so_far.push_back(make_pair(x,y));
-    cost = cost_;
   }
 
   SearchNode(const SearchNode& other){
@@ -119,6 +118,7 @@ ostream& operator<<(ostream& output, const SearchNode& p) {
 }
 
 bool operator < (const SearchNode & left, const SearchNode & right){
+  
   cout << endl << left << " : " << right;
   if( left.cost > right.cost )
     cout << endl << left << " > " << right;
@@ -138,7 +138,7 @@ protected:
   int width_, height_;
   
 public:
-  SearchStrategy(int start_x_, int start_y_, int end_x_, int end_y_, int width__, int height__):
+  SearchStrategy(int start_x_, int start_y_, int end_x_, int end_y_, int width__, int height__, int cost_ = 0):
     start_x(start_x_),
     start_y(start_y_),
     end_x(end_x_),
@@ -148,7 +148,7 @@ public:
     width_(width__),
     height_(height__)
   {
-    s.push(SearchNode(start_x, start_y, vector< pair<int,int> >(), 0));
+    s.push(SearchNode(start_x, start_y, vector< pair<int,int> >(), cost_));
   }
 
   virtual bool should_search_more(){
@@ -188,22 +188,32 @@ public:
 	  continue;
 	
 	int c = cost(p, xx, yy, end_x, end_y);
- 	s.push(SearchNode(xx,yy, p.path_so_far, c ));
+
+	if(!should_discard(p, c)){
+	  cout << endl << "adding " << xx << " " << yy;
+	  s.push(SearchNode(xx,yy, p.path_so_far, c ));
+	}
       }
       
   }
   
+  virtual bool should_discard(const SearchNode& p, int cost){
+    return false;
+  }
+
   virtual bool should_process_node(const SearchNode& p){
     return visited.find(make_pair(p.x, p.y)) == visited.end();
   }
 
   virtual void mark_node(const SearchNode& p){
     visited.insert(make_pair(make_pair(p.x, p.y) ,true));
+    nodes_seen++;
+    if((p.x == start_x && p.y == start_y) || (p.x == end_x && p.y == end_y))
+      nodes_seen--;
   }
   
   virtual void unmark_node(const SearchNode& p){
     visited[make_pair(p.x, p.y)] = false;
-    nodes_seen++;
   }
 
   virtual void process_end_node(const SearchNode& p){
@@ -225,7 +235,6 @@ class DFS : public SearchStrategy<container> {
   
   virtual void unmark_node(const SearchNode& p){
     visited[make_pair(p.x, p.y)] = false;
-    SearchStrategy<container>::nodes_seen++;
   }
   
   virtual bool can_generate_search_node_at(int xx , int yy){
@@ -244,7 +253,6 @@ class BFS : public SearchStrategy<container> {
   
   virtual void unmark_node(const SearchNode& p){
     visited[make_pair(p.x, p.y)] = false;
-    SearchStrategy<container>::nodes_seen++;
   }
   
   virtual bool can_generate_search_node_at(int xx , int yy){
@@ -258,7 +266,8 @@ template<typename container>
 class AStar : public SearchStrategy<container> {
   public:
   AStar(int start_x_, int start_y_, int end_x_, int end_y_, int width__, int height__):
-    SearchStrategy<container>(start_x_, start_y_, end_x_, end_y_, width__, height__)
+    SearchStrategy<container>(start_x_, start_y_, end_x_, end_y_, width__, height__, 
+			      hueristic(start_x_, start_y_, end_x_, end_y_))
   {
   }
 
@@ -268,20 +277,23 @@ class AStar : public SearchStrategy<container> {
 
   virtual void unmark_node(const SearchNode& p){
     visited[make_pair(p.x, p.y)] = false;
-    SearchStrategy<container>::nodes_seen++;
   }
+
+  virtual bool should_discard(const SearchNode& p, int cost){
+    return cost < p.cost;
+  }
+							    
 
   int hueristic(int sx, int sy, int ex, int ey){
     int dx = abs(sx - ex);
-    int dy = abs(ex - ey);
+    int dy = abs(sy - ey);
     int v = dx + dy;
-    cout << endl << "HEURISTIC :"<<  sx << " : " << sy;
-    cout << endl << v;
+    cout << endl << "HEURISTIC :"<<  sx << " : " << sy << " " << ex << " " << ey << " " << dx << " " << dy << " " << v;
     return v;
   }
   
   virtual int cost(const SearchNode& p, int xx, int yy, int ex, int ey){
-    int cost = p.cost + hueristic(xx, yy , ex, ey);
+    int cost = p.cost - hueristic(p.x, p.y, ex, ey) + 1   + hueristic(xx, yy , ex, ey);
     return cost;
   }
   
@@ -298,10 +310,9 @@ class UniformCost : public SearchStrategy<container> {
   virtual bool can_generate_search_node_at(int xx , int yy){
     return xx < 0 || xx > SearchStrategy<container>::width_ - 1 || yy < 0 || yy > SearchStrategy<container>::height_ -1;
   }
-
+  
   virtual void unmark_node(const SearchNode& p){
     visited[make_pair(p.x, p.y)] = false;
-    SearchStrategy<container>::nodes_seen++;
   }
 
   virtual int cost(const SearchNode& p, int xx, int yy, int ex, int ey){
