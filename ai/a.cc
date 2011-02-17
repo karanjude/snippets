@@ -325,6 +325,8 @@ class UniformCost : public SearchStrategy<container> {
 
 template <typename container>
 void search(SearchStrategy<container> & search_strategy){
+  bool found = false;
+
   while(search_strategy.should_search_more()){
     SearchNode p = search_strategy.get_next_search_node();
 
@@ -336,10 +338,16 @@ void search(SearchStrategy<container> & search_strategy){
     search_strategy.mark_node(p);
     if(search_strategy.has_reached_goal_node(p)){
       search_strategy.process_end_node(p);
+      found = true;
       break;
     }
     search_strategy.generate_search_nodes(p);
     search_strategy.unmark_node(p);
+  }
+
+  if(!found){
+    print_maze();
+    cout << endl << "NO SOLUTION";
   }
 }	   
 
