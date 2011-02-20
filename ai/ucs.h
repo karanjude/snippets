@@ -2,27 +2,6 @@
 
 #include "strategy.h"
 
-template<class T>
-class CostFunction {
- public:
-  virtual T cost(const SearchNode& p) = 0;
-};
-
-class UnitCostFunction: public CostFunction<int> {
- public:
-  virtual int cost(const SearchNode& p){
-    int cost_ = p.cost + 1;
-    return cost_;
-  }
-}; 
-
-class BottomFavoringCost: public CostFunction<int> {
- public:
-  virtual int cost(const SearchNode& p){
-    int cost_ = p.cost + 1 + (.1 * (height - 1 - p.y));
-    return cost_;
-  }
-};
 
 template<typename container, typename coststrategy>  
 class UniformCost : public SearchStrategy<container> {

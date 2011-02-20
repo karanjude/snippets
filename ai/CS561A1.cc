@@ -20,14 +20,17 @@ using namespace std;
 vector< vector<int> > maze;
 int x,y, width, height, sx, sy, ex, ey;
 map< pair<int, int>, bool > visited;
-
+bool enable_debug;
+bool show_graph;
 
 bool operator < (const SearchNode & left, const SearchNode & right){
-  cout << endl << left << " : " << right;
-  if( left.cost > right.cost )
-    cout << endl << left << " > " << right;
-  else
-    cout << endl << right << " > " << left;
+  if(enable_debug){
+    cout << endl << left << " : " << right;
+    if( left.cost > right.cost )
+      cout << endl << left << " > " << right;
+    else
+      cout << endl << right << " > " << left;
+  }
   return left.cost > right.cost;
 }
 
@@ -38,7 +41,8 @@ void search(SearchStrategy<container> & search_strategy){
   while(search_strategy.should_search_more()){
     SearchNode p = search_strategy.get_next_search_node();
 
-    cout << endl << "processing .. " << p.x << " " << p.y;
+    if(enable_debug)
+      cout << endl << "processing .. " << p.x << " " << p.y;
    
     if(!search_strategy.should_process_node(p))
       continue;
@@ -69,34 +73,40 @@ enum { DFS_STRATEGY, BFS_STRATEGY, A_STAR_STRATEGY , UCS_STRATEGY};
 #define ALTERNATE_HUERISTIC_OPTION "-AltH"
 #define ALTERNATE_COST_OPTION "-AltC"
 
+#define DEBUG_OPTION "-D"
+#define GRAPH_OTPION "-graph"
+
 int main(int argc, char** argv){
   string file_name;
   int strategy = -1;
   bool use_my_hueristic = false;
   bool use_bottom_favoring_cost = false;
+  enable_debug = false;
+  show_graph = false;
 
   if(argc > 1){
     int i = 1;
     while(i < argc){
-    cout << endl << "args : " << argc;
-    cout << endl << argv[i];
-    
-    string option = argv[i];
+      string option = argv[i];
 
-    if( DFS_STRING_OPTION == option )
-      strategy = DFS_STRATEGY;
-    else if( ASTAR_STRING_OPTION == option )
-      strategy = A_STAR_STRATEGY;
-    else if( BFS_STRING_OPTION == option )
-      strategy = BFS_STRATEGY;
-    else if( UCS_STRING_OPTION == option )
-      strategy = UCS_STRATEGY;
-    else if( ALTERNATE_HUERISTIC_OPTION == option )
-      use_my_hueristic = true;
-    else if( ALTERNATE_COST_OPTION == option )
-      use_bottom_favoring_cost = true;
-    else 
-      file_name = option;
+      if( DFS_STRING_OPTION == option )
+	strategy = DFS_STRATEGY;
+      else if( ASTAR_STRING_OPTION == option )
+	strategy = A_STAR_STRATEGY;
+      else if( BFS_STRING_OPTION == option )
+	strategy = BFS_STRATEGY;
+      else if( UCS_STRING_OPTION == option )
+	strategy = UCS_STRATEGY;
+      else if( ALTERNATE_HUERISTIC_OPTION == option )
+	use_my_hueristic = true;
+      else if( ALTERNATE_COST_OPTION == option )
+	use_bottom_favoring_cost = true;
+      else if( DEBUG_OPTION == option)
+	enable_debug = true;
+      else if( GRAPH_OTPION == option)
+	show_graph = true;
+      else 
+	file_name = option;
 
     i++;
     }
@@ -120,33 +130,54 @@ int main(int argc, char** argv){
 
   if(file.is_open()){
     getline(file, line);
-    cout << endl << line;
+    
+    if(enable_debug)
+      cout << endl << line;
+    
     get_x_y(line, width, height);
-    cout << endl << width << " " << height;
+    
+    if(enable_debug)
+      cout << endl << width << " " << height;
 
     for(int h =0; h < height;h++){
       maze.push_back(vector<int>(width, 0));
     }
 
     getline(file, line);
-    cout << endl << line;
+    
+    if(enable_debug)
+      cout << endl << line;
+
     get_x_y(line, sx, sy);
     sy = height - 1 - sy;
-    cout << endl << sx << " " << sy;
+
+    if( enable_debug)
+      cout << endl << sx << " " << sy;
 
     getline(file, line);
-    cout << endl << line;
+    
+    if(enable_debug)
+      cout << endl << line;
+
     get_x_y(line, ex, ey);
     ey = height -1 -ey;
-    cout << endl << ex << " " << ey;
+    
+    if( enable_debug)
+      cout << endl << ex << " " << ey;
     
     while(file.good()){
       getline(file, line);
       if(0 == line.length())
 	break;
-      cout << endl << line;
+      
+      if(enable_debug)
+	cout << endl << line;
+      
       get_x_y(line, x, y);
-      cout << endl << x  << " " << y;
+      
+      if(enable_debug)
+	cout << endl << x  << " " << y;
+      
       if( -1 == x && -1 == y)
 	continue;
 
@@ -154,19 +185,30 @@ int main(int argc, char** argv){
     }
   }
 
-  print_maze();
+  if(enable_debug)
+    print_maze();
 
   if( DFS_STRATEGY == strategy){
     DFS< stack< SearchNode > > dfs(sx, sy, ex, ey, width, height);
     search(dfs);
   }else if( A_STAR_STRATEGY == strategy ){
     if (use_my_hueristic){
-      AStar< priority_queue< SearchNode > , MyHueristic > astar(sx, sy, ex, ey, width, height);
-      search(astar);
+      if( use_bottom_favoring_cost ){
+	AStar< priority_queue< SearchNode > , MyHueristic , BottomFavoringCost > astar1(sx, sy, ex, ey, width, height);
+	search(astar1);
+      }else{
+	AStar< priority_queue< SearchNode > , MyHueristic , UnitCostFunction > astar2(sx, sy, ex, ey, width, height);
+	search(astar2);
+      }
     }
     else{
-      AStar< priority_queue< SearchNode > , Hueristic > astar1(sx, sy, ex, ey, width, height);
-      search(astar1);
+      if( use_bottom_favoring_cost ){
+	AStar< priority_queue< SearchNode > , Hueristic, BottomFavoringCost > astar3(sx, sy, ex, ey, width, height);
+	search(astar3);
+      }else{
+	AStar< priority_queue< SearchNode > , Hueristic, UnitCostFunction > astar4(sx, sy, ex, ey, width, height);
+	search(astar4);
+      }
     }
   }else if( BFS_STRATEGY == strategy ){
     BFS< my_queue< SearchNode > > bfs(sx, sy, ex, ey, width, height);

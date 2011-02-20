@@ -12,6 +12,8 @@ using namespace std;
 extern vector< vector<int> > maze;
 extern int x,y, width, height, sx, sy, ex, ey;
 extern map< pair<int, int>, bool > visited;
+extern bool enable_debug;
+extern bool show_graph;
 
 inline int abs(int x){
   if( x < 0)
@@ -105,7 +107,9 @@ public:
    for(vector< pair<int,int> >::const_iterator i = path_so_far.begin(); i != path_so_far.end(); i++){
 	cout << endl << "(" << i->first << " , " << height - 1 - i->second << ")";
     }
-    print_maze(path_so_far);
+   
+   if(show_graph)
+     print_maze(path_so_far);
   }
 
 };

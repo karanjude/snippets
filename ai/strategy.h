@@ -63,14 +63,15 @@ public:
 	if(can_generate_search_node_at(xx, yy))
 	  continue;
       
-	cout << endl << "v : at " << xx << " " << yy << " " << maze[yy][xx];
+	if(enable_debug)
+	  cout << endl << "v : at " << xx << " " << yy << " " << maze[yy][xx];
+	
 	if (maze[yy][xx] < 0)
 	  continue;
 	
 	int c = cost(p, xx, yy, end_x, end_y);
 
 	if(!should_discard(p, c)){
-	  cout << endl << "adding " << xx << " " << yy;
 	  s.push(SearchNode(xx,yy, p.path_so_far, c ));
 	}
       }
@@ -96,13 +97,43 @@ public:
     visited[make_pair(p.x, p.y)] = false;
   }
 
-  virtual void process_end_node(const SearchNode& p){
-    cout << endl << "FOUND DESTINATION";
-    p.print_path();
-    cout << endl << "nodes seen : " << SearchStrategy<container>::nodes_seen;
-    cout << endl << "path cost : " << p.path_so_far.size();
+  virtual void extra_print(){
   }
 
+  virtual void process_end_node(const SearchNode& p){
+    cout << endl << "FOUND DESTINATION";
+
+    p.print_path();
+
+    extra_print();
+    cout << endl << "Nodes Expanded: " << SearchStrategy<container>::nodes_seen;
+    cout << endl << "Nodes on Path: " << p.path_so_far.size();
+    cout << endl << "Ratio: " << float(SearchStrategy<container>::nodes_seen) / float(p.path_so_far.size());
+  }
+
+};
+
+
+template<class T>
+class CostFunction {
+ public:
+  virtual T cost(const SearchNode& p) = 0;
+};
+
+class UnitCostFunction: public CostFunction<int> {
+ public:
+  virtual int cost(const SearchNode& p){
+    int cost_ = p.cost + 1;
+    return cost_;
+  }
+}; 
+
+class BottomFavoringCost: public CostFunction<int> {
+ public:
+  virtual int cost(const SearchNode& p){
+    int cost_ = p.cost + 1 + (.1 * (height - 1 - p.y));
+    return cost_;
+  }
 };
 
 
