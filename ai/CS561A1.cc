@@ -61,27 +61,58 @@ void search(SearchStrategy<container> & search_strategy){
 
 enum { DFS_STRATEGY, BFS_STRATEGY, A_STAR_STRATEGY , UCS_STRATEGY};
 
+#define DFS_STRING_OPTION "-DFS"
+#define BFS_STRING_OPTION "-BFS"
+#define ASTAR_STRING_OPTION "-Astar"
+#define UCS_STRING_OPTION "-UCS"
+
+#define ALTERNATE_HUERISTIC_OPTION "-AltH"
+#define ALTERNATE_COST_OPTION "-AltC"
+
 int main(int argc, char** argv){
-  char * file_name = NULL;
-  int strategy = 0;
+  string file_name;
+  int strategy = -1;
+  bool use_my_hueristic = false;
+  bool use_bottom_favoring_cost = false;
 
   if(argc > 1){
-    file_name = argv[1];
-    if ( argc >= 2){
-      string strategy_string = argv[2];
-      if( "dfs" == strategy_string )
-	strategy = DFS_STRATEGY;
-      else if( "astar" == strategy_string )
-	strategy = A_STAR_STRATEGY;
-      else if( "bfs" == strategy_string )
-	strategy = BFS_STRATEGY;
-      else if( "ucs" == strategy_string )
-	strategy = UCS_STRATEGY;
+    int i = 1;
+    while(i < argc){
+    cout << endl << "args : " << argc;
+    cout << endl << argv[i];
+    
+    string option = argv[i];
 
+    if( DFS_STRING_OPTION == option )
+      strategy = DFS_STRATEGY;
+    else if( ASTAR_STRING_OPTION == option )
+      strategy = A_STAR_STRATEGY;
+    else if( BFS_STRING_OPTION == option )
+      strategy = BFS_STRATEGY;
+    else if( UCS_STRING_OPTION == option )
+      strategy = UCS_STRATEGY;
+    else if( ALTERNATE_HUERISTIC_OPTION == option )
+      use_my_hueristic = true;
+    else if( ALTERNATE_COST_OPTION == option )
+      use_bottom_favoring_cost = true;
+    else 
+      file_name = option;
+
+    i++;
     }
   }
 
-  ifstream file(file_name);
+  if(strategy < 0){
+    cerr << endl << "Unrecognized command option ";
+    return -1;
+  }
+
+  ifstream file(file_name.c_str());
+  if(!file.good()){
+    cerr << endl << "Error opening file : " << file_name;
+    return -1;
+  }
+
   string line, part;
 
   width = height = 0;
@@ -129,15 +160,25 @@ int main(int argc, char** argv){
     DFS< stack< SearchNode > > dfs(sx, sy, ex, ey, width, height);
     search(dfs);
   }else if( A_STAR_STRATEGY == strategy ){
-    AStar< priority_queue< SearchNode > , MyHueristic > astar(sx, sy, ex, ey, width, height);
-    search(astar);
+    if (use_my_hueristic){
+      AStar< priority_queue< SearchNode > , MyHueristic > astar(sx, sy, ex, ey, width, height);
+      search(astar);
+    }
+    else{
+      AStar< priority_queue< SearchNode > , Hueristic > astar1(sx, sy, ex, ey, width, height);
+      search(astar1);
+    }
   }else if( BFS_STRATEGY == strategy ){
     BFS< my_queue< SearchNode > > bfs(sx, sy, ex, ey, width, height);
     search(bfs);
   }else if( UCS_STRATEGY == strategy ){
-    //UniformCost< priority_queue< SearchNode > , UnitCostFunction > ucs(sx, sy, ex, ey, width, height);
-    UniformCost< priority_queue< SearchNode > , BottomFavoringCost > ucs(sx, sy, ex, ey, width, height);
-    search(ucs);
+    if( use_bottom_favoring_cost ){
+      UniformCost< priority_queue< SearchNode > , BottomFavoringCost > ucs(sx, sy, ex, ey, width, height);
+      search(ucs);
+    }else {
+      UniformCost< priority_queue< SearchNode > , UnitCostFunction > ucs1(sx, sy, ex, ey, width, height);
+      search(ucs1);
+    }
   }
 
   file.close();
