@@ -246,4 +246,25 @@ Relax(u, v, w):
   parent[v] = u
 
 
+Question 4
+------------
+We are given a weighted connected graph G = (V, E) which has a vertices and b edges. For a given path P between any two vertices u and v in G, we define dP (u, v) to be the weight of the maximum edge on path P .
+(a) Explain how you can use the minimum spanning tree T of a graph G to determine the path P with minimum value dP (u, v) between two specified vertices u and v.
 
+(b) Prove the correctness of your method for part a.
+
+Solution 4(a)
+-------------
+
+MST by definition is a Tree that spans all the vertices and contains edges with smallest possible weights. According to problem definition Every path P in the graph is supposed to contain a max edge dp(u,v). Since the spanning tree spans over all vertices of the 
+graph , any 2 vertices 'u' and 'v' of the graph would be part of the spanning tree. 
+
+For all the path possibilities between 'u' and 'v', each on of them would contain an of type dp(u,v). A path between 'u' and 'v' which lies on the spanning tree, would then by the definition of spanning tree contain the least expensive among the set of 
+dp(u,v) edges. Hence MST of a graph G will contain the path P with minimum dp(u,v) between two specified vertices 'u' and 'v'.
+
+
+Solution 4(b)
+--------------
+for the sake of simplicity lets assume that the path between 'u' and 'v' on the MST constitutes a single edge path. Now this single edge path contains an edge dp(u,v). Lets assume this edge dp(u,v) that is part of the spanning tree is not the cheapest edge dp(u,v). So then there is some edge dp(u,v)' which we can choose such that cost(dp(u,v)') < cost(dp(u,v))
+
+If that is the case 'v' can be reached from 'u' through another edge, which basically implies that there is a cycle in the spanning tree. But since spanning tree is a tree and it cannot have cycles. There fore the edge dp(u,v) that is part of the spanning tree is the minimum dp(u,v) that can be part of the spanning tree.
