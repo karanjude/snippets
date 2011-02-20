@@ -101,7 +101,7 @@ public:
   }
 
   virtual void process_end_node(const SearchNode& p){
-    cout << endl << "FOUND DESTINATION";
+    cout << endl << "Found Path";
 
     p.print_path();
 

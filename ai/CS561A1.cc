@@ -15,6 +15,7 @@
 #include "astar.h"
 #include "ucs.h"
 
+
 using namespace std;
 
 vector< vector<int> > maze;
