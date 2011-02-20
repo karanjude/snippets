@@ -103,7 +103,7 @@ DIJKSTRA_UPHILL(G, V, s ):
   u = q.top()	
   q.pop()	
   S = S union u 
-  for vertex in Adj[u]:
+  for vertex v in Adj[u]:
       Relax_Uphill(u, v)
 
 
@@ -121,7 +121,7 @@ DIJKSTRA_DOWNHILL(G, V, s ):
   u = q.top()	
   q.pop()	
   S = S union u 
-  for vertex in Adj[u]:
+  for vertex v in Adj[u]:
       Relax_Downhill(u, v)
 
 
@@ -198,7 +198,7 @@ DIJKSTRA(S, G, V):
   u = q.top()	
   q.pop()	
   S = S union u 
-  for vertex in Adj[u]:
+  for vertex v in Adj[u]:
       Relax(u, v)
 
 Relax(u, v):
@@ -206,3 +206,44 @@ Relax(u, v):
  if (probility[v] > probility[u] + edge_weight(u,v)):
   probility[v] = probility[u] + edge_weight(u,v)
   parent[v] = u
+
+
+Answer 3(b)
+===========
+Dijkstra's single source shortest path algorithm gives the shortest path from a given node 'S' to all nodes.
+If the priority queue is implemented using Fibonacci Heap then the total run time is 
+O(|V| lg V + |E| ) since KV is a upper bound on V lg V, he have an algorithm that run in O(K|V| + |E|)
+
+
+// d is the distance array for very vertex
+// parent stores the parent of every vertex
+// w is the edge map for vertices
+// Q represents the priority queue 
+
+DIJKSTRA(G, w, s):
+ INITIALIZE-SINGLE-SOURCE(G, S)
+ S = {}
+ Q = V[G] 
+ while !Q.empty():            
+  u = EXTRACT-MIN(Q)
+  q.pop()	
+  s = s union u 
+  
+  // for every neighbor of u
+  for vertex v in Adj[u]:	      
+      Relax(u, v, w)
+
+
+INITIALIZE-SINGLE-SOURCE(G, s):
+for v in V[G]:
+ d[v] = INFINITY
+ parent[v] = None
+d[s] = 0
+
+Relax(u, v, w):
+ if d[v] > d[u] + w(u,v):
+  d[v] = d[u] + w(u,v)
+  parent[v] = u
+
+
+
