@@ -138,4 +138,71 @@ Relax_Downhill(u, v):
   downhill_parent[v] = u
 
 
+Question 3
+----------
+Aaron is trapped on an island with hungry velociraptors. He is currently at a safe location s, and he wants to get to the boat t which will get him home. There are many paths through the island, represented as a directed graph. Each edge e has a probability pe that a traveler along this edge will be eaten by a raptor. If we select a path P from s to t, the probability he arrives safely is 
+psafety = Πe∈P (1 − pe ).
+(a) (10 pts) Give an efficient algorithm which maximizes the probability he arrives safely.Hint: consider what happens when you take the log of psafety .Note: Please do not feed your instructor to hungry dinosaurs.
 
+(b) (15 pts) After escaping Raptor Island, Aaron finds himself on Treasure Island. The island forms a directed graph of which he is currently at a start node s. Each edge has weight ∈ {0, 1, ..., K}. Each node has buried treasure, but he can’t carry the treasure
+from more than 1 node simultaneously without returning to his ship at s. Therefore, he wants to find the shortest path from s to all other nodes in the network (you need not worry about return paths). Give an O(K|V | + |E|) algorithm to determine these paths.
+
+
+Answer 3(a)
+----------- 
+We need to find a path that maximizes the probability of Aaron reaching safely. This is equivalent to saying that we need a path which minimizes the probability of being eaten.
+
+since p(eaten) = productof( p[e1] * p[e2] * ... p[en]) where p[e(i)] is the probability of getting eaten at the i-th edge.
+
+since log(p[eaten]) = sumof(log(p[e1]) + log(p[e2]) + log(p[e3]) ... log(p[en]))
+
+We can construct a graph and assign log(p[e(i)]) as probability to each and every edge. Since log of probabilites can be added 
+now we can easily construct a shortest path from 'S' to 'T' using Dijkstra shortest algorith
+
+Algorithm
+---------
+1  Build the graph
+2  Assign log[p(e)] for every edge in the edge set E
+3  Run DIJKSTRA(S,G,V) on G, where G is the graph and V the vertex set of G
+4  print the path from S to T using PRINT-PATH(S,T, parent)
+
+
+// this array stores the probability weights for all edges
+probility = []
+
+// this is a map for all the edges 
+edge_weight = {}
+
+// this represents the parent of a given vertex V
+parent = []
+
+the algorithms below are modified version of algorithm from CLRS
+
+PRINT_PATH(A, B, parent):
+ if parent[B] is None:
+    return 
+ PRINT_PATH(A, parent[B])
+ print B
+
+DIJKSTRA(S, G, V):
+ for v in V[G]:
+  probility[v] = INFINITY
+  parent[v] = None
+
+ S = {}
+
+ probility[s] = 0
+
+ Q = V[G]
+ while !Q.empty():
+  u = q.top()	
+  q.pop()	
+  S = S union u 
+  for vertex in Adj[u]:
+      Relax(u, v)
+
+Relax(u, v):
+ // if we have a down hill path vertex
+ if (probility[v] > probility[u] + edge_weight(u,v)):
+  probility[v] = probility[u] + edge_weight(u,v)
+  parent[v] = u
