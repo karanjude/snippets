@@ -1,0 +1,141 @@
+2. Hardy decides to start running to work in San Francisco city to get in shape. He prefers a route that goes entirely uphill and then entirely downhill so that he could work up a sweat uphill and get a nice, cool breeze at the end of his run as he runs faster downhill. He starts running from his home and ends at his workplace. To guide his run, he prints out a Google Maps report detailing the roads with m road segments (any existing road between two intersections) and k intersections. Each road segment has unit length, and each intersection has a distinct elevation. Assuming that every road segment is either fully uphill or fully downhill, give an efficient algorithm to find the shortest path (route) that meets Hardy’s specifications. If no such path meets Hardy’s specifications, your algorithm should determine this. Justify your answer.
+
+Ans:
+======
+
+We have a starting point - hardy's home. Lets call this 'S'
+We have an ending point - hardy's work. Lets call this 'E'
+
+Claim
+------
+Now for some vertex v there would be a path such that sum of the shortest path from 'S' to v and from v to 'E' is minimized.
+We are provided with a map with 'm' road segments or edges, 'k' intersections or vertices. Each of these vertices has a value which is equal to its elevation 'H'. 
+
+Since we need to find a route that goes entirely uphill and then downhill, we need to find a vertex that satisfies our claim.
+
+Consider 2 cases
+
+Case 1:
+-------
+We need to find the best shortest uphill path from 'S' to some vertex 'V'.
+We can use a modified version of Dijkstra single source shortest path algorithm to find the shortest paths from 'S' to all vertices.We then store all these vertices and their path cost in an array uphill cost array, where each entity in the array represents the uphill cost from 'S'. 
+
+Case 2:
+-------
+We need to find the best shortest downhill path from 'V' to some vertex 'E'.To find the downhill costs we can again use Dijkstra but this time we find single source shortest path from 'E' to all points except 'S'. We then store all these vertices and their path cost in an array downhill cost array, where each entity in the array represents the downhill cost to 'E'. 
+ 
+In both the cases above we ignore edges which are not totally uphill in nature or totally downhill in nature. In other words in case 1 we only consider edges that are uphill and in case 2 we only consider edges that are downhill.
+
+Once we have calculated the uphill and downhill distances for all vertices then for very vertex in vertex set,
+we calculate the sum = uphill_distance[v] + downhill_distance[v] , the vertex having the minimum sum is the desired vertex 'D'
+and the shortest path is the shortest path from 'S' to 'D' and from 'D' to 'E'
+
+the path can easily be printed using the uphill parent and down hill parent array. Also if either uphill_distance and downhill_distance for all vertex is not complete we say there is no path. An uphill or downhill distance is not complete if the uphill or the down distance for that vertex is INFINITY. ( or in other words no proper path exists)
+
+Algorithm
+----------
+hardy_shortest_path(S, E, V):
+1  build graph from google maps having edges 'M' and 'K' vertices
+2  run DIJKSTRA_UPHILL from 'S' on the graph
+3  run DIJKSTRA_DOWNHILL from 'E' on the graph
+4  V = find vertext having the shortest uphill and downhill cost by running SHORTEST_UPHILL_DOWNHILL_VERTEX(V)
+5  if -1 == v:
+6    print "NO SOLUTION"
+7  else:
+8   print shortest path from S to v and v to E by running PRINT_PATH(S,V, uphill_parent) and PRINT_PATH(V,E, downhill_parent)
+
+step 1 cost => O(M + K)
+step 2 cost => O(M lg K)
+step 3 cost => O(M lg K)
+step 4 cost => O(K)
+step 8 cost => O(M)
+
+so total cost is dominated by step 1 hence total cost => O(M + K)
+
+// this array stores the uphill distance for all the vertices
+uphill_distance = []
+
+// this array stores the downhill distance for all the vertices
+downhill_distance = []
+
+// this array stores the height for every vertex
+height = []
+
+// this is a map for all the edges 
+edge_weight = {}
+
+// this is the array which stores the uphill parent for every vertex
+uphill_parent = []
+
+// this is the array which stores the downhill parent for every vertex
+downhill_parent = []
+
+the algorithms below are modified version of algorithm from CLR
+
+PRINT_PATH(A, B, parent):
+ if parent[B] is None:
+    return 
+ PRINT_PATH(A, parent[B])
+ print B
+
+SHORTEST_UPHILL_DOWNHILL_VERTEX(V):
+ sum = INFINITY
+ i = -1
+ for v in V[G]:
+   if uphill_distance[v] != INFINITY and downhill_distance[v] != INFINITY:
+     if uphill_distance[v] + downhill_distance[v] < sum:
+        i = v
+        sum = uphill_distance[v] + downhill_distance[v]
+ return i
+   
+
+DIJKSTRA_UPHILL(G, V, s ):
+ for v in V[G]:
+  uphill_distance[v] = INFINITY
+  parent[v] = None
+
+ S = {}
+
+ uphill_distance[s] = 0
+
+ Q = V[G]
+ while !Q.empty():
+  u = q.top()	
+  q.pop()	
+  S = S union u 
+  for vertex in Adj[u]:
+      Relax_Uphill(u, v)
+
+
+DIJKSTRA_DOWNHILL(G, V, s ):
+ for v in V[G]:
+  downhill_distance[v] = INFINITY
+  downhill_parent[v] = None
+
+ S = {}
+
+ downhill_distance[s] = 0
+
+ Q = V[G]
+ while !Q.empty():
+  u = q.top()	
+  q.pop()	
+  S = S union u 
+  for vertex in Adj[u]:
+      Relax_Downhill(u, v)
+
+
+Relax_Uphill(u, v):
+ // if we have an uphill path vertex
+ if (uphill_distance[v] > uphill_distance[u] + edge_weight(u,v)) and (height[v] > height[u]):
+  uphill_distance[v] = uphill_distance[u] + edge_weight(u,v)
+  uphill_parent[v] = u
+
+Relax_Downhill(u, v):
+ // if we have a down hill path vertex
+ if (downhill_distance[v] > downhill_distance[u] + edge_weight(u,v)) and (height[v] < height[u]):
+  downhill_distance[v] = downhill_distance[u] + edge_weight(u,v)
+  downhill_parent[v] = u
+
+
+
