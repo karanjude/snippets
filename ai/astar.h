@@ -2,12 +2,36 @@
 
 #include "strategy.h"
 
-template<typename container>  
+class Hueristic {
+ public:
+  int hueristic(int sx, int sy, int ex, int ey){
+    int dx = abs(sx - ex);
+    int dy = abs(sy - ey);
+    int v = dx + dy;
+    cout << endl << "HEURISTIC :"<<  sx << " : " << sy << " " << ex << " " << ey << " " << dx << " " << dy << " " << v;
+    return v;
+  }
+};
+
+class MyHueristic : public Hueristic {
+ public:
+  int hueristic(int sx, int sy, int ex, int ey){
+    int dx = abs(sx - ex);
+    int dy = abs(sy - ey);
+    int v = max(dx,dy);
+    return v;
+  }
+};
+
+template<typename container, typename hueristictype>  
 class AStar : public SearchStrategy<container> {
+ private:
+  hueristictype hueristic_function;
+
   public:
   AStar(int start_x_, int start_y_, int end_x_, int end_y_, int width__, int height__):
     SearchStrategy<container>(start_x_, start_y_, end_x_, end_y_, width__, height__, 
-			      hueristic(start_x_, start_y_, end_x_, end_y_))
+			      hueristic_function.hueristic(start_x_, start_y_, end_x_, end_y_))
   {
   }
 
@@ -23,17 +47,17 @@ class AStar : public SearchStrategy<container> {
     return cost < p.cost;
   }
 							    
-
+  /*
   int hueristic(int sx, int sy, int ex, int ey){
     int dx = abs(sx - ex);
     int dy = abs(sy - ey);
     int v = dx + dy;
     cout << endl << "HEURISTIC :"<<  sx << " : " << sy << " " << ex << " " << ey << " " << dx << " " << dy << " " << v;
     return v;
-  }
+    }*/
   
   virtual int cost(const SearchNode& p, int xx, int yy, int ex, int ey){
-    int cost = p.cost - hueristic(p.x, p.y, ex, ey) + 1   + hueristic(xx, yy , ex, ey);
+    int cost = p.cost - hueristic_function.hueristic(p.x, p.y, ex, ey) + 1   + hueristic_function.hueristic(xx, yy , ex, ey);
     return cost;
   }
   

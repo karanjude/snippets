@@ -129,13 +129,14 @@ int main(int argc, char** argv){
     DFS< stack< SearchNode > > dfs(sx, sy, ex, ey, width, height);
     search(dfs);
   }else if( A_STAR_STRATEGY == strategy ){
-    AStar< priority_queue< SearchNode > > astar(sx, sy, ex, ey, width, height);
+    AStar< priority_queue< SearchNode > , MyHueristic > astar(sx, sy, ex, ey, width, height);
     search(astar);
   }else if( BFS_STRATEGY == strategy ){
     BFS< my_queue< SearchNode > > bfs(sx, sy, ex, ey, width, height);
     search(bfs);
   }else if( UCS_STRATEGY == strategy ){
-    UniformCost< priority_queue< SearchNode > > ucs(sx, sy, ex, ey, width, height);
+    //UniformCost< priority_queue< SearchNode > , UnitCostFunction > ucs(sx, sy, ex, ey, width, height);
+    UniformCost< priority_queue< SearchNode > , BottomFavoringCost > ucs(sx, sy, ex, ey, width, height);
     search(ucs);
   }
 

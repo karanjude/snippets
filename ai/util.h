@@ -115,6 +115,5 @@ ostream& operator<< (ostream& output, const SearchNode& p) {
   return output;
 }
 
-
 #define UTIL_H
 #endif

@@ -2,10 +2,36 @@
 
 #include "strategy.h"
 
-template<typename container>  
+template<class T>
+class CostFunction {
+ public:
+  virtual T cost(const SearchNode& p) = 0;
+};
+
+class UnitCostFunction: public CostFunction<int> {
+ public:
+  virtual int cost(const SearchNode& p){
+    int cost_ = p.cost + 1;
+    return cost_;
+  }
+}; 
+
+class BottomFavoringCost: public CostFunction<int> {
+ public:
+  virtual int cost(const SearchNode& p){
+    int cost_ = p.cost + 1 + (.1 * (height - 1 - p.y));
+    return cost_;
+  }
+};
+
+template<typename container, typename coststrategy>  
 class UniformCost : public SearchStrategy<container> {
+ private:
+  coststrategy cost_function_;
+
   public:
-  UniformCost(int start_x_, int start_y_, int end_x_, int end_y_, int width__, int height__):
+ UniformCost(int start_x_, int start_y_, int end_x_, int end_y_, int width__, int height__
+	     ):
     SearchStrategy<container>(start_x_, start_y_, end_x_, end_y_, width__, height__)
   {
   }
@@ -19,11 +45,11 @@ class UniformCost : public SearchStrategy<container> {
   }
 
   virtual int cost(const SearchNode& p, int xx, int yy, int ex, int ey){
-    int cost = p.cost + 1;
-    return cost;
+    return cost_function_.cost(p);
   }
   
 };
+
 
 
 #define UCS_H
