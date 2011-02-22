@@ -166,9 +166,8 @@ int main(int argc, char** argv){
     if( enable_debug)
       cout << endl << ex << " " << ey;
     
-    while(file.good()){
-      getline(file, line);
-      if(0 == line.length())
+    while(getline(file, line)){
+      if(line.length() <= 1)
 	break;
       
       if(enable_debug)

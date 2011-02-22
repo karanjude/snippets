@@ -23,9 +23,17 @@ inline int abs(int x){
 
 void get_x_y(const string& xy, int& x, int& y){
   string xy_string(xy);
-  xy_string.replace(xy.find(','), 1, 1, ' ');
-  istringstream iss(xy_string);
-  iss >> x >> y;
+  if(enable_debug)
+    cout << endl << "data : " << xy_string;
+
+  if(xy_string.find(',') < 0){
+    x = -1;
+    y = -1;
+  }else{
+    xy_string.replace(xy_string.find(','), 1, 1, ' ');
+    istringstream iss(xy_string);
+    iss >> x >> y;
+  }
 }
 
 void print_maze(vector< pair<int,int> > with_path = vector< pair<int,int> >()){
