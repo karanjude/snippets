@@ -1,0 +1,1 @@
+insert into trucks values(1,'a',SDO_GEOMETRY(2001,NULL,SDO_POINT_TYPE(12,14,NULL),NULL,NULL));
