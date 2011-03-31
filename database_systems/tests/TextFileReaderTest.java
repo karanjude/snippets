@@ -4,7 +4,7 @@ import junit.framework.TestCase;
 
 public class TextFileReaderTest extends TestCase {
 	public void testAnimalReadScript() throws Exception {
-		TextFileReader textReader = new TextFileReader("src/animal.txt");
+		TextFileReader textReader = new TextFileReader("animals.txt");
 		ArrayList<String> parts = textReader.sql();
 
 		assertEquals(100, parts.size());

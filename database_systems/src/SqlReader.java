@@ -1,6 +1,10 @@
+import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
@@ -8,26 +12,29 @@ import java.util.ArrayList;
 
 public class SqlReader {
 
-	private File sqlFile;
+	private String sqlFile;
 
 	public SqlReader(String file) {
-		this.sqlFile = new File(file);
+		this.sqlFile = file;
 	}
 
 	public ArrayList<String> sql() throws IOException {
-		FileInputStream stream = null;
+		BufferedReader reader = null;
 		String sqlString;
 		ArrayList<String> parts = new ArrayList<String>();
 
-		stream = new FileInputStream(sqlFile);
+		reader = new BufferedReader(new InputStreamReader(getClass()
+				.getResourceAsStream(sqlFile)));
 
+		String line;
+		StringBuffer string = new StringBuffer();
 		try {
-			FileChannel fc = stream.getChannel();
-			MappedByteBuffer bb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc
-					.size());
-			sqlString = Charset.defaultCharset().decode(bb).toString();
+			while ((line = reader.readLine()) != null) {
+				string.append(line);
+			}
+			sqlString = string.toString();
 		} finally {
-			stream.close();
+			reader.close();
 		}
 		makeSqlArray(sqlString, parts);
 		return parts;

@@ -6,7 +6,8 @@ public class SqlHelperTest extends TestCase {
 		SqlHelper sqlHelper = new SqlHelper();
 		String animalsql = sqlHelper.generateAnimalSql(input);
 		
-		String expected = "insert into animals values(001, 'tiger', SDO_GEOMETRY(2001,NULL,SDO_POINT_TYPE(10,20,NULL),NULL,NULL));";
+		String expected = "insert into animals values(001, 'tiger', SDO_GEOMETRY(2001,NULL,SDO_POINT_TYPE(10,20,NULL),NULL,NULL))";
+		System.out.println(animalsql);
 		assertEquals(expected, animalsql);
 	}
 }
