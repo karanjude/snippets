@@ -8,7 +8,7 @@ public class Animal {
 	public Animal(String animalString) {
 		String[] parts = animalString.split(",");
 		this.id = Integer.parseInt(parts[0].trim());
-		this.name = parts[1];
+		this.name = parts[1].trim();
 		this.x = Integer.parseInt(parts[2].trim());
 		this.y = Integer.parseInt(parts[3].trim());
 	}

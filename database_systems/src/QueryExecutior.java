@@ -25,6 +25,8 @@ public class QueryExecutior {
 	public void ddlQuery(String sql) throws ClassNotFoundException,
 			SQLException {
 
+		System.out.println(sql);
+		
 		Statement stmt = conn.createStatement();
 		try {
 			int rset = stmt.executeUpdate(sql);

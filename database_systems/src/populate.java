@@ -26,6 +26,18 @@ public class populate {
 		DbCreator dbCreator = new DbCreator();
 		dbCreator.createDb(queryExecutior);
 
+		queryExecutior
+				.insertQuery("insert into user_sdo_geom_metadata values('ANIMALS','SHAPE',SDO_DIM_ARRAY(SDO_DIM_ELEMENT('X', 0, 500, 0.005),SDO_DIM_ELEMENT('Y', 0, 500, 0.005) ),NULL)");
+
+		queryExecutior
+				.ddlQuery("create index animal_location_index on animals (shape) indextype is mdsys.spatial_index");
+
+		queryExecutior
+				.insertQuery("insert into user_sdo_geom_metadata values('TRUCKS','SHAPE',SDO_DIM_ARRAY(SDO_DIM_ELEMENT('X', 0, 500, 0.005),SDO_DIM_ELEMENT('Y', 0, 500, 0.005) ),NULL)");
+
+		queryExecutior
+				.ddlQuery("create index truck_location_index on trucks (shape) indextype is mdsys.spatial_index");
+
 		TextFileReader textReader = new TextFileReader(animalsFile);
 		HashMap<String, Animal> animals = null;
 		animals = textReader.readAnimalsInformation();
