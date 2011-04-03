@@ -18,4 +18,8 @@ select t.id, t.name,t.shape from trucks t, truck_vaccines tv where t.id=tv.id an
 sdo_nn(t.shape, sdo_geometry(2011,NULL,sdo_point_type(50,50,NULL),NULL,NULL), 'sdo_num_res=4') = 'TRUE' and
 tv.vaccine_id in (select v.id from vaccines v, vaccine_animals va where v.id=va.id and va.name='lion');
 
+select * from trucks  where id in 
+((select distinct t.id from trucks t, truck_vaccines tv where t.id = tv.id and 
+tv.vaccine_id in (select va.id from vaccine_animals va where va.name = 'rabbit'))) and
+sdo_nn(shape, sdo_geometry(2011,NULL,sdo_point_type(50,50,NULL),NULL,NULL), 'sdo_num_res=100') = 'TRUE';
 

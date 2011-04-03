@@ -26,7 +26,7 @@ public class QueryExecutior {
 			SQLException {
 
 		System.out.println(sql);
-		
+
 		Statement stmt = conn.createStatement();
 		try {
 			int rset = stmt.executeUpdate(sql);
@@ -41,6 +41,15 @@ public class QueryExecutior {
 	public void insertQuery(String sql) throws ClassNotFoundException,
 			SQLException {
 		ddlQuery(sql);
+	}
+
+	public ResultSet selectQuery(String sql) throws SQLException {
+		System.out.println(sql);
+		ResultSet result;
+
+		Statement stmt = conn.createStatement();
+		result = stmt.executeQuery(sql);
+		return result;
 	}
 
 }
