@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -10,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.swing.border.LineBorder;
 
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.GroupLayout;
@@ -28,7 +30,7 @@ public class UI extends JFrame {
 	private JRadioButton jRadioButton1;
 	private JPanel jPanel0;
 	private JLabel jLabel2;
-	private JCheckBox jCheckBox0;
+	private JCheckBox animalCheckBox;
 	private JCheckBox jCheckBox1;
 	private JPanel jPanel1;
 	private JButton jButton1;
@@ -47,12 +49,20 @@ public class UI extends JFrame {
 		add(getJLabel3(), new Constraints(new Leading(75, 10, 10), new Trailing(12, 382, 382)));
 		add(getJLabel4(), new Constraints(new Leading(292, 10, 10), new Trailing(12, 353, 353)));
 		add(getMousecoordsLabel(), new Constraints(new Leading(290, 88, 10, 10), new Trailing(12, 12, 379, 382)));
-		add(getJButton1(), new Constraints(new Leading(518, 142, 12, 12), new Trailing(30, 358, 358)));
-		add(getJButton0(), new Constraints(new Leading(517, 143, 12, 12), new Trailing(67, 15, 271)));
-		add(getJPanel1(), new Constraints(new Leading(312, 10, 10), new Trailing(39, 103, 15, 271)));
 		add(getJPanel2(), new Constraints(new Leading(156, 504, 10, 10), new Leading(3, 300, 10, 10)));
 		add(getJPanel0(), new Constraints(new Leading(22, 259, 10, 10), new Trailing(45, 99, 103, 315)));
+		add(getJPanel1(), new Constraints(new Leading(312, 10, 10), new Trailing(45, 15, 315)));
+		add(getJButton0(), new Constraints(new Leading(518, 143, 12, 12), new Leading(343, 10, 10)));
+		add(getJButton1(), new Constraints(new Leading(518, 142, 12, 12), new Trailing(45, 380, 380)));
 		setSize(664, 449);
+	}
+
+	private JCheckBox getAnimalCheckBox() {
+		if (animalCheckBox == null) {
+			animalCheckBox = new JCheckBox();
+			animalCheckBox.setText("Animals");
+		}
+		return animalCheckBox;
 	}
 
 	private JLabel getMousecoordsLabel() {
@@ -126,13 +136,11 @@ public class UI extends JFrame {
 	private JPanel getJPanel1() {
 		if (jPanel1 == null) {
 			jPanel1 = new JPanel();
+			jPanel1.setBorder(new LineBorder(Color.black, 1, false));
 			jPanel1.setLayout(new GroupLayout());
-			jPanel1.add(getJCheckBox0(), new Constraints(new Leading(15, 8, 8),
-					new Leading(33, 8, 8)));
-			jPanel1.add(getJCheckBox1(), new Constraints(new Leading(15, 8, 8),
-					new Leading(64, 10, 10)));
-			jPanel1.add(getJLabel2(), new Constraints(new Leading(19, 10, 10),
-					new Leading(12, 12, 12)));
+			jPanel1.add(getAnimalCheckBox(), new Constraints(new Leading(15, 8, 8), new Leading(33, 8, 8)));
+			jPanel1.add(getJCheckBox1(), new Constraints(new Leading(15, 8, 8), new Leading(64, 10, 10)));
+			jPanel1.add(getJLabel2(), new Constraints(new Leading(19, 10, 10), new Leading(12, 12, 12)));
 		}
 		return jPanel1;
 	}
@@ -140,17 +148,17 @@ public class UI extends JFrame {
 	private JCheckBox getJCheckBox1() {
 		if (jCheckBox1 == null) {
 			jCheckBox1 = new JCheckBox();
-			jCheckBox1.setText("jCheckBox1");
+			jCheckBox1.setText("Trucks");
 		}
 		return jCheckBox1;
 	}
 
 	private JCheckBox getJCheckBox0() {
-		if (jCheckBox0 == null) {
-			jCheckBox0 = new JCheckBox();
-			jCheckBox0.setText("jCheckBox0");
+		if (animalCheckBox == null) {
+			animalCheckBox = new JCheckBox();
+			animalCheckBox.setText("jCheckBox0");
 		}
-		return jCheckBox0;
+		return animalCheckBox;
 	}
 
 	private JLabel getJLabel2() {
@@ -164,6 +172,7 @@ public class UI extends JFrame {
 	private JPanel getJPanel0() {
 		if (jPanel0 == null) {
 			jPanel0 = new JPanel();
+			jPanel0.setBorder(new LineBorder(Color.black, 1, false));
 			jPanel0.setLayout(new GroupLayout());
 			jPanel0.add(getJRadioButton2(), new Constraints(new Leading(5, 8, 8), new Leading(70, 10, 10)));
 			jPanel0.add(getJRadioButton1(), new Constraints(new Leading(5, 8, 8), new Leading(36, 8, 8)));
@@ -202,7 +211,7 @@ public class UI extends JFrame {
 	private JLabel getJLabel1() {
 		if (jLabel1 == null) {
 			jLabel1 = new JLabel();
-			jLabel1.setText("jLabel1");
+			jLabel1.setText(":");
 		}
 		return jLabel1;
 	}
@@ -210,7 +219,7 @@ public class UI extends JFrame {
 	private JLabel getJLabel0() {
 		if (jLabel0 == null) {
 			jLabel0 = new JLabel();
-			jLabel0.setText("jLabel0");
+			jLabel0.setText(":");
 		}
 		return jLabel0;
 	}
