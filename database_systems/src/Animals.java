@@ -1,8 +1,14 @@
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Polygon;
+import java.awt.geom.Point2D;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import oracle.spatial.geometry.JGeometry;
 import oracle.sql.STRUCT;
@@ -74,6 +80,21 @@ public class Animals {
 		ResultSet result = queryExecutior.selectQuery(sql);
 		processRecordRow(result, r);
 		return r;
+	}
+
+	public void render(Graphics g) {
+		g.setColor(Color.RED);
+		for (Entry<Integer, Animal> animal : animals.entrySet()) {
+			Point p1 =  animal.getValue().getPoint();
+			Point p2 = new Point(p1.x - 5, p1.y + 10);
+			Point p3 = new Point(p1.x + 5, p1.y + 10);
+
+			int[] xs = { p1.x, p2.x, p3.x };
+			int[] ys = { p1.y, p2.y, p3.y };
+			Polygon triangle = new Polygon(xs, ys, xs.length);
+
+			g.fillPolygon(triangle);
+		}
 	}
 
 }

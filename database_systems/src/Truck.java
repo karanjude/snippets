@@ -1,3 +1,5 @@
+import java.awt.Point;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
 import oracle.spatial.geometry.JGeometry;
@@ -50,10 +52,15 @@ public class Truck {
 		ArrayList<String> vaccineMappingSqls = new ArrayList<String>();
 		for (String vaccine : vaccines) {
 			vaccineMappingSqls.add(String.format(
-					"insert into truck_vaccines values('%s','%s')", new Integer(
-							this.id), vaccine.trim()));
+					"insert into truck_vaccines values('%s','%s')",
+					new Integer(this.id), vaccine.trim()));
 		}
 		return vaccineMappingSqls;
+	}
+
+	public Point getPoint() {
+		Point2D javaPoint = this.point.getJavaPoint();
+		return new Point((int) javaPoint.getX(), (int) javaPoint.getY());
 	}
 
 }

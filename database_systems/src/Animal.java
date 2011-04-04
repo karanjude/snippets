@@ -1,3 +1,6 @@
+import java.awt.Point;
+import java.awt.geom.Point2D;
+
 import oracle.spatial.geometry.JGeometry;
 
 public class Animal {
@@ -38,8 +41,11 @@ public class Animal {
 	}
 
 	public String sql() {
-		return String.format("insert into animals values(%d,'%s',SDO_GEOMETRY(2001,NULL,SDO_POINT_TYPE(%d,%d,NULL),NULL,NULL))", new Integer(this.id), this.name, 
-				new Integer(this.x), new Integer(this.y));
+		return String
+				.format(
+						"insert into animals values(%d,'%s',SDO_GEOMETRY(2001,NULL,SDO_POINT_TYPE(%d,%d,NULL),NULL,NULL))",
+						new Integer(this.id), this.name, new Integer(this.x),
+						new Integer(this.y));
 	}
 
 	public int x() {
@@ -48,6 +54,11 @@ public class Animal {
 
 	public int y() {
 		return this.y;
+	}
+
+	public Point getPoint() {
+		Point2D javaPoint = this.point.getJavaPoint();
+		return new Point((int) javaPoint.getX(), (int) javaPoint.getY());
 	}
 
 }

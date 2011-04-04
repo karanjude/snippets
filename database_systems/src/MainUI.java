@@ -1,4 +1,8 @@
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Polygon;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -26,8 +30,12 @@ class ImagePanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private BufferedImage image;
+	private final AnimalRenderer renderer;
+	private final TruckRenderer truckRenderer;
 
-	public ImagePanel() {
+	public ImagePanel(AnimalRenderer renderer, TruckRenderer truckRenderer) {
+		this.renderer = renderer;
+		this.truckRenderer = truckRenderer;
 		try {
 			File landjpg = new File("land.jpg");
 			System.out.println(landjpg.exists());
@@ -41,6 +49,10 @@ class ImagePanel extends JPanel {
 		g.drawImage(image, 0, 0, null); // see javadoc for more info on the
 										// parameters
 
+		renderer.render(g);
+		truckRenderer.render(g);
+
+		//g.fillRect(50, 50, 70, 70);
 	}
 
 }

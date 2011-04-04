@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -42,7 +43,7 @@ public class UI extends JFrame {
 
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 
-	private void initComponents() {
+	private void initComponents() throws ClassNotFoundException, SQLException {
 		setLayout(new GroupLayout());
 		add(getJLabel0(), new Constraints(new Leading(2, 133, 10, 10), new Leading(0, 80, 12, 12)));
 		add(getJLabel1(), new Constraints(new Leading(0, 102, 12, 12), new Leading(76, 67, 10, 10)));
@@ -81,9 +82,9 @@ public class UI extends JFrame {
 		return mousecoordsLabel;
 	}
 
-	private ImagePanel getJPanel2() {
+	private ImagePanel getJPanel2() throws ClassNotFoundException, SQLException {
 		if (imagePanel == null) {
-			imagePanel = new ImagePanel();
+			imagePanel = new ImagePanel(new AnimalRenderer(), new TruckRenderer());
 			imagePanel.setFocusable(true);
 			imagePanel.setEnabled(true);
 			imagePanel.setVisible(true);
@@ -236,7 +237,7 @@ public class UI extends JFrame {
 		}
 	}
 
-	public UI() {
+	public UI() throws ClassNotFoundException, SQLException {
 		initComponents();
 	}
 
@@ -250,7 +251,14 @@ public class UI extends JFrame {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				UI frame = new UI();
+				UI frame = null;
+				try {
+					frame = new UI();
+				} catch (ClassNotFoundException e) {
+					e.printStackTrace();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
 				frame.setDefaultCloseOperation(UI.EXIT_ON_CLOSE);
 				frame.setTitle("UI");
 				frame.getContentPane().setPreferredSize(frame.getSize());

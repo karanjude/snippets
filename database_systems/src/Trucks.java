@@ -1,6 +1,11 @@
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Point;
+import java.awt.Polygon;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 import oracle.spatial.geometry.JGeometry;
 import oracle.sql.STRUCT;
@@ -75,5 +80,20 @@ public class Trucks {
 		ResultSet result = queryExecutior.selectQuery(sql);
 		processRecordRow(result, r);
 		return r;
+	}
+
+	public void render(Graphics g) {
+		g.setColor(Color.YELLOW);
+		for (Entry<Integer, Truck> truck : trucks.entrySet()) {
+			Point p1 =  truck.getValue().getPoint();
+			Point p2 = new Point(p1.x - 5, p1.y + 10);
+			Point p3 = new Point(p1.x + 5, p1.y + 10);
+
+			int[] xs = { p1.x, p2.x, p3.x };
+			int[] ys = { p1.y, p2.y, p3.y };
+			Polygon triangle = new Polygon(xs, ys, xs.length);
+
+			g.fillPolygon(triangle);
+		}
 	}
 }
