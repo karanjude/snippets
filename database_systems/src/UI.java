@@ -1,11 +1,15 @@
 import java.awt.Color;
 import java.awt.LayoutManager;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
 import java.sql.SQLException;
 
+import javax.swing.ButtonGroup;
+import javax.swing.JApplet;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
@@ -33,9 +37,9 @@ public class UI extends JFrame {
 
 	private JTextArea nodeInfoLabel;
 	private JLabel nodeInfoLabel0;
-	private JRadioButton jRadioButton0;
-	private JRadioButton jRadioButton2;
-	private JRadioButton jRadioButton1;
+	private JRadioButton rangeRadionButton;
+	private JRadioButton findVaccinationCoveragejRadioButton;
+	private JRadioButton findNearestVaccineSuppliesjRadioButton;
 	private JPanel jPanel0;
 	private JLabel jLabel2;
 	private JCheckBox animalCheckBox;
@@ -47,6 +51,12 @@ public class UI extends JFrame {
 	private JLabel jLabel4;
 	private JLabel mousecoordsLabel;
 	private ImagePanel imagePanel;
+
+	private JRadioButton findVaccinationCoverageRadioButton;
+
+	private JRadioButton nearestVaccineSuppliesRadioButton;
+
+	private JRadioButton rangeRadioButton;
 
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 
@@ -237,41 +247,51 @@ public class UI extends JFrame {
 			jPanel0 = new JPanel();
 			jPanel0.setBorder(new LineBorder(Color.black, 1, false));
 			jPanel0.setLayout(new GroupLayout());
-			jPanel0.add(getJRadioButton2(), new Constraints(
+			ButtonGroup buttonGroup = new ButtonGroup();
+			findVaccinationCoverageRadioButton = getfindVaccinationCoverageRadioButton();
+			nearestVaccineSuppliesRadioButton = getFindNearestVaccineSuppliesRadioButton();
+			rangeRadioButton = getRangeRadioButton();
+
+			buttonGroup.add(rangeRadioButton);
+			buttonGroup.add(findVaccinationCoverageRadioButton);
+			buttonGroup.add(nearestVaccineSuppliesRadioButton);
+			
+			jPanel0.add(findVaccinationCoverageRadioButton, new Constraints(
 					new Leading(5, 8, 8), new Leading(70, 10, 10)));
-			jPanel0.add(getJRadioButton1(), new Constraints(
+			
+			
+			jPanel0.add(nearestVaccineSuppliesRadioButton, new Constraints(
 					new Leading(5, 8, 8), new Leading(36, 8, 8)));
-			jPanel0.add(getJRadioButton0(), new Constraints(
+			
+			jPanel0.add(rangeRadioButton, new Constraints(
 					new Leading(5, 8, 8), new Leading(12, 20, 8, 8)));
 		}
 		return jPanel0;
 	}
 
-	private JRadioButton getJRadioButton1() {
-		if (jRadioButton1 == null) {
-			jRadioButton1 = new JRadioButton();
-			jRadioButton1.setSelected(true);
-			jRadioButton1.setText("Find Nearest Vaccine Supplies");
+	private JRadioButton getFindNearestVaccineSuppliesRadioButton() {
+		if (findNearestVaccineSuppliesjRadioButton == null) {
+			findNearestVaccineSuppliesjRadioButton = new JRadioButton();
+			findNearestVaccineSuppliesjRadioButton.setText("Find Nearest Vaccine Supplies");
 		}
-		return jRadioButton1;
+		return findNearestVaccineSuppliesjRadioButton;
 	}
 
-	private JRadioButton getJRadioButton2() {
-		if (jRadioButton2 == null) {
-			jRadioButton2 = new JRadioButton();
-			jRadioButton2.setSelected(true);
-			jRadioButton2.setText("Find Vaccination Coverage");
+	private JRadioButton getfindVaccinationCoverageRadioButton() {
+		if (findVaccinationCoveragejRadioButton == null) {
+			findVaccinationCoveragejRadioButton = new JRadioButton();
+			findVaccinationCoveragejRadioButton.setText("Find Vaccination Coverage");
 		}
-		return jRadioButton2;
+		return findVaccinationCoveragejRadioButton;
 	}
 
-	private JRadioButton getJRadioButton0() {
-		if (jRadioButton0 == null) {
-			jRadioButton0 = new JRadioButton();
-			jRadioButton0.setSelected(true);
-			jRadioButton0.setText("Range");
+	private JRadioButton getRangeRadioButton() {
+		if (rangeRadionButton == null) {
+			rangeRadionButton = new JRadioButton();
+			rangeRadionButton.setSelected(true);
+			rangeRadionButton.setText("Range");
 		}
-		return jRadioButton0;
+		return rangeRadionButton;
 	}
 
 	private JLabel getJLabel1() {

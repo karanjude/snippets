@@ -81,7 +81,7 @@ public class AnimalRenderer {
 			Point p1 = animal.getPoint();
 			animalComponent.setBounds(p1.x + insets.left, p1.y + insets.top, size.width,
 					size.height);
-			animalComponent.setBackground(Color.GREEN);
+			animalComponent.setBackground(Color.RED);
 		}
 
 	}
