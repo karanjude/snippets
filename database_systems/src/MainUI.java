@@ -40,6 +40,8 @@ class ImagePanel extends JPanel {
 	private int endx;
 	private int endy;
 	private boolean isDrawingRectangle;
+	private boolean showDrawingRectangle;
+	private boolean stopDrawingRectangle;
 
 	public ImagePanel(AnimalRenderer animalRenderer,
 			TruckRenderer truckRenderer, UI ui) {
@@ -59,7 +61,7 @@ class ImagePanel extends JPanel {
 	public void paintComponent(Graphics g) {
 		g.drawImage(image, 0, 0, null); // see javadoc for more info on the
 		// parameters
-		if (isDrawingRectangle) {
+		if (showDrawingRectangle) {
 			g.setColor(Color.BLUE);
 			int width = Math.abs(endx - startx);
 			int height = Math.abs(endy - starty);
@@ -70,6 +72,12 @@ class ImagePanel extends JPanel {
 		// truckRenderer.render(g);
 
 		// g.fillRect(50, 50, 70, 70);
+	}
+
+	@Override
+	public void repaint() {
+		super.repaint();
+		paintChildren();
 	}
 
 	public void addAnimals() {
@@ -103,15 +111,29 @@ class ImagePanel extends JPanel {
 	}
 
 	public void startDrawingRectangle() {
+		showDrawingRectangle = true;
 		isDrawingRectangle = true;
 	}
 
-	public void stopDrawingRectangle() throws SQLException {
+	public void stopDrawingRectangle() {
 		isDrawingRectangle = false;
+	}
+
+	public void clearSelectionRectangle() {
+		showDrawingRectangle = false;
+		startx = starty = endx = endy = 0;
+		animalRenderer.clearRangeQuery();
+		truckRenderer.clearRangeQuery();
+		repaint();
 	}
 
 	public void rangeQuery() throws SQLException {
 		animalRenderer.rangeQuery(startx, starty, endx, endy);
+		truckRenderer.rangeQuery(startx, starty, endx, endy);
+		repaint();
+	}
+
+	private void paintChildren() {
 		for (int i = 0; i < this.getComponents().length; i++) {
 			Component component = this.getComponent(i);
 			component.repaint();

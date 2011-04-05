@@ -28,11 +28,13 @@ public class AnimalRenderer {
 		@Override
 		public void paint(Graphics g) {
 			super.paint(g);
+
 			if (animalsInSelectedRegion != null
 					&& animalsInSelectedRegion.size() != 0
 					&& animalsInSelectedRegion.containsKey(animal.id)) {
 				this.setBackground(Color.GREEN);
-			}
+			} else
+				this.setBackground(Color.RED);
 		}
 	}
 
@@ -83,6 +85,10 @@ public class AnimalRenderer {
 			throws SQLException {
 		animalsInSelectedRegion = animals.inRegion(startx, starty, endx, endy);
 		return "";
+	}
+
+	public void clearRangeQuery() {
+		animalsInSelectedRegion.clear();
 	}
 
 }

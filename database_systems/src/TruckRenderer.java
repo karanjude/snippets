@@ -10,10 +10,10 @@ import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.Leading;
-
 
 public class TruckRenderer {
 	private final class TruckComponent extends Panel {
@@ -27,21 +27,17 @@ public class TruckRenderer {
 		@Override
 		public void paint(Graphics g) {
 			super.paint(g);
-//			g.setColor(Color.YELLOW);
-//
-//			Point p1 = truck.getPoint();
-//			Point p2 = new Point(p1.x - 5, p1.y + 10);
-//			Point p3 = new Point(p1.x + 5, p1.y + 10);
-//
-//			int[] xs = { p1.x, p2.x, p3.x };
-//			int[] ys = { p1.y, p2.y, p3.y };
-//			Polygon triangle = new Polygon(xs, ys, xs.length);
-//
-//			g.fillRect(p1.x, p1.y, 10, 10);
+			if (trucksInSelectedRegion != null
+					&& trucksInSelectedRegion.size() != 0
+					&& trucksInSelectedRegion.containsKey(truck.id)) {
+				this.setBackground(Color.ORANGE);
+			} else
+				this.setBackground(Color.YELLOW);
 		}
 	}
 
 	private Trucks trucks;
+	private HashMap<Integer, Truck> trucksInSelectedRegion;
 
 	public TruckRenderer() throws ClassNotFoundException, SQLException {
 		QueryExecutior queryExecutior = new QueryExecutior();
@@ -58,24 +54,32 @@ public class TruckRenderer {
 		for (final Truck truck : trucks.getTrucks()) {
 			TruckComponent truckComponent = new TruckComponent(truck);
 			truckComponent.addMouseMotionListener(new MouseMotionListener() {
-				
+
 				@Override
 				public void mouseMoved(MouseEvent arg0) {
 					imagePanel.updateTruckInfo(truck);
 				}
-				
+
 				@Override
 				public void mouseDragged(MouseEvent arg0) {
 				}
 			});
-			
+
 			imagePanel.add(truckComponent);
 			Dimension size = truckComponent.getPreferredSize();
 			Point p1 = truck.getPoint();
-			truckComponent.setBounds(p1.x + insets.left, p1.y + insets.top, size.width,
-					size.height);
+			truckComponent.setBounds(p1.x + insets.left, p1.y + insets.top,
+					size.width, size.height);
 			truckComponent.setBackground(Color.YELLOW);
 		}
 	}
 
+	public void rangeQuery(int startx, int starty, int endx, int endy) throws SQLException {
+		trucksInSelectedRegion = trucks.inRegion(startx, starty, endx, endy);
+	}
+
+	public void clearRangeQuery() {
+		trucksInSelectedRegion.clear();
+	}
+	
 }

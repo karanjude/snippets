@@ -46,7 +46,7 @@ public class UI extends JFrame {
 	private JCheckBox jCheckBox1;
 	private JPanel jPanel1;
 	private JButton submitButton;
-	private JButton jButton0;
+	private JButton clearButton;
 	private JLabel jLabel3;
 	private JLabel jLabel4;
 	private JLabel mousecoordsLabel;
@@ -82,7 +82,7 @@ public class UI extends JFrame {
 				new Trailing(45, 99, 103, 315)));
 		add(getJPanel1(), new Constraints(new Leading(312, 10, 10),
 				new Trailing(45, 15, 315)));
-		add(getJButton0(), new Constraints(new Leading(518, 143, 12, 12),
+		add(getClearButton(), new Constraints(new Leading(518, 143, 12, 12),
 				new Leading(343, 10, 10)));
 		add(getsubmitButton(), new Constraints(new Leading(518, 142, 12, 12),
 				new Trailing(45, 380, 380)));
@@ -131,8 +131,10 @@ public class UI extends JFrame {
 			imagePanel.addMouseMotionListener(new MouseMotionAdapter() {
 
 				public void mouseMoved(MouseEvent event) {
-					imagePanel.setEndXY(event.getX(), event.getY());
-					imagePanel.repaint();
+					if (imagePanel.drawingRectangle()) {
+						imagePanel.setEndXY(event.getX(), event.getY());
+						imagePanel.repaint();
+					}
 					imagePanelMouseMotionMouseMoved(event);
 				}
 			});
@@ -145,12 +147,7 @@ public class UI extends JFrame {
 						imagePanel.setStartXY(e.getX(), e.getY());
 						imagePanel.repaint();
 					} else {
-						try {
-							imagePanel.stopDrawingRectangle();
-						} catch (SQLException e1) {
-							// TODO Auto-generated catch block
-							e1.printStackTrace();
-						}
+						imagePanel.stopDrawingRectangle();
 						imagePanel.repaint();
 					}
 
@@ -197,12 +194,19 @@ public class UI extends JFrame {
 		return jLabel3;
 	}
 
-	private JButton getJButton0() {
-		if (jButton0 == null) {
-			jButton0 = new JButton();
-			jButton0.setText("Clear");
+	private JButton getClearButton() {
+		if (clearButton == null) {
+			clearButton = new JButton();
+			clearButton.setText("Clear");
+			clearButton.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					imagePanel.clearSelectionRectangle();
+				}
+			});
 		}
-		return jButton0;
+		return clearButton;
 	}
 
 	private void populateSqlQueryLabel(String rangeQuery) {
@@ -219,7 +223,7 @@ public class UI extends JFrame {
 
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					if(rangeRadioButton.isSelected()){
+					if (rangeRadioButton.isSelected()) {
 						try {
 							imagePanel.rangeQuery();
 						} catch (SQLException e1) {
