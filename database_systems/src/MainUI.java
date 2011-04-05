@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -6,6 +7,7 @@ import java.awt.Polygon;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
@@ -30,7 +32,7 @@ class ImagePanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private BufferedImage image;
-	private final AnimalRenderer renderer;
+	private final AnimalRenderer animalRenderer;
 	private final TruckRenderer truckRenderer;
 	private final UI ui;
 	private int startx;
@@ -42,7 +44,7 @@ class ImagePanel extends JPanel {
 	public ImagePanel(AnimalRenderer animalRenderer,
 			TruckRenderer truckRenderer, UI ui) {
 		this.ui = ui;
-		this.renderer = animalRenderer;
+		this.animalRenderer = animalRenderer;
 		this.truckRenderer = truckRenderer;
 		try {
 			File landjpg = new File("land.jpg");
@@ -71,7 +73,7 @@ class ImagePanel extends JPanel {
 	}
 
 	public void addAnimals() {
-		this.renderer.addAnimals(this);
+		this.animalRenderer.addAnimals(this);
 	}
 
 	public void addTrucks() {
@@ -104,8 +106,16 @@ class ImagePanel extends JPanel {
 		isDrawingRectangle = true;
 	}
 
-	public void stopDrawingRectangle() {
+	public void stopDrawingRectangle() throws SQLException {
 		isDrawingRectangle = false;
+	}
+
+	public void rangeQuery() throws SQLException {
+		animalRenderer.rangeQuery(startx, starty, endx, endy);
+		for (int i = 0; i < this.getComponents().length; i++) {
+			Component component = this.getComponent(i);
+			component.repaint();
+		}
 	}
 
 }

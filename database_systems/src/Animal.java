@@ -5,7 +5,7 @@ import oracle.spatial.geometry.JGeometry;
 
 public class Animal {
 
-	private int id;
+	public int id;
 	private String name;
 	private int x;
 	private int y;

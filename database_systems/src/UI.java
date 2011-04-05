@@ -36,7 +36,7 @@ public class UI extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	private JTextArea nodeInfoLabel;
-	private JLabel nodeInfoLabel0;
+	private JTextArea sqlQueryLabel;
 	private JRadioButton rangeRadionButton;
 	private JRadioButton findVaccinationCoveragejRadioButton;
 	private JRadioButton findNearestVaccineSuppliesjRadioButton;
@@ -45,7 +45,7 @@ public class UI extends JFrame {
 	private JCheckBox animalCheckBox;
 	private JCheckBox jCheckBox1;
 	private JPanel jPanel1;
-	private JButton jButton1;
+	private JButton submitButton;
 	private JButton jButton0;
 	private JLabel jLabel3;
 	private JLabel jLabel4;
@@ -60,12 +60,16 @@ public class UI extends JFrame {
 
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 
+	private AnimalRenderer animalRenderer;
+
+	private TruckRenderer truckRenderer;
+
 	private void initComponents() throws ClassNotFoundException, SQLException {
 		setLayout(new GroupLayout());
 		add(getJLabel0(), new Constraints(new Leading(2, 133, 10, 10),
 				new Leading(0, 80, 12, 12)));
-		add(getJLabel1(), new Constraints(new Leading(0, 102, 12, 12),
-				new Leading(76, 67, 10, 10)));
+		add(getSqlQueryLabel(), new Constraints(new Leading(0, 133, 12, 12),
+				new Leading(76, 80, 12, 12)));
 		add(getJLabel3(), new Constraints(new Leading(75, 10, 10),
 				new Trailing(12, 382, 382)));
 		add(getJLabel4(), new Constraints(new Leading(292, 10, 10),
@@ -80,7 +84,7 @@ public class UI extends JFrame {
 				new Trailing(45, 15, 315)));
 		add(getJButton0(), new Constraints(new Leading(518, 143, 12, 12),
 				new Leading(343, 10, 10)));
-		add(getJButton1(), new Constraints(new Leading(518, 142, 12, 12),
+		add(getsubmitButton(), new Constraints(new Leading(518, 142, 12, 12),
 				new Trailing(45, 380, 380)));
 		setSize(664, 449);
 	}
@@ -111,8 +115,9 @@ public class UI extends JFrame {
 
 	private ImagePanel getJPanel2() throws ClassNotFoundException, SQLException {
 		if (imagePanel == null) {
-			imagePanel = new ImagePanel(new AnimalRenderer(),
-					new TruckRenderer(), this);
+			animalRenderer = new AnimalRenderer();
+			truckRenderer = new TruckRenderer();
+			imagePanel = new ImagePanel(animalRenderer, truckRenderer, this);
 			imagePanel.setFocusable(true);
 			imagePanel.setEnabled(true);
 			imagePanel.setVisible(true);
@@ -139,8 +144,13 @@ public class UI extends JFrame {
 						imagePanel.startDrawingRectangle();
 						imagePanel.setStartXY(e.getX(), e.getY());
 						imagePanel.repaint();
-					}else{
-						imagePanel.stopDrawingRectangle();
+					} else {
+						try {
+							imagePanel.stopDrawingRectangle();
+						} catch (SQLException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 						imagePanel.repaint();
 					}
 
@@ -195,12 +205,32 @@ public class UI extends JFrame {
 		return jButton0;
 	}
 
-	private JButton getJButton1() {
-		if (jButton1 == null) {
-			jButton1 = new JButton();
-			jButton1.setText("Submit Query");
+	private void populateSqlQueryLabel(String rangeQuery) {
+		String sqlText = sqlQueryLabel.getText();
+		sqlText += "\n" + rangeQuery;
+		sqlQueryLabel.setText(sqlText);
+	}
+
+	private JButton getsubmitButton() {
+		if (submitButton == null) {
+			submitButton = new JButton();
+			submitButton.setText("Submit Query");
+			submitButton.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if(rangeRadioButton.isSelected()){
+						try {
+							imagePanel.rangeQuery();
+						} catch (SQLException e1) {
+							e1.printStackTrace();
+						}
+					}
+				}
+
+			});
 		}
-		return jButton1;
+		return submitButton;
 	}
 
 	private JPanel getJPanel1() {
@@ -255,16 +285,15 @@ public class UI extends JFrame {
 			buttonGroup.add(rangeRadioButton);
 			buttonGroup.add(findVaccinationCoverageRadioButton);
 			buttonGroup.add(nearestVaccineSuppliesRadioButton);
-			
+
 			jPanel0.add(findVaccinationCoverageRadioButton, new Constraints(
 					new Leading(5, 8, 8), new Leading(70, 10, 10)));
-			
-			
+
 			jPanel0.add(nearestVaccineSuppliesRadioButton, new Constraints(
 					new Leading(5, 8, 8), new Leading(36, 8, 8)));
-			
-			jPanel0.add(rangeRadioButton, new Constraints(
-					new Leading(5, 8, 8), new Leading(12, 20, 8, 8)));
+
+			jPanel0.add(rangeRadioButton, new Constraints(new Leading(5, 8, 8),
+					new Leading(12, 20, 8, 8)));
 		}
 		return jPanel0;
 	}
@@ -272,7 +301,8 @@ public class UI extends JFrame {
 	private JRadioButton getFindNearestVaccineSuppliesRadioButton() {
 		if (findNearestVaccineSuppliesjRadioButton == null) {
 			findNearestVaccineSuppliesjRadioButton = new JRadioButton();
-			findNearestVaccineSuppliesjRadioButton.setText("Find Nearest Vaccine Supplies");
+			findNearestVaccineSuppliesjRadioButton
+					.setText("Find Nearest Vaccine Supplies");
 		}
 		return findNearestVaccineSuppliesjRadioButton;
 	}
@@ -280,7 +310,8 @@ public class UI extends JFrame {
 	private JRadioButton getfindVaccinationCoverageRadioButton() {
 		if (findVaccinationCoveragejRadioButton == null) {
 			findVaccinationCoveragejRadioButton = new JRadioButton();
-			findVaccinationCoveragejRadioButton.setText("Find Vaccination Coverage");
+			findVaccinationCoveragejRadioButton
+					.setText("Find Vaccination Coverage");
 		}
 		return findVaccinationCoveragejRadioButton;
 	}
@@ -294,12 +325,12 @@ public class UI extends JFrame {
 		return rangeRadionButton;
 	}
 
-	private JLabel getJLabel1() {
-		if (nodeInfoLabel0 == null) {
-			nodeInfoLabel0 = new JLabel();
-			nodeInfoLabel0.setText(":");
+	private JTextArea getSqlQueryLabel() {
+		if (sqlQueryLabel == null) {
+			sqlQueryLabel = new JTextArea();
+			sqlQueryLabel.setText("Sql Query Here");
 		}
-		return nodeInfoLabel0;
+		return sqlQueryLabel;
 	}
 
 	private JTextArea getJLabel0() {

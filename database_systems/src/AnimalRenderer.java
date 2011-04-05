@@ -10,6 +10,7 @@ import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 import javax.swing.JButton;
 
@@ -18,7 +19,6 @@ import org.dyno.visual.swing.layouts.Leading;
 
 public class AnimalRenderer {
 	private final class AnimalComponent extends Panel {
-
 		private final Animal animal;
 
 		public AnimalComponent(Animal animal) {
@@ -28,23 +28,16 @@ public class AnimalRenderer {
 		@Override
 		public void paint(Graphics g) {
 			super.paint(g);
-//			g.setColor(Color.GREEN);
-//			g.fillRect(this.getX(), this.getY(), this.getWidth(), this
-//					.getHeight());
-
-//			Point p1 = animal.getPoint();
-//			Point p2 = new Point(p1.x - 5, p1.y + 10);
-//			Point p3 = new Point(p1.x + 5, p1.y + 10);
-//
-//			int[] xs = { p1.x, p2.x, p3.x };
-//			int[] ys = { p1.y, p2.y, p3.y };
-//			Polygon triangle = new Polygon(xs, ys, xs.length);
-
-//			g.fillRect(p1.x, p1.y, 10, 10);
+			if (animalsInSelectedRegion != null
+					&& animalsInSelectedRegion.size() != 0
+					&& animalsInSelectedRegion.containsKey(animal.id)) {
+				this.setBackground(Color.GREEN);
+			}
 		}
 	}
 
 	private Animals animals;
+	private HashMap<Integer, Animal> animalsInSelectedRegion;
 
 	public AnimalRenderer() throws ClassNotFoundException, SQLException {
 		QueryExecutior queryExecutior = new QueryExecutior();
@@ -53,7 +46,7 @@ public class AnimalRenderer {
 	}
 
 	public void render(Graphics g) {
-		//animals.render(g);
+		// animals.render(g);
 
 	}
 
@@ -62,28 +55,34 @@ public class AnimalRenderer {
 			AnimalComponent animalComponent = new AnimalComponent(animal);
 			imagePanel.add(animalComponent);
 			animalComponent.addMouseMotionListener(new MouseMotionListener() {
-				
+
 				@Override
 				public void mouseMoved(MouseEvent e) {
 					imagePanel.updateAnimalInfo(animal);
-					
+
 				}
-				
+
 				@Override
 				public void mouseDragged(MouseEvent e) {
 					// TODO Auto-generated method stub
-					
+
 				}
 			});
-			
+
 			Insets insets = imagePanel.getInsets();
 			Dimension size = animalComponent.getPreferredSize();
 			Point p1 = animal.getPoint();
-			animalComponent.setBounds(p1.x + insets.left, p1.y + insets.top, size.width,
-					size.height);
+			animalComponent.setBounds(p1.x + insets.left, p1.y + insets.top,
+					size.width, size.height);
 			animalComponent.setBackground(Color.RED);
 		}
 
+	}
+
+	public String rangeQuery(int startx, int starty, int endx, int endy)
+			throws SQLException {
+		animalsInSelectedRegion = animals.inRegion(startx, starty, endx, endy);
+		return "";
 	}
 
 }
