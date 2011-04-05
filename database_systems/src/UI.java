@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.LayoutManager;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
 import java.sql.SQLException;
 
@@ -51,16 +52,26 @@ public class UI extends JFrame {
 
 	private void initComponents() throws ClassNotFoundException, SQLException {
 		setLayout(new GroupLayout());
-		add(getJLabel0(), new Constraints(new Leading(2, 133, 10, 10), new Leading(0, 80, 12, 12)));
-		add(getJLabel1(), new Constraints(new Leading(0, 102, 12, 12), new Leading(76, 67, 10, 10)));
-		add(getJLabel3(), new Constraints(new Leading(75, 10, 10), new Trailing(12, 382, 382)));
-		add(getJLabel4(), new Constraints(new Leading(292, 10, 10), new Trailing(12, 353, 353)));
-		add(getMousecoordsLabel(), new Constraints(new Leading(290, 88, 10, 10), new Trailing(12, 12, 379, 382)));
-		add(getJPanel2(), new Constraints(new Leading(156, 504, 10, 10), new Leading(3, 300, 10, 10)));
-		add(getJPanel0(), new Constraints(new Leading(22, 259, 10, 10), new Trailing(45, 99, 103, 315)));
-		add(getJPanel1(), new Constraints(new Leading(312, 10, 10), new Trailing(45, 15, 315)));
-		add(getJButton0(), new Constraints(new Leading(518, 143, 12, 12), new Leading(343, 10, 10)));
-		add(getJButton1(), new Constraints(new Leading(518, 142, 12, 12), new Trailing(45, 380, 380)));
+		add(getJLabel0(), new Constraints(new Leading(2, 133, 10, 10),
+				new Leading(0, 80, 12, 12)));
+		add(getJLabel1(), new Constraints(new Leading(0, 102, 12, 12),
+				new Leading(76, 67, 10, 10)));
+		add(getJLabel3(), new Constraints(new Leading(75, 10, 10),
+				new Trailing(12, 382, 382)));
+		add(getJLabel4(), new Constraints(new Leading(292, 10, 10),
+				new Trailing(12, 353, 353)));
+		add(getMousecoordsLabel(), new Constraints(
+				new Leading(290, 88, 10, 10), new Trailing(12, 12, 379, 382)));
+		add(getJPanel2(), new Constraints(new Leading(156, 504, 10, 10),
+				new Leading(3, 300, 10, 10)));
+		add(getJPanel0(), new Constraints(new Leading(22, 259, 10, 10),
+				new Trailing(45, 99, 103, 315)));
+		add(getJPanel1(), new Constraints(new Leading(312, 10, 10),
+				new Trailing(45, 15, 315)));
+		add(getJButton0(), new Constraints(new Leading(518, 143, 12, 12),
+				new Leading(343, 10, 10)));
+		add(getJButton1(), new Constraints(new Leading(518, 142, 12, 12),
+				new Trailing(45, 380, 380)));
 		setSize(664, 449);
 	}
 
@@ -90,7 +101,8 @@ public class UI extends JFrame {
 
 	private ImagePanel getJPanel2() throws ClassNotFoundException, SQLException {
 		if (imagePanel == null) {
-			imagePanel = new ImagePanel(new AnimalRenderer(), new TruckRenderer(), this);
+			imagePanel = new ImagePanel(new AnimalRenderer(),
+					new TruckRenderer(), this);
 			imagePanel.setFocusable(true);
 			imagePanel.setEnabled(true);
 			imagePanel.setVisible(true);
@@ -102,9 +114,48 @@ public class UI extends JFrame {
 			imagePanel.addAnimals();
 			imagePanel.addTrucks();
 			imagePanel.addMouseMotionListener(new MouseMotionAdapter() {
-	
+
 				public void mouseMoved(MouseEvent event) {
+					imagePanel.setEndXY(event.getX(), event.getY());
+					imagePanel.repaint();
 					imagePanelMouseMotionMouseMoved(event);
+				}
+			});
+			imagePanel.addMouseListener(new MouseListener() {
+
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					if (!imagePanel.drawingRectangle()) {
+						imagePanel.startDrawingRectangle();
+						imagePanel.setStartXY(e.getX(), e.getY());
+						imagePanel.repaint();
+					}else{
+						imagePanel.stopDrawingRectangle();
+						imagePanel.repaint();
+					}
+
+				}
+
+				@Override
+				public void mousePressed(MouseEvent e) {
+				}
+
+				@Override
+				public void mouseExited(MouseEvent e) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					// TODO Auto-generated method stub
+
 				}
 			});
 		}
@@ -147,9 +198,12 @@ public class UI extends JFrame {
 			jPanel1 = new JPanel();
 			jPanel1.setBorder(new LineBorder(Color.black, 1, false));
 			jPanel1.setLayout(new GroupLayout());
-			jPanel1.add(getAnimalCheckBox(), new Constraints(new Leading(15, 8, 8), new Leading(33, 8, 8)));
-			jPanel1.add(getJCheckBox1(), new Constraints(new Leading(15, 8, 8), new Leading(64, 10, 10)));
-			jPanel1.add(getJLabel2(), new Constraints(new Leading(19, 10, 10), new Leading(12, 12, 12)));
+			jPanel1.add(getAnimalCheckBox(), new Constraints(new Leading(15, 8,
+					8), new Leading(33, 8, 8)));
+			jPanel1.add(getJCheckBox1(), new Constraints(new Leading(15, 8, 8),
+					new Leading(64, 10, 10)));
+			jPanel1.add(getJLabel2(), new Constraints(new Leading(19, 10, 10),
+					new Leading(12, 12, 12)));
 		}
 		return jPanel1;
 	}
@@ -183,9 +237,12 @@ public class UI extends JFrame {
 			jPanel0 = new JPanel();
 			jPanel0.setBorder(new LineBorder(Color.black, 1, false));
 			jPanel0.setLayout(new GroupLayout());
-			jPanel0.add(getJRadioButton2(), new Constraints(new Leading(5, 8, 8), new Leading(70, 10, 10)));
-			jPanel0.add(getJRadioButton1(), new Constraints(new Leading(5, 8, 8), new Leading(36, 8, 8)));
-			jPanel0.add(getJRadioButton0(), new Constraints(new Leading(5, 8, 8), new Leading(12, 20, 8, 8)));
+			jPanel0.add(getJRadioButton2(), new Constraints(
+					new Leading(5, 8, 8), new Leading(70, 10, 10)));
+			jPanel0.add(getJRadioButton1(), new Constraints(
+					new Leading(5, 8, 8), new Leading(36, 8, 8)));
+			jPanel0.add(getJRadioButton0(), new Constraints(
+					new Leading(5, 8, 8), new Leading(12, 20, 8, 8)));
 		}
 		return jPanel0;
 	}
@@ -286,7 +343,7 @@ public class UI extends JFrame {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Name:" + truck.name());
 		builder.append("\r\n");
-		builder.append("Location:" + truck.x() + "  , " + truck.y() );
+		builder.append("Location:" + truck.x() + "  , " + truck.y());
 		nodeInfoLabel.setText(builder.toString() + "\n" + "bbb");
 	}
 
@@ -294,9 +351,9 @@ public class UI extends JFrame {
 		StringBuilder builder = new StringBuilder();
 		builder.append("Name:" + animal.name());
 		builder.append("\r\n");
-		builder.append("Location:" + animal.x() + "  , " + animal.y() );
+		builder.append("Location:" + animal.x() + "  , " + animal.y());
 		nodeInfoLabel.setText(builder.toString() + "\n");
-		
+
 	}
 
 }

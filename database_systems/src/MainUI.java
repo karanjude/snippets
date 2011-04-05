@@ -33,30 +33,41 @@ class ImagePanel extends JPanel {
 	private final AnimalRenderer renderer;
 	private final TruckRenderer truckRenderer;
 	private final UI ui;
+	private int startx;
+	private int starty;
+	private int endx;
+	private int endy;
+	private boolean isDrawingRectangle;
 
 	public ImagePanel(AnimalRenderer animalRenderer,
 			TruckRenderer truckRenderer, UI ui) {
-				this.ui = ui;
-				this.renderer = animalRenderer;
-				this.truckRenderer = truckRenderer;
-				try {
-					File landjpg = new File("land.jpg");
-					System.out.println(landjpg.exists());
-					image = ImageIO.read(landjpg);
-				} catch (IOException ex) {
-					// handle exception...
-				}
-		
+		this.ui = ui;
+		this.renderer = animalRenderer;
+		this.truckRenderer = truckRenderer;
+		try {
+			File landjpg = new File("land.jpg");
+			System.out.println(landjpg.exists());
+			image = ImageIO.read(landjpg);
+		} catch (IOException ex) {
+			// handle exception...
+		}
+
 	}
 
 	public void paintComponent(Graphics g) {
 		g.drawImage(image, 0, 0, null); // see javadoc for more info on the
-										// parameters
+		// parameters
+		if (isDrawingRectangle) {
+			g.setColor(Color.BLUE);
+			int width = Math.abs(endx - startx);
+			int height = Math.abs(endy - starty);
+			g.drawRect(startx, starty, width, height);
+			System.out.println(startx + " " + starty + " " + endx + " " + endy);
+		}
+		// renderer.render(g);
+		// truckRenderer.render(g);
 
-		//renderer.render(g);
-		//truckRenderer.render(g);
-
-		//g.fillRect(50, 50, 70, 70);
+		// g.fillRect(50, 50, 70, 70);
 	}
 
 	public void addAnimals() {
@@ -75,14 +86,33 @@ class ImagePanel extends JPanel {
 		ui.updateAnimalInfo(animal);
 	}
 
+	public void setStartXY(int x, int y) {
+		this.startx = x;
+		this.starty = y;
+	}
+
+	public void setEndXY(int x, int y) {
+		this.endx = x;
+		this.endy = y;
+	}
+
+	public boolean drawingRectangle() {
+		return isDrawingRectangle;
+	}
+
+	public void startDrawingRectangle() {
+		isDrawingRectangle = true;
+	}
+
+	public void stopDrawingRectangle() {
+		isDrawingRectangle = false;
+	}
+
 }
 
 // VS4E -- DO NOT REMOVE THIS LINE!
 public class MainUI extends JFrame {
 
-	
-
-	
 	private static final long serialVersionUID = 1L;
 	private JLabel jLabel0;
 	private JLabel jLabel1;
@@ -99,7 +129,7 @@ public class MainUI extends JFrame {
 	private JLabel jLabel3;
 	private JLabel jLabel4;
 	private JLabel jLabel5;
-	//private ImagePanel imagePanel;
+	// private ImagePanel imagePanel;
 	private static final String PREFERRED_LOOK_AND_FEEL = "javax.swing.plaf.metal.MetalLookAndFeel";
 
 	public MainUI() {
@@ -131,13 +161,13 @@ public class MainUI extends JFrame {
 		setSize(434, 406);
 	}
 
-//	private JPanel getJPanel2() {
-//		if (imagePanel == null) {
-//			imagePanel = new ImagePanel();
-//			imagePanel.setLayout(new GroupLayout());
-//		}
-//		return imagePanel;
-//	}
+	// private JPanel getJPanel2() {
+	// if (imagePanel == null) {
+	// imagePanel = new ImagePanel();
+	// imagePanel.setLayout(new GroupLayout());
+	// }
+	// return imagePanel;
+	// }
 
 	private JLabel getJLabel5() {
 		if (jLabel5 == null) {
