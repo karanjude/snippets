@@ -4,6 +4,7 @@ import java.awt.Point;
 import java.awt.Polygon;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -95,5 +96,13 @@ public class Trucks {
 
 			g.fillPolygon(triangle);
 		}
+	}
+
+	public ArrayList<Truck> getTrucks() {
+		ArrayList<Truck> result = new ArrayList<Truck>();
+		for (Entry<Integer, Truck> truck : trucks.entrySet()) {
+			result.add(truck.getValue());
+		}
+		return result;
 	}
 }

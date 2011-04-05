@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.LayoutManager;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -10,6 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
@@ -22,10 +24,14 @@ import org.dyno.visual.swing.layouts.Trailing;
 //VS4E -- DO NOT REMOVE THIS LINE!
 public class UI extends JFrame {
 
+	public class MainRenderer {
+
+	}
+
 	private static final long serialVersionUID = 1L;
 
-	private JLabel jLabel0;
-	private JLabel jLabel1;
+	private JTextArea nodeInfoLabel;
+	private JLabel nodeInfoLabel0;
 	private JRadioButton jRadioButton0;
 	private JRadioButton jRadioButton2;
 	private JRadioButton jRadioButton1;
@@ -84,7 +90,7 @@ public class UI extends JFrame {
 
 	private ImagePanel getJPanel2() throws ClassNotFoundException, SQLException {
 		if (imagePanel == null) {
-			imagePanel = new ImagePanel(new AnimalRenderer(), new TruckRenderer());
+			imagePanel = new ImagePanel(new AnimalRenderer(), new TruckRenderer(), this);
 			imagePanel.setFocusable(true);
 			imagePanel.setEnabled(true);
 			imagePanel.setVisible(true);
@@ -92,7 +98,9 @@ public class UI extends JFrame {
 			imagePanel.setVerifyInputWhenFocusTarget(true);
 			imagePanel.setRequestFocusEnabled(true);
 			imagePanel.setOpaque(true);
-			imagePanel.setLayout(new GroupLayout());
+			imagePanel.setLayout(null);
+			imagePanel.addAnimals();
+			imagePanel.addTrucks();
 			imagePanel.addMouseMotionListener(new MouseMotionAdapter() {
 	
 				public void mouseMoved(MouseEvent event) {
@@ -210,19 +218,19 @@ public class UI extends JFrame {
 	}
 
 	private JLabel getJLabel1() {
-		if (jLabel1 == null) {
-			jLabel1 = new JLabel();
-			jLabel1.setText(":");
+		if (nodeInfoLabel0 == null) {
+			nodeInfoLabel0 = new JLabel();
+			nodeInfoLabel0.setText(":");
 		}
-		return jLabel1;
+		return nodeInfoLabel0;
 	}
 
-	private JLabel getJLabel0() {
-		if (jLabel0 == null) {
-			jLabel0 = new JLabel();
-			jLabel0.setText(":");
+	private JTextArea getJLabel0() {
+		if (nodeInfoLabel == null) {
+			nodeInfoLabel = new JTextArea();
+			nodeInfoLabel.setText("Node Info Here");
 		}
-		return jLabel0;
+		return nodeInfoLabel;
 	}
 
 	private static void installLnF() {
@@ -272,6 +280,23 @@ public class UI extends JFrame {
 	private void imagePanelMouseMotionMouseMoved(MouseEvent event) {
 		Point mousePoint = event.getPoint();
 		mousecoordsLabel.setText(mousePoint.x + "," + mousePoint.y);
+	}
+
+	public void updateTruckInfo(Truck truck) {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Name:" + truck.name());
+		builder.append("\r\n");
+		builder.append("Location:" + truck.x() + "  , " + truck.y() );
+		nodeInfoLabel.setText(builder.toString() + "\n" + "bbb");
+	}
+
+	public void updateAnimalInfo(Animal animal) {
+		StringBuilder builder = new StringBuilder();
+		builder.append("Name:" + animal.name());
+		builder.append("\r\n");
+		builder.append("Location:" + animal.x() + "  , " + animal.y() );
+		nodeInfoLabel.setText(builder.toString() + "\n");
+		
 	}
 
 }

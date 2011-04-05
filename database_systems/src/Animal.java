@@ -48,12 +48,12 @@ public class Animal {
 						new Integer(this.y));
 	}
 
-	public int x() {
-		return this.x;
+	public String x() {
+		 return new Integer(getPoint().x).toString();
 	}
 
-	public int y() {
-		return this.y;
+	public String y() {
+		 return new Integer(getPoint().y).toString();
 	}
 
 	public Point getPoint() {

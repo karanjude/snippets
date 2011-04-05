@@ -32,27 +32,47 @@ class ImagePanel extends JPanel {
 	private BufferedImage image;
 	private final AnimalRenderer renderer;
 	private final TruckRenderer truckRenderer;
+	private final UI ui;
 
-	public ImagePanel(AnimalRenderer renderer, TruckRenderer truckRenderer) {
-		this.renderer = renderer;
-		this.truckRenderer = truckRenderer;
-		try {
-			File landjpg = new File("land.jpg");
-			System.out.println(landjpg.exists());
-			image = ImageIO.read(landjpg);
-		} catch (IOException ex) {
-			// handle exception...
-		}
+	public ImagePanel(AnimalRenderer animalRenderer,
+			TruckRenderer truckRenderer, UI ui) {
+				this.ui = ui;
+				this.renderer = animalRenderer;
+				this.truckRenderer = truckRenderer;
+				try {
+					File landjpg = new File("land.jpg");
+					System.out.println(landjpg.exists());
+					image = ImageIO.read(landjpg);
+				} catch (IOException ex) {
+					// handle exception...
+				}
+		
 	}
 
 	public void paintComponent(Graphics g) {
 		g.drawImage(image, 0, 0, null); // see javadoc for more info on the
 										// parameters
 
-		renderer.render(g);
-		truckRenderer.render(g);
+		//renderer.render(g);
+		//truckRenderer.render(g);
 
 		//g.fillRect(50, 50, 70, 70);
+	}
+
+	public void addAnimals() {
+		this.renderer.addAnimals(this);
+	}
+
+	public void addTrucks() {
+		this.truckRenderer.addTrucks(this);
+	}
+
+	public void updateTruckInfo(Truck truck) {
+		ui.updateTruckInfo(truck);
+	}
+
+	public void updateAnimalInfo(Animal animal) {
+		ui.updateAnimalInfo(animal);
 	}
 
 }

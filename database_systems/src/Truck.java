@@ -63,4 +63,16 @@ public class Truck {
 		return new Point((int) javaPoint.getX(), (int) javaPoint.getY());
 	}
 
+	public String name() {
+		return this.name;
+	}
+
+	public String x() {
+		return new Integer(getPoint().x).toString();
+	}
+
+	public String y() {
+		return new Integer(getPoint().y).toString();
+	}
+
 }

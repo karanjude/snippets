@@ -97,4 +97,12 @@ public class Animals {
 		}
 	}
 
+	public ArrayList<Animal> getAnimals() {
+		ArrayList<Animal> result = new ArrayList<Animal>();
+		for (Entry<Integer, Animal> animal : animals.entrySet()) {
+			result.add(animal.getValue());
+		}
+		return result;
+	}
+
 }
