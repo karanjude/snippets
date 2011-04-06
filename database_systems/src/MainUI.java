@@ -65,7 +65,7 @@ class ImagePanel extends JPanel {
 			g.setColor(Color.BLUE);
 			int width = Math.abs(endx - startx);
 			int height = Math.abs(endy - starty);
-			g.drawRect(startx, starty, width, height);
+			g.drawRect(startx, starty - height, width, height);
 			System.out.println(startx + " " + starty + " " + endx + " " + endy);
 		}
 		// renderer.render(g);
