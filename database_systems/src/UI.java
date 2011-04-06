@@ -229,6 +229,19 @@ public class UI extends JFrame {
 						} catch (SQLException e1) {
 							e1.printStackTrace();
 						}
+					}else if(findNearestVaccineSuppliesjRadioButton.isSelected()){
+						try {
+							imagePanel.findNearestVaccineSuppliesQuery();
+						} catch (SQLException e1) {
+							e1.printStackTrace();
+						}
+					}
+					else if(findVaccinationCoveragejRadioButton.isSelected()){
+						try {
+							imagePanel.findVaccineCoverageQuery();
+						} catch (SQLException e1) {
+							e1.printStackTrace();
+						}
 					}
 				}
 

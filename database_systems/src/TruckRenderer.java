@@ -8,6 +8,7 @@ import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -16,6 +17,8 @@ import org.dyno.visual.swing.layouts.Constraints;
 import org.dyno.visual.swing.layouts.Leading;
 
 public class TruckRenderer {
+	private Truck selectedTruck;
+
 	private final class TruckComponent extends Panel {
 
 		private final Truck truck;
@@ -37,7 +40,7 @@ public class TruckRenderer {
 	}
 
 	private Trucks trucks;
-	private HashMap<Integer, Truck> trucksInSelectedRegion;
+	private HashMap<Integer, Truck> trucksInSelectedRegion = new HashMap<Integer, Truck>();
 
 	public TruckRenderer() throws ClassNotFoundException, SQLException {
 		QueryExecutior queryExecutior = new QueryExecutior();
@@ -65,6 +68,38 @@ public class TruckRenderer {
 				}
 			});
 
+			truckComponent.addMouseListener(new MouseListener() {
+
+				@Override
+				public void mouseReleased(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void mousePressed(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void mouseExited(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void mouseEntered(MouseEvent arg0) {
+					// TODO Auto-generated method stub
+
+				}
+
+				@Override
+				public void mouseClicked(MouseEvent arg0) {
+					selectedTruck = truck;
+				}
+			});
+
 			imagePanel.add(truckComponent);
 			Dimension size = truckComponent.getPreferredSize();
 			Point p1 = truck.getPoint();
@@ -74,12 +109,22 @@ public class TruckRenderer {
 		}
 	}
 
-	public void rangeQuery(int startx, int starty, int endx, int endy) throws SQLException {
+	public Truck getSelectedTruck() {
+		return selectedTruck;
+	}
+
+	public void rangeQuery(int startx, int starty, int endx, int endy)
+			throws SQLException {
 		trucksInSelectedRegion = trucks.inRegion(startx, starty, endx, endy);
 	}
 
 	public void clearRangeQuery() {
 		trucksInSelectedRegion.clear();
 	}
-	
+
+	public void findNearestVaccineSuppliesQuery(int startx, int starty,
+			int endx, int endy, Animal selectedAnimal) throws SQLException {
+		trucksInSelectedRegion = trucks.NearestVaccineSuppliedByTrucksForAnimal(startx, starty, endx, endy, selectedAnimal);
+	}
+
 }

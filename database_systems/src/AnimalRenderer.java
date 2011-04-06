@@ -8,6 +8,7 @@ import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -39,7 +40,7 @@ public class AnimalRenderer {
 	}
 
 	private Animals animals;
-	private HashMap<Integer, Animal> animalsInSelectedRegion;
+	private HashMap<Integer, Animal> animalsInSelectedRegion = new HashMap<Integer, Animal>();
 
 	public AnimalRenderer() throws ClassNotFoundException, SQLException {
 		QueryExecutior queryExecutior = new QueryExecutior();
@@ -51,6 +52,8 @@ public class AnimalRenderer {
 		// animals.render(g);
 
 	}
+
+	private Animal selectedAnimal;
 
 	public void addAnimals(final ImagePanel imagePanel) {
 		for (final Animal animal : animals.getAnimals()) {
@@ -71,6 +74,39 @@ public class AnimalRenderer {
 				}
 			});
 
+			animalComponent.addMouseListener(new MouseListener() {
+				
+
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mousePressed(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mouseExited(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					// TODO Auto-generated method stub
+					
+				}
+				
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					selectedAnimal = animal;
+				}
+			});
+			
 			Insets insets = imagePanel.getInsets();
 			Dimension size = animalComponent.getPreferredSize();
 			Point p1 = animal.getPoint();
@@ -89,6 +125,16 @@ public class AnimalRenderer {
 
 	public void clearRangeQuery() {
 		animalsInSelectedRegion.clear();
+	}
+
+	public void findVaccineCoverageQuery(int startx, int starty, int endx,
+			int endy, Truck selectedTruck) throws SQLException {
+		animalsInSelectedRegion = animals.CoveredByVaccineInARegion(startx,
+				starty, endx, endy, selectedTruck);
+	}
+
+	public Animal getSelectedAnimal() {
+		return selectedAnimal;
 	}
 
 }

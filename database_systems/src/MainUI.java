@@ -133,12 +133,31 @@ class ImagePanel extends JPanel {
 		repaint();
 	}
 
+	public void findNearestVaccineSuppliesQuery() throws SQLException {
+		Animal selectedAnimal = animalRenderer.getSelectedAnimal();
+		if (null != selectedAnimal) {
+			truckRenderer.findNearestVaccineSuppliesQuery(startx, starty, endx, endy, selectedAnimal);
+			repaint();
+		}
+	}
+
+	public void findVaccineCoverageQuery() throws SQLException {
+		Truck selectedTruck = truckRenderer.getSelectedTruck();
+		if (null != selectedTruck) {
+			animalRenderer.findVaccineCoverageQuery(startx, starty,
+					endx, endy, selectedTruck);
+			repaint();
+		}
+	}
+
+	
 	private void paintChildren() {
 		for (int i = 0; i < this.getComponents().length; i++) {
 			Component component = this.getComponent(i);
 			component.repaint();
 		}
 	}
+
 
 }
 
