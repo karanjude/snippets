@@ -15,13 +15,16 @@ public class populate {
 		String animalsFile = args[0];
 		String trucksFile = args[1];
 		String vaccinesFile = args[2];
+		String configFile = args[3];
 
 		//System.out.println(new File(animalsFile).getAbsolutePath());
 		//System.out.println(new File(trucksFile).getAbsolutePath());
 		//System.out.println(new File(vaccinesFile).getAbsolutePath());
 
+		TextFileReader configReader = new TextFileReader(configFile);
+		ConnectionInfo connectionInfo = configReader.connectionInfo();
 		QueryExecutior queryExecutior = null;
-		queryExecutior = new QueryExecutior();
+		queryExecutior = new QueryExecutior(connectionInfo);
 
 		DbCreator dbCreator = new DbCreator();
 		dbCreator.createDb(queryExecutior);

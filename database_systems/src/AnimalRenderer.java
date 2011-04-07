@@ -70,8 +70,8 @@ public class AnimalRenderer {
 	private Animals animals;
 	private HashMap<Integer, Animal> animalsInSelectedRegion = new HashMap<Integer, Animal>();
 
-	public AnimalRenderer() throws ClassNotFoundException, SQLException {
-		QueryExecutior queryExecutior = new QueryExecutior();
+	public AnimalRenderer(ConnectionInfo conn) throws ClassNotFoundException, SQLException {
+		QueryExecutior queryExecutior = new QueryExecutior(conn);
 		animals = new Animals(queryExecutior);
 		animals.load(queryExecutior);
 	}

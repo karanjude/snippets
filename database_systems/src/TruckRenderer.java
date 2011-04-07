@@ -60,8 +60,9 @@ public class TruckRenderer {
 	private Trucks trucks;
 	private HashMap<Integer, Truck> trucksInSelectedRegion = new HashMap<Integer, Truck>();
 
-	public TruckRenderer() throws ClassNotFoundException, SQLException {
-		QueryExecutior queryExecutior = new QueryExecutior();
+	public TruckRenderer(ConnectionInfo conn) throws ClassNotFoundException,
+			SQLException {
+		QueryExecutior queryExecutior = new QueryExecutior(conn);
 		trucks = new Trucks(queryExecutior);
 		trucks.load(queryExecutior);
 	}

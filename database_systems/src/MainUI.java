@@ -34,7 +34,7 @@ class ImagePanel extends JPanel {
 	private BufferedImage image;
 	private final AnimalRenderer animalRenderer;
 	private final TruckRenderer truckRenderer;
-	private final UI ui;
+	private final hw2 ui;
 	private int startx;
 	private int starty;
 	private int endx;
@@ -44,7 +44,7 @@ class ImagePanel extends JPanel {
 	private boolean stopDrawingRectangle;
 
 	public ImagePanel(AnimalRenderer animalRenderer,
-			TruckRenderer truckRenderer, UI ui) {
+			TruckRenderer truckRenderer, hw2 ui) {
 		this.ui = ui;
 		this.animalRenderer = animalRenderer;
 		this.truckRenderer = truckRenderer;

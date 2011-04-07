@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionAdapter;
+import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.swing.ButtonGroup;
@@ -28,7 +29,7 @@ import org.dyno.visual.swing.layouts.Leading;
 import org.dyno.visual.swing.layouts.Trailing;
 
 //VS4E -- DO NOT REMOVE THIS LINE!
-public class UI extends JFrame {
+public class hw2 extends JFrame {
 
 	public class MainRenderer {
 
@@ -66,6 +67,8 @@ public class UI extends JFrame {
 	private TruckRenderer truckRenderer;
 
 	private JScrollPane sqlQueryAreaScrollPane;
+
+	private static ConnectionInfo conn;
 
 	private void initComponents() throws ClassNotFoundException, SQLException {
 		setLayout(new GroupLayout());
@@ -118,8 +121,8 @@ public class UI extends JFrame {
 
 	private ImagePanel getJPanel2() throws ClassNotFoundException, SQLException {
 		if (imagePanel == null) {
-			animalRenderer = new AnimalRenderer();
-			truckRenderer = new TruckRenderer();
+			animalRenderer = new AnimalRenderer(conn);
+			truckRenderer = new TruckRenderer(conn);
 			imagePanel = new ImagePanel(animalRenderer, truckRenderer, this);
 			imagePanel.setFocusable(true);
 			imagePanel.setEnabled(true);
@@ -229,20 +232,24 @@ public class UI extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					if (rangeRadioButton.isSelected()) {
 						try {
-							populateSqlQueryLabel(imagePanel.rangeQuery(animalCheckBox.isSelected(), jCheckBox1.isSelected() ));
+							populateSqlQueryLabel(imagePanel.rangeQuery(
+									animalCheckBox.isSelected(), jCheckBox1
+											.isSelected()));
 						} catch (SQLException e1) {
 							e1.printStackTrace();
 						}
-					}else if(findNearestVaccineSuppliesjRadioButton.isSelected()){
+					} else if (findNearestVaccineSuppliesjRadioButton
+							.isSelected()) {
 						try {
-							populateSqlQueryLabel(imagePanel.findNearestVaccineSuppliesQuery());
+							populateSqlQueryLabel(imagePanel
+									.findNearestVaccineSuppliesQuery());
 						} catch (SQLException e1) {
 							e1.printStackTrace();
 						}
-					}
-					else if(findVaccinationCoveragejRadioButton.isSelected()){
+					} else if (findVaccinationCoveragejRadioButton.isSelected()) {
 						try {
-							populateSqlQueryLabel(imagePanel.findVaccineCoverageQuery());
+							populateSqlQueryLabel(imagePanel
+									.findVaccineCoverageQuery());
 						} catch (SQLException e1) {
 							e1.printStackTrace();
 						}
@@ -380,7 +387,7 @@ public class UI extends JFrame {
 		}
 	}
 
-	public UI() throws ClassNotFoundException, SQLException {
+	public hw2() throws ClassNotFoundException, SQLException {
 		initComponents();
 	}
 
@@ -388,21 +395,31 @@ public class UI extends JFrame {
 	 * Main entry of the class. Note: This class is only created so that you can
 	 * easily preview the result at runtime. It is not expected to be managed by
 	 * the designer. You can modify it as you like.
+	 * @throws IOException 
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
+		String configFile = args[0];
+
+		// System.out.println(new File(animalsFile).getAbsolutePath());
+		// System.out.println(new File(trucksFile).getAbsolutePath());
+		// System.out.println(new File(vaccinesFile).getAbsolutePath());
+
+		TextFileReader configReader = new TextFileReader(configFile);
+		conn = configReader.connectionInfo();
+
 		installLnF();
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				UI frame = null;
+				hw2 frame = null;
 				try {
-					frame = new UI();
+					frame = new hw2();
 				} catch (ClassNotFoundException e) {
 					e.printStackTrace();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
-				frame.setDefaultCloseOperation(UI.EXIT_ON_CLOSE);
+				frame.setDefaultCloseOperation(hw2.EXIT_ON_CLOSE);
 				frame.setTitle("UI");
 				frame.getContentPane().setPreferredSize(frame.getSize());
 				frame.pack();

@@ -89,4 +89,43 @@ public class TextFileReader {
 		return result;
 	}
 
+	public ConnectionInfo connectionInfo() throws IOException {
+		BufferedReader stream = null;
+		ConnectionInfo result = new ConnectionInfo();
+
+		stream = new BufferedReader(new FileReader(new File(file)));
+
+		try {
+			String line = "";
+			int i = 0;
+			while ((line = stream.readLine()) != null) {
+				i++;
+				switch (i) {
+				case 1:
+					result.host = line.trim();
+					break;
+				case 2:
+					result.port = line.trim();
+					break;
+				case 3:
+					result.dbname = line.trim();
+					break;
+				case 4:
+					result.username = line.trim();
+					break;
+				case 5:
+					result.password = line.trim();
+					break;
+
+				default:
+					break;
+				}
+			}
+		} finally {
+			stream.close();
+		}
+
+		return result;
+	}
+
 }

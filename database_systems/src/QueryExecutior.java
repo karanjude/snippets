@@ -7,11 +7,14 @@ import java.sql.Statement;
 public class QueryExecutior {
 	Connection conn;
 
-	public QueryExecutior() throws ClassNotFoundException, SQLException {
+	public QueryExecutior(ConnectionInfo connectionInfo)
+			throws ClassNotFoundException, SQLException {
 		Class.forName("oracle.jdbc.driver.OracleDriver");
 
-		conn = DriverManager.getConnection(
-				"jdbc:oracle:thin:@//localhost:1521/XE", "jude", "jude");
+		conn = DriverManager.getConnection("jdbc:oracle:thin:@//"
+				+ connectionInfo.host + ":" + connectionInfo.port + "/"
+				+ connectionInfo.dbname, connectionInfo.username,
+				connectionInfo.password);
 
 	}
 
@@ -44,7 +47,7 @@ public class QueryExecutior {
 	}
 
 	public ResultSet selectQuery(String sql) throws SQLException {
-		//System.out.println(sql);
+		// System.out.println(sql);
 		ResultSet result;
 
 		Statement stmt = conn.createStatement();
