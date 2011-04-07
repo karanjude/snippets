@@ -202,7 +202,7 @@ public class UI extends JFrame {
 			clearButton = new JButton();
 			clearButton.setText("Clear");
 			clearButton.addActionListener(new ActionListener() {
-				
+
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					imagePanel.clearSelectionRectangle();
@@ -229,20 +229,20 @@ public class UI extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					if (rangeRadioButton.isSelected()) {
 						try {
-							populateSqlQueryLabel(imagePanel.rangeQuery());
+							populateSqlQueryLabel(imagePanel.rangeQuery(animalCheckBox.isSelected(), jCheckBox1.isSelected() ));
 						} catch (SQLException e1) {
 							e1.printStackTrace();
 						}
 					}else if(findNearestVaccineSuppliesjRadioButton.isSelected()){
 						try {
-							imagePanel.findNearestVaccineSuppliesQuery();
+							populateSqlQueryLabel(imagePanel.findNearestVaccineSuppliesQuery());
 						} catch (SQLException e1) {
 							e1.printStackTrace();
 						}
 					}
 					else if(findVaccinationCoveragejRadioButton.isSelected()){
 						try {
-							imagePanel.findVaccineCoverageQuery();
+							populateSqlQueryLabel(imagePanel.findVaccineCoverageQuery());
 						} catch (SQLException e1) {
 							e1.printStackTrace();
 						}
@@ -353,7 +353,7 @@ public class UI extends JFrame {
 			sqlQueryLabel.setBackground(Color.GRAY);
 			sqlQueryLabel.setEditable(false);
 			sqlQueryLabel.setText("Sql Query Here");
-			sqlQueryAreaScrollPane = new JScrollPane(sqlQueryLabel); 
+			sqlQueryAreaScrollPane = new JScrollPane(sqlQueryLabel);
 		}
 		return sqlQueryAreaScrollPane;
 	}

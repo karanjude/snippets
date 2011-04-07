@@ -42,7 +42,7 @@ public class DBTests extends TestCase {
 	public void testTrucksInARegion() throws Exception {
 		QueryExecutior queryExecutior = new QueryExecutior();
 		Trucks trucks = new Trucks(queryExecutior);
-		String r = " ";
+		StringBuilder r = new StringBuilder();
 		HashMap<Integer, Truck> trucksInRegion = trucks.inRegion(0,0,100,100,r);
 		assertEquals(4, trucksInRegion.size());
 	}
@@ -51,7 +51,8 @@ public class DBTests extends TestCase {
 		QueryExecutior queryExecutior = new QueryExecutior();
 		Animals animals = new Animals(queryExecutior);
 		Truck truck = new Truck(3);
-		HashMap<Integer, Animal> animalsInRegion = animals.CoveredByVaccineInARegion(0,0,100,100, truck);
+		StringBuilder r = new StringBuilder();
+		HashMap<Integer, Animal> animalsInRegion = animals.CoveredByVaccineInARegion(0,0,100,100, truck,r);
 		assertEquals(4, animalsInRegion.size());
 	}
 
@@ -61,7 +62,8 @@ public class DBTests extends TestCase {
 		Animals animals = new Animals(queryExecutior);
 		animals.load(queryExecutior);
 		Animal animal = animals.getAnimals().get(3);
-		HashMap<Integer, Truck> trucksInRegion = trucks.NearestVaccineSuppliedByTrucksForAnimal(0,0,100,100, animal);;
+		StringBuilder r = new StringBuilder();
+		HashMap<Integer, Truck> trucksInRegion = trucks.NearestVaccineSuppliedByTrucksForAnimal(0,0,100,100, animal,r);
 		assertEquals(1, trucksInRegion.size());
 	}
 

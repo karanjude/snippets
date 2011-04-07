@@ -59,22 +59,21 @@ public class Trucks {
 		return trucks.size();
 	}
 
-	public HashMap<Integer, Truck> inRegion(int x1, int y1, int x2, int y2, String rsql)
+	public HashMap<Integer, Truck> inRegion(int x1, int y1, int x2, int y2, StringBuilder rsql)
 			throws SQLException {
 		HashMap<Integer, Truck> r = new HashMap<Integer, Truck>();
 		String sql = String
 				.format(
 						"select t.id , t.name , t.shape from trucks t where sdo_filter(t.shape, sdo_geometry(2003, NULL, NULL, sdo_elem_info_array(1,1003,3),sdo_ordinate_array(%s,%s,%s,%s))) = 'TRUE'",
 						x1, y1, x2, y2);
-		rsql +=  " " + sql;
+		rsql.append(" ").append(sql);
 		ResultSet result = queryExecutior.selectQuery(sql);
 		processRecordRow(result, r);
 		return r;
 	}
 
 	public HashMap<Integer, Truck> NearestVaccineSuppliedByTrucksForAnimal(
-			int x1, int y1, int x2, int y2, Animal animal) throws SQLException {
-		String rsql = "";
+			int x1, int y1, int x2, int y2, Animal animal, StringBuilder rsql) throws SQLException {
 		int trucksInRegion = inRegion(x1, y1, x2, y2, rsql).size();
 
 		HashMap<Integer, Truck> r = new HashMap<Integer, Truck>();
