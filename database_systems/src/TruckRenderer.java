@@ -122,8 +122,8 @@ public class TruckRenderer {
 			imagePanel.add(truckComponent);
 			Dimension size = truckComponent.getPreferredSize();
 			Point p1 = truck.getPoint();
-			truckComponent.setBounds(p1.x + insets.left, p1.y + insets.top,
-					size.width, size.height);
+			truckComponent.setBounds(p1.x - 4 + insets.left, p1.y - 4 + insets.top,
+					8, 8);
 			truckComponent.setBackground(Color.YELLOW);
 		}
 	}

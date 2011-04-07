@@ -35,7 +35,7 @@ public class AnimalRenderer {
 		public void paint(Graphics g) {
 			super.paint(g);
 			Color c = Color.RED;
-			
+
 			if (animalsInSelectedRegion != null
 					&& animalsInSelectedRegion.size() != 0
 					&& animalsInSelectedRegion.containsKey(animal.id)) {
@@ -52,11 +52,10 @@ public class AnimalRenderer {
 			Point p2 = new Point(p1.x - 5, p1.y + 10);
 			Point p3 = new Point(p1.x + 5, p1.y + 10);
 
-			int[] xs = { w/2, w, 0 };
+			int[] xs = { w / 2, w, 0 };
 			int[] ys = { 0, h, h };
 			Polygon triangle = new Polygon(xs, ys, xs.length);
 			g1.fillPolygon(triangle);
-
 
 			Graphics2D g2 = (Graphics2D) g;
 			float[] scales = { 1f, 1f, 1f, 1f };
@@ -139,8 +138,8 @@ public class AnimalRenderer {
 			Insets insets = imagePanel.getInsets();
 			Dimension size = animalComponent.getPreferredSize();
 			Point p1 = animal.getPoint();
-			animalComponent.setBounds(p1.x + insets.left, p1.y + insets.top,
-					size.width, size.height);
+			animalComponent.setBounds(p1.x - 4 + insets.left, p1.y - 4
+					+ insets.top, 8, 8);
 			// animalComponent.setBackground(Color.RED);
 		}
 

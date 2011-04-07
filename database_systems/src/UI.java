@@ -79,7 +79,7 @@ public class UI extends JFrame {
 				new Trailing(12, 353, 353)));
 		add(getMousecoordsLabel(), new Constraints(
 				new Leading(290, 88, 10, 10), new Trailing(12, 12, 379, 382)));
-		add(getJPanel2(), new Constraints(new Leading(156, 504, 10, 10),
+		add(getJPanel2(), new Constraints(new Leading(156, 450, 10, 10),
 				new Leading(3, 300, 10, 10)));
 		add(getJPanel0(), new Constraints(new Leading(22, 259, 10, 10),
 				new Trailing(45, 99, 103, 315)));

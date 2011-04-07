@@ -59,7 +59,7 @@ class ImagePanel extends JPanel {
 	}
 
 	public void paintComponent(Graphics g) {
-		g.drawImage(image, 0, 0, null); // see javadoc for more info on the
+		g.drawImage(image, 0, 0, 450, 300, null); // see javadoc for more info on the
 		// parameters
 		if (showDrawingRectangle) {
 			g.setColor(Color.BLUE);
@@ -138,10 +138,12 @@ class ImagePanel extends JPanel {
 	public String rangeQuery(boolean animalSelected, boolean truckSelected)
 			throws SQLException {
 		String sql = "";
+		int height = Math.abs(endy - starty);
+		System.out.println("--------------------" + startx + " " + endy + " " + endx + " " + starty);
 		if (animalSelected)
-			sql += animalRenderer.rangeQuery(startx, starty, endx, endy);
+			sql += animalRenderer.rangeQuery(startx, endy, endx, starty);
 		if (truckSelected)
-			sql += "\n" + truckRenderer.rangeQuery(startx, starty, endx, endy);
+			sql += "\n" + truckRenderer.rangeQuery(startx, endy, endx, starty);
 		repaint();
 		return sql;
 	}
