@@ -38,7 +38,7 @@ public class TruckRenderer {
 			if (trucksInSelectedRegion != null
 					&& trucksInSelectedRegion.size() != 0
 					&& trucksInSelectedRegion.containsKey(truck.id)) {
-				c = Color.ORANGE;
+				c = Color.CYAN;
 			}
 			int w = this.getWidth();
 			int h = this.getHeight();
