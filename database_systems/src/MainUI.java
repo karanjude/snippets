@@ -63,10 +63,18 @@ class ImagePanel extends JPanel {
 		// parameters
 		if (showDrawingRectangle) {
 			g.setColor(Color.BLUE);
+			int w = 10;
+			int h = 10;
 			int width = Math.abs(endx - startx);
 			int height = Math.abs(endy - starty);
+			g.drawLine(startx - w, starty - h, startx + w, starty + h);
+			g.drawLine(startx - w, starty + h, startx + w, starty - h);
+			g.drawLine(endx - w, endy - h, endx + w, endy + h);
+			g.drawLine(endx - w, endy + h, endx + w, endy - h);
+
 			g.drawRect(startx, starty - height, width, height);
-			System.out.println(startx + " " + starty + " " + endx + " " + endy);
+			// System.out.println(startx + " " + starty + " " + endx + " " +
+			// endy);
 		}
 		// renderer.render(g);
 		// truckRenderer.render(g);

@@ -39,7 +39,7 @@ public class TruckRenderer {
 					&& trucksInSelectedRegion.size() != 0
 					&& trucksInSelectedRegion.containsKey(truck.id)) {
 				c = Color.ORANGE;
-			} 
+			}
 			int w = this.getWidth();
 			int h = this.getHeight();
 			BufferedImage i = new BufferedImage(w, h,
@@ -135,7 +135,8 @@ public class TruckRenderer {
 	public String rangeQuery(int startx, int starty, int endx, int endy)
 			throws SQLException {
 		StringBuilder sql = new StringBuilder();
-		trucksInSelectedRegion = trucks.inRegion(startx, starty, endx, endy, sql);
+		trucksInSelectedRegion = trucks.inRegion(startx, starty, endx, endy,
+				sql);
 		return sql.toString();
 	}
 
@@ -144,8 +145,11 @@ public class TruckRenderer {
 	}
 
 	public void findNearestVaccineSuppliesQuery(int startx, int starty,
-			int endx, int endy, Animal selectedAnimal, StringBuilder r) throws SQLException {
-		trucksInSelectedRegion = trucks.NearestVaccineSuppliedByTrucksForAnimal(startx, starty, endx, endy, selectedAnimal,r);
+			int endx, int endy, Animal selectedAnimal, StringBuilder r)
+			throws SQLException {
+		trucksInSelectedRegion = trucks
+				.NearestVaccineSuppliedByTrucksForAnimal(startx, starty, endx,
+						endy, selectedAnimal, r);
 	}
 
 }
