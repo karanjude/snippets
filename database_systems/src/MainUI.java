@@ -50,7 +50,7 @@ class ImagePanel extends JPanel {
 		this.truckRenderer = truckRenderer;
 		try {
 			File landjpg = new File("land.jpg");
-			//System.out.println(landjpg.exists());
+			// System.out.println(landjpg.exists());
 			image = ImageIO.read(landjpg);
 		} catch (IOException ex) {
 			// handle exception...
@@ -59,7 +59,8 @@ class ImagePanel extends JPanel {
 	}
 
 	public void paintComponent(Graphics g) {
-		g.drawImage(image, 0, 0, 450, 300, null); // see javadoc for more info on the
+		g.drawImage(image, 0, 0, 450, 300, null); // see javadoc for more info
+		// on the
 		// parameters
 		if (showDrawingRectangle) {
 			g.setColor(Color.BLUE);
@@ -139,11 +140,15 @@ class ImagePanel extends JPanel {
 			throws SQLException {
 		String sql = "";
 		int height = Math.abs(endy - starty);
-		//System.out.println("--------------------" + startx + " " + endy + " " + endx + " " + starty);
+		// System.out.println("--------------------" + startx + " " + endy + " "
+		// + endx + " " + starty);
+		Integer i = new Integer(1);
 		if (animalSelected)
-			sql += animalRenderer.rangeQuery(startx, endy, endx, starty);
+			sql += "Query " + i++ + " : "
+					+ animalRenderer.rangeQuery(startx, endy, endx, starty);
 		if (truckSelected)
-			sql += "\n" + truckRenderer.rangeQuery(startx, endy, endx, starty);
+			sql += "\n" + "Query " + i++ + " : "
+					+ truckRenderer.rangeQuery(startx, endy, endx, starty);
 		repaint();
 		return sql;
 	}
@@ -178,7 +183,7 @@ class ImagePanel extends JPanel {
 	}
 
 	public void updateMousCoords(int x, int y) {
-		ui.updateMouseCoords(x,y);
+		ui.updateMouseCoords(x, y);
 	}
 
 }
