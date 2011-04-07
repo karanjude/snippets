@@ -127,10 +127,11 @@ class ImagePanel extends JPanel {
 		repaint();
 	}
 
-	public void rangeQuery() throws SQLException {
-		animalRenderer.rangeQuery(startx, starty, endx, endy);
-		truckRenderer.rangeQuery(startx, starty, endx, endy);
+	public String rangeQuery() throws SQLException {
+		String sql = animalRenderer.rangeQuery(startx, starty, endx, endy);
+		sql += "\n" + truckRenderer.rangeQuery(startx, starty, endx, endy);
 		repaint();
+		return sql;
 	}
 
 	public void findNearestVaccineSuppliesQuery() throws SQLException {

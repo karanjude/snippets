@@ -57,13 +57,14 @@ public class Animals {
 		return animals.size();
 	}
 
-	public HashMap<Integer, Animal> inRegion(int x1, int y1, int x2, int y2)
+	public HashMap<Integer, Animal> inRegion(int x1, int y1, int x2, int y2, StringBuilder rSql)
 			throws SQLException {
 		HashMap<Integer, Animal> r = new HashMap<Integer, Animal>();
 		String sql = String
 				.format(
 						"select a.id , a.name , a.shape from animals a where sdo_filter(a.shape, sdo_geometry(2003, NULL, NULL, sdo_elem_info_array(1,1003,3), sdo_ordinate_array(%s,%s,%s,%s))) = 'TRUE'",
 						x1, y1, x2, y2);
+		rSql.append(" ").append(sql);
 		ResultSet result = queryExecutior.selectQuery(sql);
 		processRecordRow(result, r);
 		return r;

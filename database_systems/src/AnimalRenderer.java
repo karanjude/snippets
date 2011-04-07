@@ -119,8 +119,9 @@ public class AnimalRenderer {
 
 	public String rangeQuery(int startx, int starty, int endx, int endy)
 			throws SQLException {
-		animalsInSelectedRegion = animals.inRegion(startx, starty, endx, endy);
-		return "";
+		StringBuilder sql = new StringBuilder();
+		animalsInSelectedRegion = animals.inRegion(startx, starty, endx, endy, sql);
+		return sql.toString();
 	}
 
 	public void clearRangeQuery() {

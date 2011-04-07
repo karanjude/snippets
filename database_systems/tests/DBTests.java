@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.List;
 
 import junit.framework.TestCase;
 
@@ -10,6 +11,7 @@ public class DBTests extends TestCase {
 		assertEquals(100, animals.count());
 	}
 
+
 	public void testTrucksInDB() throws Exception {
 		QueryExecutior queryExecutior = new QueryExecutior();
 		Trucks trucks = new Trucks(queryExecutior);
@@ -17,18 +19,31 @@ public class DBTests extends TestCase {
 		assertEquals(30, trucks.count());
 	}
 	
+	public void testTrucksVaccineInDB() throws Exception {
+		QueryExecutior queryExecutior = new QueryExecutior();
+		Trucks trucks = new Trucks(queryExecutior);
+		trucks.load(queryExecutior);
+		Truck truck = trucks.getTrucks().get(0);
+		trucks.loadTruckVaccines(truck);
+		List<String> vaccines = truck.vaccines();
+		assertTrue(vaccines.size() > 0);
+
+	}
+	
 
 	public void testAnimalsInARegion() throws Exception {
 		QueryExecutior queryExecutior = new QueryExecutior();
 		Animals animals = new Animals(queryExecutior);
-		HashMap<Integer, Animal> animalsInRegion = animals.inRegion(0,0,100,100);
+		StringBuilder r = new StringBuilder();
+		HashMap<Integer, Animal> animalsInRegion = animals.inRegion(0,0,100,100,r);
 		assertEquals(27, animalsInRegion.size());
 	}
 	
 	public void testTrucksInARegion() throws Exception {
 		QueryExecutior queryExecutior = new QueryExecutior();
 		Trucks trucks = new Trucks(queryExecutior);
-		HashMap<Integer, Truck> trucksInRegion = trucks.inRegion(0,0,100,100);
+		String r = " ";
+		HashMap<Integer, Truck> trucksInRegion = trucks.inRegion(0,0,100,100,r);
 		assertEquals(4, trucksInRegion.size());
 	}
 	
@@ -43,9 +58,11 @@ public class DBTests extends TestCase {
 	public void testNearestVaccineSuppliedByTrucksInARegion() throws Exception {
 		QueryExecutior queryExecutior = new QueryExecutior();
 		Trucks trucks = new Trucks(queryExecutior);
-		Animal animal = new Animal(3,"rabbit", 50, 50);
+		Animals animals = new Animals(queryExecutior);
+		animals.load(queryExecutior);
+		Animal animal = animals.getAnimals().get(3);
 		HashMap<Integer, Truck> trucksInRegion = trucks.NearestVaccineSuppliedByTrucksForAnimal(0,0,100,100, animal);;
-		assertEquals(2, trucksInRegion.size());
+		assertEquals(1, trucksInRegion.size());
 	}
 
 	

@@ -113,9 +113,11 @@ public class TruckRenderer {
 		return selectedTruck;
 	}
 
-	public void rangeQuery(int startx, int starty, int endx, int endy)
+	public String rangeQuery(int startx, int starty, int endx, int endy)
 			throws SQLException {
-		trucksInSelectedRegion = trucks.inRegion(startx, starty, endx, endy);
+		String sql = "";
+		trucksInSelectedRegion = trucks.inRegion(startx, starty, endx, endy, sql);
+		return sql;
 	}
 
 	public void clearRangeQuery() {

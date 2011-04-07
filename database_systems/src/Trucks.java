@@ -37,7 +37,9 @@ public class Trucks {
 				name = result.getString(2);
 				st = (STRUCT) result.getObject(3);
 				point = JGeometry.load(st);
-				resultMap.put(new Integer(id), new Truck(id, name, point));
+				Truck truck = new Truck(id, name, point);
+				loadTruckVaccines(truck);
+				resultMap.put(new Integer(id), truck);
 				System.out.println(id + "," + name + "," + point);
 			}
 		} finally {
@@ -57,13 +59,14 @@ public class Trucks {
 		return trucks.size();
 	}
 
-	public HashMap<Integer, Truck> inRegion(int x1, int y1, int x2, int y2)
+	public HashMap<Integer, Truck> inRegion(int x1, int y1, int x2, int y2, String rsql)
 			throws SQLException {
 		HashMap<Integer, Truck> r = new HashMap<Integer, Truck>();
 		String sql = String
 				.format(
 						"select t.id , t.name , t.shape from trucks t where sdo_filter(t.shape, sdo_geometry(2003, NULL, NULL, sdo_elem_info_array(1,1003,3),sdo_ordinate_array(%s,%s,%s,%s))) = 'TRUE'",
 						x1, y1, x2, y2);
+		rsql +=  " " + sql;
 		ResultSet result = queryExecutior.selectQuery(sql);
 		processRecordRow(result, r);
 		return r;
@@ -71,7 +74,8 @@ public class Trucks {
 
 	public HashMap<Integer, Truck> NearestVaccineSuppliedByTrucksForAnimal(
 			int x1, int y1, int x2, int y2, Animal animal) throws SQLException {
-		int trucksInRegion = inRegion(x1, y1, x2, y2).size();
+		String rsql = "";
+		int trucksInRegion = inRegion(x1, y1, x2, y2, rsql).size();
 
 		HashMap<Integer, Truck> r = new HashMap<Integer, Truck>();
 		String sql = String
@@ -104,5 +108,22 @@ public class Trucks {
 			result.add(truck.getValue());
 		}
 		return result;
+	}
+
+	public void loadTruckVaccines(Truck truck) throws SQLException {
+		String sql = String.format("select * from truck_vaccines where id = %s", truck.id());
+		ResultSet result = queryExecutior.selectQuery(sql);
+		try {
+			while (result.next()) {
+				String vaccine = result.getString(2);
+				truck.addVaccine(vaccine);
+			}
+		} finally {
+			try {
+				result.close();
+			} catch (Exception ignore) {
+			}
+		}
+
 	}
 }

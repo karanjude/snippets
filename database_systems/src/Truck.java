@@ -1,6 +1,7 @@
 import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.List;
 
 import oracle.spatial.geometry.JGeometry;
 
@@ -10,7 +11,7 @@ public class Truck {
 	private String name;
 	private int x;
 	private int y;
-	private ArrayList<String> vaccines;
+	private ArrayList<String> vaccines = new ArrayList<String>();
 	private JGeometry point;
 
 	public Truck(String truckString) {
@@ -73,6 +74,24 @@ public class Truck {
 
 	public String y() {
 		return new Integer(getPoint().y).toString();
+	}
+
+	public List<String> vaccines() {
+		return this.vaccines;
+	}
+
+	public void addVaccine(String vaccine) {
+		vaccines.add(vaccine);
+	}
+
+	public String vaccineString() {
+		StringBuilder builder = new StringBuilder();
+		for (String s : vaccines) {
+			builder.append(s).append(" ");
+		}
+		String r  = builder.toString();
+		r = r.trim().replace(" ", ",");
+		return r;
 	}
 
 }

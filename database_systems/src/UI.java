@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -63,6 +64,8 @@ public class UI extends JFrame {
 	private AnimalRenderer animalRenderer;
 
 	private TruckRenderer truckRenderer;
+
+	private JScrollPane sqlQueryAreaScrollPane;
 
 	private void initComponents() throws ClassNotFoundException, SQLException {
 		setLayout(new GroupLayout());
@@ -210,6 +213,7 @@ public class UI extends JFrame {
 	}
 
 	private void populateSqlQueryLabel(String rangeQuery) {
+		sqlQueryLabel.setText("");
 		String sqlText = sqlQueryLabel.getText();
 		sqlText += "\n" + rangeQuery;
 		sqlQueryLabel.setText(sqlText);
@@ -225,7 +229,7 @@ public class UI extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					if (rangeRadioButton.isSelected()) {
 						try {
-							imagePanel.rangeQuery();
+							populateSqlQueryLabel(imagePanel.rangeQuery());
 						} catch (SQLException e1) {
 							e1.printStackTrace();
 						}
@@ -342,18 +346,24 @@ public class UI extends JFrame {
 		return rangeRadionButton;
 	}
 
-	private JTextArea getSqlQueryLabel() {
+	private JScrollPane getSqlQueryLabel() {
+
 		if (sqlQueryLabel == null) {
-			sqlQueryLabel = new JTextArea();
+			sqlQueryLabel = new JTextArea(5, 20);
+			sqlQueryLabel.setBackground(Color.GRAY);
+			sqlQueryLabel.setEditable(false);
 			sqlQueryLabel.setText("Sql Query Here");
+			sqlQueryAreaScrollPane = new JScrollPane(sqlQueryLabel); 
 		}
-		return sqlQueryLabel;
+		return sqlQueryAreaScrollPane;
 	}
 
 	private JTextArea getJLabel0() {
 		if (nodeInfoLabel == null) {
 			nodeInfoLabel = new JTextArea();
 			nodeInfoLabel.setText("Node Info Here");
+			nodeInfoLabel.setEditable(false);
+			nodeInfoLabel.setBackground(Color.GRAY);
 		}
 		return nodeInfoLabel;
 	}
@@ -412,7 +422,9 @@ public class UI extends JFrame {
 		builder.append("Name:" + truck.name());
 		builder.append("\r\n");
 		builder.append("Location:" + truck.x() + "  , " + truck.y());
-		nodeInfoLabel.setText(builder.toString() + "\n" + "bbb");
+		builder.append("\n");
+		builder.append(truck.vaccineString());
+		nodeInfoLabel.setText(builder.toString() + "\n");
 	}
 
 	public void updateAnimalInfo(Animal animal) {
