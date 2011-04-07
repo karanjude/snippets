@@ -48,7 +48,7 @@ public class UI extends JFrame {
 	private JPanel jPanel1;
 	private JButton submitButton;
 	private JButton clearButton;
-	private JLabel jLabel3;
+	private JLabel XYLabel;
 	private JLabel jLabel4;
 	private JLabel mousecoordsLabel;
 	private ImagePanel imagePanel;
@@ -190,11 +190,11 @@ public class UI extends JFrame {
 	}
 
 	private JLabel getJLabel3() {
-		if (jLabel3 == null) {
-			jLabel3 = new JLabel();
-			jLabel3.setText("Current Coordinates (X,Y)");
+		if (XYLabel == null) {
+			XYLabel = new JLabel();
+			XYLabel.setText("Current Coordinates (X,Y)");
 		}
-		return jLabel3;
+		return XYLabel;
 	}
 
 	private JButton getClearButton() {
@@ -422,7 +422,7 @@ public class UI extends JFrame {
 		builder.append("Name:" + truck.name());
 		builder.append("\r\n");
 		builder.append("Location:" + truck.x() + "  , " + truck.y());
-		builder.append("\n");
+		builder.append("\r\n");
 		builder.append(truck.vaccineString());
 		nodeInfoLabel.setText(builder.toString() + "\n");
 	}
@@ -434,6 +434,10 @@ public class UI extends JFrame {
 		builder.append("Location:" + animal.x() + "  , " + animal.y());
 		nodeInfoLabel.setText(builder.toString() + "\n");
 
+	}
+
+	public void updateMouseCoords(int x, int y) {
+		mousecoordsLabel.setText(x + "," + y);
 	}
 
 }

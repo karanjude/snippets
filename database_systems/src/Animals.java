@@ -39,7 +39,7 @@ public class Animals {
 				st = (STRUCT) result.getObject(3);
 				point = JGeometry.load(st);
 				resultMap.put(new Integer(id), new Animal(id, name, point));
-				System.out.println(id + "," + name + "," + point);
+				//System.out.println(id + "," + name + "," + point);
 			}
 		} finally {
 			try {

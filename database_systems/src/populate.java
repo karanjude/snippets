@@ -16,9 +16,9 @@ public class populate {
 		String trucksFile = args[1];
 		String vaccinesFile = args[2];
 
-		System.out.println(new File(animalsFile).getAbsolutePath());
-		System.out.println(new File(trucksFile).getAbsolutePath());
-		System.out.println(new File(vaccinesFile).getAbsolutePath());
+		//System.out.println(new File(animalsFile).getAbsolutePath());
+		//System.out.println(new File(trucksFile).getAbsolutePath());
+		//System.out.println(new File(vaccinesFile).getAbsolutePath());
 
 		QueryExecutior queryExecutior = null;
 		queryExecutior = new QueryExecutior();

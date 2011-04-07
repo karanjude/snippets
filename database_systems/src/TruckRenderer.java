@@ -71,15 +71,23 @@ public class TruckRenderer {
 	}
 
 	public void addTrucks(final ImagePanel imagePanel) {
-		Insets insets = imagePanel.getInsets();
+		final Insets insets = imagePanel.getInsets();
 		for (final Truck truck : trucks.getTrucks()) {
 			TruckComponent truckComponent = new TruckComponent(truck);
 			truckComponent.setOpaque(false);
+			final Point p1 = truck.getPoint();
+			imagePanel.add(truckComponent);
+			Dimension size = truckComponent.getPreferredSize();
+			truckComponent.setBounds(p1.x - 4 + insets.left, p1.y - 4
+					+ insets.top, 8, 8);
+
 			truckComponent.addMouseMotionListener(new MouseMotionListener() {
 
 				@Override
 				public void mouseMoved(MouseEvent arg0) {
 					imagePanel.updateTruckInfo(truck);
+					imagePanel.updateMousCoords(p1.x - 5 + insets.left
+							+ arg0.getX(), p1.y - 4 + insets.top + arg0.getY());
 				}
 
 				@Override
@@ -119,12 +127,7 @@ public class TruckRenderer {
 				}
 			});
 
-			imagePanel.add(truckComponent);
-			Dimension size = truckComponent.getPreferredSize();
-			Point p1 = truck.getPoint();
-			truckComponent.setBounds(p1.x - 4 + insets.left, p1.y - 4 + insets.top,
-					8, 8);
-			truckComponent.setBackground(Color.YELLOW);
+			// truckComponent.setBackground(Color.YELLOW);
 		}
 	}
 

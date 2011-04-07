@@ -24,10 +24,14 @@ public class DBTests extends TestCase {
 		Trucks trucks = new Trucks(queryExecutior);
 		trucks.load(queryExecutior);
 		Truck truck = trucks.getTrucks().get(0);
-		trucks.loadTruckVaccines(truck);
 		List<String> vaccines = truck.vaccines();
-		assertTrue(vaccines.size() > 0);
+		System.out.println(truck.id);
+		assertEquals(3 , vaccines.size());
+		assertEquals("influenza" , vaccines.get(0));
+		assertEquals("FCV" , vaccines.get(1));
+		assertEquals("FIP" , vaccines.get(2));
 
+		
 	}
 	
 

@@ -40,7 +40,7 @@ public class Trucks {
 				Truck truck = new Truck(id, name, point);
 				loadTruckVaccines(truck);
 				resultMap.put(new Integer(id), truck);
-				System.out.println(id + "," + name + "," + point);
+				//System.out.println(id + "," + name + "," + point);
 			}
 		} finally {
 			try {
@@ -110,11 +110,12 @@ public class Trucks {
 	}
 
 	public void loadTruckVaccines(Truck truck) throws SQLException {
-		String sql = String.format("select * from truck_vaccines where id = %s", truck.id());
+		String sql = String.format("select v.name from truck_vaccines tv , vaccines v where v.id=tv.vaccine_id and tv.id = %s", truck.id());
+		// select v.name from truck_vaccines tv , vaccines v where v.id=tv.vaccine_id and tv.id =
 		ResultSet result = queryExecutior.selectQuery(sql);
 		try {
 			while (result.next()) {
-				String vaccine = result.getString(2);
+				String vaccine = result.getString(1);
 				truck.addVaccine(vaccine);
 			}
 		} finally {

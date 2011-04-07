@@ -50,7 +50,7 @@ class ImagePanel extends JPanel {
 		this.truckRenderer = truckRenderer;
 		try {
 			File landjpg = new File("land.jpg");
-			System.out.println(landjpg.exists());
+			//System.out.println(landjpg.exists());
 			image = ImageIO.read(landjpg);
 		} catch (IOException ex) {
 			// handle exception...
@@ -139,7 +139,7 @@ class ImagePanel extends JPanel {
 			throws SQLException {
 		String sql = "";
 		int height = Math.abs(endy - starty);
-		System.out.println("--------------------" + startx + " " + endy + " " + endx + " " + starty);
+		//System.out.println("--------------------" + startx + " " + endy + " " + endx + " " + starty);
 		if (animalSelected)
 			sql += animalRenderer.rangeQuery(startx, endy, endx, starty);
 		if (truckSelected)
@@ -175,6 +175,10 @@ class ImagePanel extends JPanel {
 			Component component = this.getComponent(i);
 			component.repaint();
 		}
+	}
+
+	public void updateMousCoords(int x, int y) {
+		ui.updateMouseCoords(x,y);
 	}
 
 }

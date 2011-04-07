@@ -44,7 +44,7 @@ public class QueryExecutior {
 	}
 
 	public ResultSet selectQuery(String sql) throws SQLException {
-		System.out.println(sql);
+		//System.out.println(sql);
 		ResultSet result;
 
 		Statement stmt = conn.createStatement();

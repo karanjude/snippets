@@ -86,8 +86,14 @@ public class Truck {
 
 	public String vaccineString() {
 		StringBuilder builder = new StringBuilder();
+		int i = 3;
 		for (String s : vaccines) {
-			builder.append(s).append(" ");
+			i++;
+			builder.append(s);
+			if(i % 2 == 0){
+				builder.append("\n");
+			}else
+				builder.append(" ");
 		}
 		String r  = builder.toString();
 		r = r.trim().replace(" ", ",");

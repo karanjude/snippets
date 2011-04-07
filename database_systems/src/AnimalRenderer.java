@@ -84,15 +84,21 @@ public class AnimalRenderer {
 	private Animal selectedAnimal;
 
 	public void addAnimals(final ImagePanel imagePanel) {
+		final Insets insets = imagePanel.getInsets();
 		for (final Animal animal : animals.getAnimals()) {
 			AnimalComponent animalComponent = new AnimalComponent(animal);
 			animalComponent.setOpaque(false);
+			final Point p1 = animal.getPoint();
 			imagePanel.add(animalComponent);
 			animalComponent.addMouseMotionListener(new MouseMotionListener() {
 
 				@Override
 				public void mouseMoved(MouseEvent e) {
 					imagePanel.updateAnimalInfo(animal);
+					imagePanel.updateMousCoords(p1.x - 5 + insets.left
+							+ e.getX(), p1.y - 4 + insets.top + e.getY());
+					// imagePanel.updateMousCoords(p1.x + e.getX(), p1.y +
+					// e.getY());
 
 				}
 
@@ -135,9 +141,7 @@ public class AnimalRenderer {
 				}
 			});
 
-			Insets insets = imagePanel.getInsets();
 			Dimension size = animalComponent.getPreferredSize();
-			Point p1 = animal.getPoint();
 			animalComponent.setBounds(p1.x - 4 + insets.left, p1.y - 4
 					+ insets.top, 8, 8);
 			// animalComponent.setBackground(Color.RED);
