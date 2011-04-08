@@ -1,4 +1,51 @@
 
+class Compound():
+    def __init__(self, v):
+        self.op = v
+        self.children = []
+
+    def addChild(self, c):
+        self.children.append(c)
+
+    def __str__(self):
+        print "Compound -> " , self.op , " "
+        for c in self.children:
+            print str(c)
+        return ""
+
+
+class List():
+    def __init__(self, v):
+        self.op = v
+        self.children = []
+
+    def addChild(self, c):
+        self.children.append(c)
+
+    def __str__(self):
+        r = ""
+        print "List -> " , self.op , " "
+        for c in self.children:
+            if c is not None:
+                str(c)
+        return r
+
+class Variable():
+    def __init__(self, v):
+        self.op = v
+
+    def __str__(self):
+        print "Variable -> " , self.op , " "
+        return ""
+
+class Constant():
+    def __init__(self, v):
+        self.op = v
+
+    def __str__(self):
+        print "Constant -> " , self.op , " "
+        return ""
+
 class Scanner():
     def __init__(self,s, variables, constants, lists, operators):
         self.i = 0
@@ -30,13 +77,18 @@ class Scanner():
             return True
 
     def match_opertor(self):
-        return self.match('<') or self.match('+')
+        r = False
+        for op in self.operators:
+            r = self.match(op)
+            if(r):
+                break
+        return r
 
-    def operator(self):
+    def operator(self, parent):
         self.token()
         self.match('(')
-        self.expression()
-        self.expression()
+        self.expression(parent)
+        self.expression(parent)
         self.token()
         self.match(')')
 
@@ -53,48 +105,74 @@ class Scanner():
         return self.islist(self.token_value)
 
     def match_variable(self):
-        return self.isvariable(self.token_value)
+        r = self.isvariable(self.token_value)
+        return r
 
     def match_constant(self):
-        return self.isconstant(self.token_value)
+        r = self.isconstant(self.token_value)
+        return r
 
-    def match_list_item(self):
-        return self.match_variable() or self.match_constant()
-
-    def listitem(self):
-        if(self.match_list_item()):
+    def listitem(self, parent):
+        if(self.match_variable()):
             print "listitem->", self.token_value
+            self.variable(parent)
             self.token()
-            self.listitem()
+            self.listitem(parent)
 
-    def list(self):
+        elif(self.match_constant()):
+            print "listitem->", self.token_value
+            self.constant(parent)
+            self.token()
+            self.listitem(parent)
+
+
+    def list(self, parent):
         print "list->", self.token_value
+        l = List(self.token_value)
         self.token()
         self.match('(')
         self.token()
-        self.listitem()
+        self.listitem(l)
         self.match(')')
+        if parent is None:
+            self.root = l
+        else:
+            parent.addChild(l)
 
-    def constant(self):
+    def constant(self, parent):
         print "constant->",self.token_value
+        if parent is None:
+            self.root = Constant(self.token_value)
+        else:
+            parent.addChild(Constant(self.token_value))
+            
 
-    def variable(self):
+    def variable(self, parent):
         print "variable->",self.token_value
+        if parent is None:
+            self.root = Variable(self.token_value)
+        else:
+            parent.addChild(Variable(self.token_value))
 
-    def expression(self):
+    def expression(self, parent):
         self.token()
         if(self.match_opertor()):
-            self.operator()
+            c = Compound(self.token_value)
+            self.operator(c)
+            if parent is None:
+                self.root = c
+            else:
+                parent.addChild(c)
         elif(self.match_list()):
-            self.list()
+            self.list(parent)
         elif(self.match_variable()):
-            self.variable()
+            self.variable(parent)
         elif(self.match_constant()):
-            self.constant()
+            self.constant(parent)
     
 
 if __name__ == "__main__":
-    '''
+
     s = "< ( x + ( y x ) )"
     variables = ["x","y","a","b"]
     constants = ["10"]
@@ -103,7 +181,8 @@ if __name__ == "__main__":
     scanner = Scanner(s, variables, constants, lists, operators)
     s = "< ( 10 + ( a b ) )"
     scanner = Scanner(s, variables, constants, lists, operators)
-    scanner.expression()
+    scanner.expression(None)
+
     '''
     s = "< ( + ( V ( 1 2 3 ) Nums ( x x x )) + ( V ( 1 2 3 ) V ( 1 2 3 )))"
     variables = ["x","y"]
@@ -111,4 +190,6 @@ if __name__ == "__main__":
     lists = ["V","Nums"]
     operators = ["+","-","<"]
     scanner = Scanner(s, variables, constants, lists, operators)
-    scanner.expression()
+    scanner.expression(None)
+    '''
+    print scanner.root
