@@ -7,6 +7,15 @@ class Compound():
     def addChild(self, c):
         self.children.append(c)
 
+    def args(self):
+        if len(self.children) > 0:
+            l = List("")
+            for c in self.children:
+                l.addChild(c)
+        else:
+            l = None
+        return l
+
     def __str__(self):
         print "Compound -> " , self.op , " "
         for c in self.children:
@@ -22,6 +31,20 @@ class List():
     def addChild(self, c):
         self.children.append(c)
 
+    def first(self):
+        c = None
+        if len(self.children) > 0:
+            c = self.children[0]
+        return c
+
+    def rest(self):
+        l = None
+        if len(self.children) > 1:
+            l = List("")
+            for c in self.children[1:]:
+                l.addChild(c)
+        return l
+
     def __str__(self):
         r = ""
         print "List -> " , self.op , " "
@@ -34,6 +57,9 @@ class Variable():
     def __init__(self, v):
         self.op = v
 
+    def name(self):
+        return self.op
+
     def __str__(self):
         print "Variable -> " , self.op , " "
         return ""
@@ -41,6 +67,9 @@ class Variable():
 class Constant():
     def __init__(self, v):
         self.op = v
+
+    def name(self):
+        return self.op
 
     def __str__(self):
         print "Constant -> " , self.op , " "
@@ -169,19 +198,54 @@ class Scanner():
             self.variable(parent)
         elif(self.match_constant()):
             self.constant(parent)
-    
+
+def unify_var(var,x, subs):
+    if((isinstance(var, Variable)) and subs.has_key(var.name()) ):
+        val = subs[var.name()]
+        return unify(Constant(val), x, subs)
+    elif((isinstance(x, Variable)) and subs.has_key(x.name())):
+        val = subs[x.name()]
+        return unify(var, Constant(val), subs)
+    else:
+        subs[var.name()] = x.name()
+    return subs
+               
+   
+def unify(x,y, subs):
+    print subs
+    if( x is None or y is None):
+        return subs
+    elif(isinstance(x,Variable)):
+        return unify_var(x,y, subs)
+    elif(isinstance(y,Variable)):
+        return unify_var(y,x, subs)
+    elif(isinstance(x,Compound) and isinstance(y,Compound)):
+        return unify(x.args(), y.args(), unify(x.op, y.op, subs))
+    elif(isinstance(x,List) and isinstance(y,List)):
+        return unify(x.rest(), y.rest(), unify(x.first(), y.first(), subs))
+    elif(isinstance(x,str) and isinstance(y,str) and x == y):
+        return subs
+    return subs
 
 if __name__ == "__main__":
-
-    s = "< ( x + ( y x ) )"
     variables = ["x","y","a","b"]
-    constants = ["10"]
+    constants = ["10","MyAge"]
     lists = []
-    operators = ["+","<"]
-    scanner = Scanner(s, variables, constants, lists, operators)
-    s = "< ( 10 + ( a b ) )"
-    scanner = Scanner(s, variables, constants, lists, operators)
+    operators = ["+","<","-"]
+    s1 = "< ( x + ( y x ) )"
+    s2 = "< ( 10 + ( a b ) )"
+    scanner = Scanner(s1, variables, constants, lists, operators)
     scanner.expression(None)
+    e1 = scanner.root
+    #print "E1->", e1
+    scanner = Scanner(s2, variables, constants, lists, operators)
+    scanner.expression(None)
+    e2 = scanner.root
+    #print "E2->", e2
+
+    subs = {}
+    subs = unify(e1, e2, subs )
+    print subs
 
     '''
     s = "< ( + ( V ( 1 2 3 ) Nums ( x x x )) + ( V ( 1 2 3 ) V ( 1 2 3 )))"
@@ -192,4 +256,4 @@ if __name__ == "__main__":
     scanner = Scanner(s, variables, constants, lists, operators)
     scanner.expression(None)
     '''
-    print scanner.root
+
