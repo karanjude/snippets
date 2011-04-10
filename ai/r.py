@@ -89,14 +89,17 @@ class Scanner():
         while(self.i < len(self.s) and self.s[self.i] == ' '):
             self.i+=1
 
-    def token(self):
+    def token(self, alnum = False):
         self.skipwhite()
         self.token_value = ""
-        while(self.i < len(self.s) and self.s[self.i] != ' '):
-            self.token_value += self.s[self.i]
+        while(self.i < len(self.s) and (self.s[self.i].isalnum() if alnum else self.s[self.i] != ' ')):
+            v = self.s[self.i]
+            self.token_value += v
             self.i += 1
-            if(self.token_value == ')' or self.token_value == '('):
+            if(v == ')' or v == '('):
                 break
+
+
         #print "token->",self.token_value    
             
     def match(self,c):
@@ -145,13 +148,13 @@ class Scanner():
         if(self.match_variable()):
             print "listitem->", self.token_value
             self.variable(parent)
-            self.token()
+            self.token(True)
             self.listitem(parent)
 
         elif(self.match_constant()):
             print "listitem->", self.token_value
             self.constant(parent)
-            self.token()
+            self.token(True)
             self.listitem(parent)
 
 
@@ -160,7 +163,7 @@ class Scanner():
         l = List(self.token_value)
         self.token()
         self.match('(')
-        self.token()
+        self.token(True)
         self.listitem(l)
         self.match(')')
         if parent is None:
@@ -212,8 +215,11 @@ def unify_var(var,x, subs):
                
    
 def unify(x,y, subs):
-    print subs
+    if( subs is None):
+        print "Failure"
     if( x is None or y is None):
+        return subs
+    if(isinstance(x,str) and isinstance(y,str) and x == y):
         return subs
     elif(isinstance(x,Variable)):
         return unify_var(x,y, subs)
@@ -223,9 +229,8 @@ def unify(x,y, subs):
         return unify(x.args(), y.args(), unify(x.op, y.op, subs))
     elif(isinstance(x,List) and isinstance(y,List)):
         return unify(x.rest(), y.rest(), unify(x.first(), y.first(), subs))
-    elif(isinstance(x,str) and isinstance(y,str) and x == y):
-        return subs
-    return subs
+    else:
+        return None
 
 if __name__ == "__main__":
     variables = ["x","y","a","b"]
@@ -246,6 +251,26 @@ if __name__ == "__main__":
     subs = {}
     subs = unify(e1, e2, subs )
     print subs
+
+    variables = ["x","y"]
+    constants = ["10","11","12"]
+    lists = ["V","Nums"]
+    operators = ["+","-"]
+    s1 = "V ( x y x)"
+    s2 = "Nums ( 10 11 12) "
+    scanner = Scanner(s1, variables, constants, lists, operators)
+    scanner.expression(None)
+    e1 = scanner.root
+    #print "E1->", e1
+    scanner = Scanner(s2, variables, constants, lists, operators)
+    scanner.expression(None)
+    e2 = scanner.root
+    #print "E2->", e2
+
+    subs = {}
+    subs = unify(e1, e2, subs )
+    print subs
+
 
     '''
     s = "< ( + ( V ( 1 2 3 ) Nums ( x x x )) + ( V ( 1 2 3 ) V ( 1 2 3 )))"
