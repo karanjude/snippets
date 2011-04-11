@@ -1,8 +1,11 @@
+debug = False
+
 
 class Compound():
     def __init__(self, v):
         self.op = v
         self.children = []
+        self.prefix = ""
 
     def addChild(self, c):
         self.children.append(c)
@@ -19,7 +22,8 @@ class Compound():
     def __str__(self):
         print "Compound -> " , self.op , " "
         for c in self.children:
-            print str(c)
+            c.prefix = self.prefix + "\t"
+            print self.prefix, str(c)
         return ""
 
 
@@ -27,6 +31,7 @@ class List():
     def __init__(self, v):
         self.op = v
         self.children = []
+        self.prefix = ""
 
     def addChild(self, c):
         self.children.append(c)
@@ -50,35 +55,38 @@ class List():
         print "List -> " , self.op , " "
         for c in self.children:
             if c is not None:
-                str(c)
+                c.prefix = self.prefix + "\t"
+                print self.prefix, str(c)
         return r
 
 class Variable():
     def __init__(self, v):
         self.op = v
+        self.prefix = ""
 
     def name(self):
         return self.op
 
     def __str__(self):
-        print "Variable -> " , self.op , " "
+        print self.prefix, "Variable -> " , self.op , " "
         return ""
 
 class Constant():
     def __init__(self, v):
         self.op = v
+        self.prefix = ""
 
     def name(self):
         return self.op
 
     def __str__(self):
-        print "Constant -> " , self.op , " "
+        print self.prefix, "Constant -> " , self.op , " "
         return ""
 
 class Scanner():
     def __init__(self,s, variables, constants, lists, operators):
         self.i = 0
-        self.s = s
+        self.s = s.replace(")"," )")
         self.token_value = ""
         self.variables = variables
         self.constants = constants
@@ -92,7 +100,7 @@ class Scanner():
     def token(self, alnum = False):
         self.skipwhite()
         self.token_value = ""
-        while(self.i < len(self.s) and (self.s[self.i].isalnum() if alnum else self.s[self.i] != ' ')):
+        while(self.i < len(self.s) and self.s[self.i] != ' '):
             v = self.s[self.i]
             self.token_value += v
             self.i += 1
@@ -100,12 +108,12 @@ class Scanner():
                 break
 
 
-        #print "token->",self.token_value    
+        print "token->",self.token_value    
             
     def match(self,c):
         if(self.token_value == c):
-            if c in operators:
-                print "operator->", c
+            #if c in operators:
+            #    print "operator->", c
             return True
 
     def match_opertor(self):
@@ -116,12 +124,17 @@ class Scanner():
                 break
         return r
 
+    def doexpression(self, parent):
+        r = self.expression(parent)
+        if(r):
+            self.doexpression(parent)
+
     def operator(self, parent):
         self.token()
         self.match('(')
-        self.expression(parent)
-        self.expression(parent)
-        self.token()
+        self.doexpression(parent)
+        #self.expression(parent)
+        #self.token()
         self.match(')')
 
     def islist(self, v):
@@ -145,18 +158,31 @@ class Scanner():
         return r
 
     def listitem(self, parent):
-        if(self.match_variable()):
-            print "listitem->", self.token_value
+        if(self.match_opertor()):
+            #print "listitem->", self.token_value
+            c = Compound(self.token_value)
+            self.operator(c)
+            if parent is None:
+                self.root = c
+            else:
+                parent.addChild(c)
+            self.token(True)
+            self.listitem(parent)
+        elif(self.match_list()):
+            #print "listitem->", self.token_value
+            self.list(parent)
+            self.token(True)
+            self.listitem(parent)
+        elif(self.match_variable()):
+            #print "listitem->", self.token_value
             self.variable(parent)
             self.token(True)
             self.listitem(parent)
-
         elif(self.match_constant()):
-            print "listitem->", self.token_value
+            #print "listitem->", self.token_value
             self.constant(parent)
             self.token(True)
             self.listitem(parent)
-
 
     def list(self, parent):
         print "list->", self.token_value
@@ -172,7 +198,7 @@ class Scanner():
             parent.addChild(l)
 
     def constant(self, parent):
-        print "constant->",self.token_value
+        #print "constant->",self.token_value
         if parent is None:
             self.root = Constant(self.token_value)
         else:
@@ -180,7 +206,7 @@ class Scanner():
             
 
     def variable(self, parent):
-        print "variable->",self.token_value
+        #print "variable->",self.token_value
         if parent is None:
             self.root = Variable(self.token_value)
         else:
@@ -195,12 +221,18 @@ class Scanner():
                 self.root = c
             else:
                 parent.addChild(c)
+            return True
         elif(self.match_list()):
             self.list(parent)
+            return True
         elif(self.match_variable()):
             self.variable(parent)
+            return True
         elif(self.match_constant()):
             self.constant(parent)
+            return True
+        else:
+            return False
 
 def unify_var(var,x, subs):
     if((isinstance(var, Variable)) and subs.has_key(var.name()) ):
@@ -220,6 +252,8 @@ def unify(x,y, subs):
     if( x is None or y is None):
         return subs
     if(isinstance(x,str) and isinstance(y,str) and x == y):
+        return subs
+    if(isinstance(x,Constant) and isinstance(y,Constant) and x.op == y.op):
         return subs
     elif(isinstance(x,Variable)):
         return unify_var(x,y, subs)
@@ -271,6 +305,64 @@ if __name__ == "__main__":
     subs = unify(e1, e2, subs )
     print subs
 
+    variables = ["a","b","c"]
+    constants = ["1","2","3"]
+    lists = ["L1","L2"]
+    operators = []
+    s1 = "L1 ( a 2 c )"
+    s2 = "L2 ( 1 b 3 ) "
+    scanner = Scanner(s1, variables, constants, lists, operators)
+    scanner.expression(None)
+    e1 = scanner.root
+    #print "E1->", e1
+    scanner = Scanner(s2, variables, constants, lists, operators)
+    scanner.expression(None)
+    e2 = scanner.root
+    #print "E2->", e2
+
+    subs = {}
+    subs = unify(e1, e2, subs )
+    print subs
+
+    variables = ["x","y","z","a","b","c"]
+    constants = ["age","1","2","3","4","5","10"]
+    lists = ["L1","L2","L3","L4"]
+    operators = ["plus","minus","<"]
+    s1 = "plus ( L1 ( x y L2 ( a b c ) ) age )"
+    s2 = "plus ( L3 ( 1 2 L4 ( 1 2 3 ) ) z ) "
+    scanner = Scanner(s1, variables, constants, lists, operators)
+    scanner.expression(None)
+    e1 = scanner.root
+    #print "E1->", e1
+    scanner = Scanner(s2, variables, constants, lists, operators)
+    scanner.expression(None)
+    e2 = scanner.root
+    #print "E2->", e2
+
+    subs = {}
+    subs = unify(e1, e2, subs )
+    print subs
+
+    variables = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+    constants = ["0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F","G","H","I","age","height","weight"]
+    lists = ["L1","L2","L3","L4","L5","L6"]
+    operators = ["+","-","/","*","avg","favorite","max"]
+    s1 = "favorite ( L1 ( + ( 1 b ) - ( c max ( d 4 ) ) avg ( L2 ( f 6 h ) i 9 k ) L3 ( l B C ) ) )"
+    s2 = "favorite ( L4 ( + ( a 2 ) - ( D max ( 3 e ) ) avg ( L5 ( 5 6 7 ) 8 j 0 ) L6 ( A B C ) ) )"
+    scanner = Scanner(s1, variables, constants, lists, operators)
+    scanner.expression(None)
+    e1 = scanner.root
+    e1.prefix = "\t"
+    print "E1->", e1
+    scanner = Scanner(s2, variables, constants, lists, operators)
+    scanner.expression(None)
+    e2 = scanner.root
+    #print "E2->", e2
+
+    subs = {}
+    subs = unify(e1, e2, subs )
+    print subs
+    
 
     '''
     s = "< ( + ( V ( 1 2 3 ) Nums ( x x x )) + ( V ( 1 2 3 ) V ( 1 2 3 )))"
