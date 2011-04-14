@@ -11,6 +11,7 @@ using namespace std;
 class Term{
 public:
   string op;
+  bool marked;
 
 protected:
   vector<Term*> children;
@@ -19,6 +20,7 @@ public:
   Term(const string& s):
     op(s)
   {
+    marked = false;
   }
 
   string name(){
@@ -29,11 +31,16 @@ public:
     children.push_back(term);
   }
 
+  void safe_delete(){
+    children.clear();
+  }
+
   virtual string str () = 0;
 
   ~Term(){
-    for(vector<Term*>::iterator i = children.begin(); i != children.end(); i++)
-      delete *i;
+      for(vector<Term*>::iterator i = children.begin(); i != children.end(); i++)
+	if(*i != NULL)
+	  delete *i;
   }
 };
 
@@ -347,7 +354,7 @@ public:
 
   static void cleanup(){
     for(vector<Term*>::iterator i = items.begin(); i != items.end(); i++)
-      if(*i != NULL)
+      if(instanceof<Term,Constant>(*i))
 	delete *i;
   }
 };
@@ -447,13 +454,12 @@ int main(int argc, char** argv){
   print_substitution(subs);
 
   delete subs;
-
-  /*
   delete scanner1;
   delete scanner2;
 
   Pool::cleanup();
-  */
+
+
 
   return 0;
 }
