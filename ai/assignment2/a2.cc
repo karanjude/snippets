@@ -4,6 +4,7 @@
 #include <iostream>
 #include <algorithm>
 #include <map>
+#include <cstdarg>
 
 using namespace std;
 
@@ -332,6 +333,11 @@ public:
     items.push_back(c);
     return c;
   }
+
+  static List* registerHandle(List* l){
+    items.push_back(l);
+    return l;
+  }
 };
 
 vector<Term*> Pool::items;
@@ -372,16 +378,32 @@ SubstitutionMap* unify(Term *x, Term* y, SubstitutionMap* subs){
   }else if(instanceof<Term, Compound>(x) && instanceof<Term, Compound>(y)){
     Compound* xx = (Compound*) x;
     Compound* yy = (Compound*) y;
-    return unify(xx->args(), yy->args(), unify(Pool::make_constant(x->op), Pool::make_constant(y->op), subs));
+    return unify(Pool::registerHandle(xx->args()), Pool::registerHandle(yy->args()), 
+		 unify(Pool::make_constant(x->op), Pool::make_constant(y->op), subs));
   }else if(instanceof<Term, List>(x) && instanceof<Term, List>(y)){
     List* xx = (List*) x;
     List* yy = (List*) y;
-    return unify(xx->rest(), yy->rest(), unify(xx->first(), yy->first(), subs));
+    return unify(Pool::registerHandle(xx->rest()), Pool::registerHandle(yy->rest()), unify(xx->first(), yy->first(), subs));
   }
   return NULL;
 }
  
+vector<string> to_vector(const char* s, ...){
+  vector<string> r;
+  va_list argptr;
+  va_start(argptr, s);
+  const char* ss = s;
+  r.push_back(ss);
+  while((ss = va_arg(argptr, const char*)) != 0)
+    r.push_back(ss);
+  va_end(argptr);
+  return r;
+} 
 
 int main(int argc, char** argv){
+  vector<string> variables =  to_vector("x","y","a","b");
+  vector<string> constants = to_vector("10", "MyAge");
+  vector<string> lists;
+  vector<string> operators = to_vector("+","<","-");
   return 0;
 }
