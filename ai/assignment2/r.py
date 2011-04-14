@@ -29,7 +29,7 @@ class Compound():
 
 class List():
     def __init__(self, v):
-        self.op = 
+        self.op = v
         self.children = []
         self.prefix = ""
 

@@ -30,6 +30,11 @@ public:
   }
 
   virtual string str () = 0;
+
+  ~Term(){
+    for(vector<Term*>::iterator i = children.begin(); i != children.end(); i++)
+      delete *i;
+  }
 };
 
 
@@ -42,7 +47,7 @@ public:
 
   string str(){
     cout << endl << "Constant -> " << this->op;
-    return this->op;
+    return "";
   }
 };
 
@@ -78,8 +83,8 @@ public:
     List* l = NULL;
     if(children.size() > 1){
       l = new List("");
-      for(int i = 1; i <= children.size(); i++){
-	l->addChild(children[i]);
+      for(vector<Term*>::iterator i = children.begin()+1; i != children.end(); i++){
+	l->addChild(*i);
       }
     }
     return l;
@@ -106,7 +111,7 @@ public:
   List* args(){
     List * l = NULL;
     if(children.size() > 0){
-      List * l = new List("");
+      l = new List("");
       for(vector<Term*>::iterator i = children.begin(); i != children.end(); i++){
 	l->addChild(*i);
       }
@@ -133,6 +138,7 @@ private:
   vector<string> operators;
   int i;
   string token_value;
+public:
   Term * root;
 
 public:
@@ -144,11 +150,15 @@ public:
     lists(lists_),
     operators(operators_)
   {
-    s = s.replace(s.begin(), s.end(), ")", " ) ");
-    s = s.replace(s.begin(), s.end(), "(", " ( ");
+    //s = replace(s.begin(), s.end(), ')', ' ) ");
+    //s = replace(s.begin(), s.end(), "(", " ( ");
     i = 0;
     token_value = "";
     root = NULL;
+  }
+
+  ~Scanner(){
+    delete root;
   }
 
   void skipwhite(){
@@ -158,7 +168,7 @@ public:
 
   void token(){
     skipwhite();
-    token_value = "";
+    this->token_value = "";
     char c;
     while(i < s.length() and s[i] != ' '){
       c = s[i];
@@ -168,7 +178,7 @@ public:
 	break;
     }
   
-    cout << endl << "token -> " << token_value;
+    cout << endl << "token -> " << this->token_value;
   }
 
   bool match(string c){
@@ -178,13 +188,7 @@ public:
   }
 
   bool match_operator(){
-    bool r = false;
-    for(vector<string>::iterator i = operators.begin(); i != operators.end(); i++){
-      r = match(*i);
-      if(r)
-	break;
-    }
-    return r;
+    return find(operators.begin(), operators.end(), token_value) != operators.end();
   }
 
   bool expression(Term * parent);
@@ -273,6 +277,8 @@ public:
 };
 
 bool Scanner::expression(Term* parent){
+  for(vector<string>::iterator i=operators.begin(); i != operators.end(); i++)
+    cout << endl << *i;
   token();
   if(match_operator()){
     Compound * c = new Compound(token_value);
@@ -338,6 +344,12 @@ public:
     items.push_back(l);
     return l;
   }
+
+  static void cleanup(){
+    for(vector<Term*>::iterator i = items.begin(); i != items.end(); i++)
+      if(*i != NULL)
+	delete *i;
+  }
 };
 
 vector<Term*> Pool::items;
@@ -352,6 +364,7 @@ SubstitutionMap* unify_var(Term* var, Term* x, SubstitutionMap* subs){
     val = (*subs)[x->name()];
     return unify(var, Pool::make_constant(val), subs);
   }else{
+    cout << endl << "adding : " << var->name() << "=" << x->name();
     (*subs)[var->name()] = x->name();
   }
   return subs;
@@ -388,22 +401,59 @@ SubstitutionMap* unify(Term *x, Term* y, SubstitutionMap* subs){
   return NULL;
 }
  
-vector<string> to_vector(const char* s, ...){
-  vector<string> r;
+void store(vector<string>& r, const char* s, ...){
   va_list argptr;
   va_start(argptr, s);
   const char* ss = s;
   r.push_back(ss);
-  while((ss = va_arg(argptr, const char*)) != 0)
+  while((ss = va_arg(argptr, const char* )) != 0)
     r.push_back(ss);
   va_end(argptr);
-  return r;
 } 
 
+void print_substitution(SubstitutionMap * subs){
+  cout << endl << "size : " << subs->size();
+  for(SubstitutionMap::iterator i = subs->begin(); i != subs->end(); i++){
+    cout << endl << i->first <<  "/" << i->second;
+  }
+}
+
 int main(int argc, char** argv){
-  vector<string> variables =  to_vector("x","y","a","b");
-  vector<string> constants = to_vector("10", "MyAge");
-  vector<string> lists;
-  vector<string> operators = to_vector("+","<","-");
+  vector<string> variables, constants, lists, operators; 
+  variables.push_back("x"); 
+  variables.push_back("y"); 
+  variables.push_back("a"); 
+  variables.push_back("b"); 
+
+  constants.push_back("10");
+  constants.push_back("MyAge");
+
+  operators.push_back("+");
+  operators.push_back("<");
+  operators.push_back("-");
+  
+  string s1 = "< ( x + ( y x ) )";
+  string s2 = "< ( 10 + ( a b ) )";
+  Scanner * scanner1 = new Scanner(s1, variables, constants, lists, operators);
+  scanner1->expression(NULL);
+  Term * e1 = scanner1->root;
+  Scanner * scanner2 = new Scanner(s2, variables, constants, lists, operators);
+
+  scanner2->expression(NULL);
+  Term * e2 = scanner2->root;
+
+  SubstitutionMap * subs = new SubstitutionMap;
+  unify(e1, e2, subs);
+  print_substitution(subs);
+
+  delete subs;
+
+  /*
+  delete scanner1;
+  delete scanner2;
+
+  Pool::cleanup();
+  */
+
   return 0;
 }
