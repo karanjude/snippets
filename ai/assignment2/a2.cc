@@ -38,6 +38,9 @@ public:
   virtual string str () = 0;
 
   ~Term(){
+    if(marked)
+      children.clear();
+    else
       for(vector<Term*>::iterator i = children.begin(); i != children.end(); i++)
 	if(*i != NULL)
 	  delete *i;
@@ -324,6 +327,9 @@ void Scanner::list(Term * parent){
 
 template<class B, class A>
 bool instanceof(B * x){
+  if(NULL == x)
+    return false;
+  cout << endl << "name : " << x->name();
   A* v = dynamic_cast<A*>(x);
   return v != 0;
 }
@@ -334,42 +340,42 @@ bool has_key(SubstitutionMap* subs, const string& key){
   return subs->find(key) != subs->end();
 }
 
-
-SubstitutionMap* unify(Term* , Term* , SubstitutionMap* );
-
 class Pool {
 private:
-  static vector<Term*> items;
+  vector<Term*> items;
 public:
-  static Constant* make_constant(const string& s){
+  Constant* make_constant(const string& s){
     Constant * c = new Constant(s);
     items.push_back(c);
     return c;
   }
 
-  static List* registerHandle(List* l){
-    items.push_back(l);
+  List* registerHandle(List* l){
+    if(NULL != l){
+      l->marked = true;
+      items.push_back(l);
+    }
     return l;
   }
 
-  static void cleanup(){
+  ~Pool(){
     for(vector<Term*>::iterator i = items.begin(); i != items.end(); i++)
-      if(instanceof<Term,Constant>(*i))
 	delete *i;
   }
 };
 
-vector<Term*> Pool::items;
+//vector<Term*> Pool::items;
 
+SubstitutionMap* unify(Term* , Term* , SubstitutionMap* , Pool *);
 
-SubstitutionMap* unify_var(Term* var, Term* x, SubstitutionMap* subs){
+SubstitutionMap* unify_var(Term* var, Term* x, SubstitutionMap* subs, Pool* pool){
   string val = "";
   if(instanceof<Term, Variable>(var) && has_key(subs, var->name())){
     val = (*subs)[var->name()];
-    return unify(Pool::make_constant(val), x, subs);
+    return unify(pool->make_constant(val), x, subs, pool);
   }else if(instanceof<Term, Variable>(x) && has_key(subs, x->name())){
     val = (*subs)[x->name()];
-    return unify(var, Pool::make_constant(val), subs);
+    return unify(var, pool->make_constant(val), subs, pool);
   }else{
     cout << endl << "adding : " << var->name() << "=" << x->name();
     (*subs)[var->name()] = x->name();
@@ -379,7 +385,7 @@ SubstitutionMap* unify_var(Term* var, Term* x, SubstitutionMap* subs){
 
 bool failure = false;
 
-SubstitutionMap* unify(Term *x, Term* y, SubstitutionMap* subs){
+SubstitutionMap* unify(Term *x, Term* y, SubstitutionMap* subs, Pool* pool){
   if(failure)
     return NULL;
   else if(NULL == subs){
@@ -392,18 +398,19 @@ SubstitutionMap* unify(Term *x, Term* y, SubstitutionMap* subs){
   }else if(instanceof<Term, Constant>(x) && instanceof<Term,Constant>(y) and x->op == y->op){
     return subs;
   }else if(instanceof<Term, Variable>(x)){
-    return unify_var(x,y, subs);
+    return unify_var(x,y, subs, pool);
   }else if(instanceof<Term, Variable>(y)){
-    return unify_var(y, x, subs);
+    return unify_var(y, x, subs, pool);
   }else if(instanceof<Term, Compound>(x) && instanceof<Term, Compound>(y)){
     Compound* xx = (Compound*) x;
     Compound* yy = (Compound*) y;
-    return unify(Pool::registerHandle(xx->args()), Pool::registerHandle(yy->args()), 
-		 unify(Pool::make_constant(x->op), Pool::make_constant(y->op), subs));
+    return unify(pool->registerHandle(xx->args()), pool->registerHandle(yy->args()), 
+		 unify(pool->make_constant(x->op), pool->make_constant(y->op), subs, pool), pool);
   }else if(instanceof<Term, List>(x) && instanceof<Term, List>(y)){
     List* xx = (List*) x;
     List* yy = (List*) y;
-    return unify(Pool::registerHandle(xx->rest()), Pool::registerHandle(yy->rest()), unify(xx->first(), yy->first(), subs));
+    return unify(pool->registerHandle(xx->rest()), 
+		 pool->registerHandle(yy->rest()), unify(xx->first(), yy->first(), subs, pool), pool);
   }
   return NULL;
 }
@@ -450,16 +457,15 @@ int main(int argc, char** argv){
   Term * e2 = scanner2->root;
 
   SubstitutionMap * subs = new SubstitutionMap;
-  unify(e1, e2, subs);
+  Pool * pool = new Pool();
+  
+  unify(e1, e2, subs, pool);
   print_substitution(subs);
 
   delete subs;
   delete scanner1;
   delete scanner2;
-
-  Pool::cleanup();
-
-
+  delete pool;
 
   return 0;
 }
