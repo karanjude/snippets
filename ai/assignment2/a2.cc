@@ -376,13 +376,25 @@ public:
 
 SubstitutionMap* unify(Term* , Term* , SubstitutionMap* , Pool *);
 
-void print_term(ostringstream& ss, Term * term){
+string print_term(ostringstream& ss, Term * term){
   ss << "[";
-  if(NULL != term)
+  if(NULL != term){
     ss << term->str();
+  }else{
+    ss << "[]";
+  }
   ss << "]";
+  return ss.str();
 }
 
+string print_term1(ostringstream& ss, Term * term){
+  if(NULL != term){
+    ss << term->str();
+  }else{
+    ss << "[]";
+  }
+  return ss.str();
+}
 
 void print_substitution(ostringstream& ss, SubstitutionMap * subs){
   if(NULL == subs)
@@ -489,6 +501,7 @@ void store(vector<string>& r, const char* s, ...){
   va_end(argptr);
 } 
 
+string lhs, rhs;
 
 SubstitutionMap * solve_expression(const string& s1, const string& s2,
 		      vector<string>& variables,
@@ -508,6 +521,12 @@ SubstitutionMap * solve_expression(const string& s1, const string& s2,
   Pool * pool = new Pool();
   
   unify(e1, e2, subs, pool);
+  ostringstream ssl, ssr;
+  print_term1(ssl, e1);
+  lhs = ssl.str();
+  print_term1(ssr, e2);
+  rhs = ssr.str();
+
   //print_substitution(subs);
 
   delete scanner1;
@@ -543,7 +562,7 @@ bool noOccurCheck = false;
 string file_name = "";
 enum input_type {OPERATORS, VARIABLES, CONSTANTS, LISTS, LHS, RHS};
 vector<string> variables, constants, lists, operators;
-string lhs, rhs;
+
 
 void process_line(const string& line, input_type data_type){
   switch(data_type){
@@ -661,6 +680,6 @@ int main(int argc, char** argv){
   ostringstream ss;
   print_substitution(ss , subs);
 
-  cout << endl << "Substitution: " << ss.str();
+  cout << endl << "Substitution: " << ss.str() << endl;
   return 0;
 }
