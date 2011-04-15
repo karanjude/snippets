@@ -102,7 +102,7 @@ public:
 
   string str(){
     ostringstream ss;
-    ss << op << "[";
+    ss << "[";
     int c = 1;
     for(vector<Term*>::iterator i = children.begin(); i != children.end(); i++, c++){
       if(c > 1)
@@ -414,7 +414,7 @@ void print_unify(Term* x, Term *y, SubstitutionMap* subs){
   ss << ", ";
   print_substitution(ss, subs);
   ss << ")";
-  cout << endl << ss.str();
+  cout << ss.str() << endl;
 }
 
 void print_unify_var(Term* x, Term *y, SubstitutionMap* subs){
@@ -426,7 +426,7 @@ void print_unify_var(Term* x, Term *y, SubstitutionMap* subs){
   ss << ", ";
   print_substitution(ss, subs);
   ss << ")";
-  cout << endl << "\t" << ss.str();
+  cout << "\t" << ss.str() << endl;
 }
 
 SubstitutionMap* unify_var(Term* var, Term* x, SubstitutionMap* subs, Pool* pool){
@@ -655,7 +655,7 @@ int main(int argc, char** argv){
   //dump_information();
 
   SubstitutionMap *subs = solve_expression(lhs, rhs, variables, constants, lists, operators);
-  cout << endl << "LHS: " << lhs;
+  cout << "LHS: " << lhs;
   cout << endl << "RHS: " << rhs;
 
   ostringstream ss;
