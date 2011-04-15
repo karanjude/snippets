@@ -6,6 +6,7 @@
 #include <map>
 #include <cstdarg>
 #include <fstream>
+#include <sstream>
 
 using namespace std;
 
@@ -57,8 +58,7 @@ public:
   }
 
   string str(){
-    cout << endl << "Constant -> " << this->op;
-    return "";
+    return op;
   }
 };
 
@@ -70,8 +70,7 @@ public:
 
 
   string str(){
-    cout << endl << "Variable -> ", this->op;
-    return "";
+    return op;
   }
 };
 
@@ -102,11 +101,16 @@ public:
   }
 
   string str(){
-    cout << endl << "List -> " << this->op;
-      for(vector<Term*>::iterator i = children.begin(); i != children.end(); i++){
-	cout << endl << (*i)->str();
-      }
-      return "";
+    ostringstream ss;
+    ss << op << "[";
+    int c = 1;
+    for(vector<Term*>::iterator i = children.begin(); i != children.end(); i++, c++){
+      if(c > 1)
+	ss << ", ";
+      ss << (*i)->str();
+    }
+    ss << "]";
+    return ss.str();
   }
 
 };
@@ -131,11 +135,16 @@ public:
   }
 
   string str(){
-    cout << endl << "Compount -> " << this->op;
-      for(vector<Term*>::iterator i = children.begin(); i != children.end(); i++){
-	cout << endl << (*i)->str();
-      }
-      return "";
+    ostringstream ss;
+    ss << op << "(";
+    int c = 1;
+    for(vector<Term*>::iterator i = children.begin(); i != children.end(); i++, c++){
+      if(c > 1)
+	ss << ", ";
+      ss << (*i)->str();
+    }
+    ss << ")";
+    return ss.str();
   }
 
 };
@@ -189,7 +198,7 @@ public:
 	break;
     }
   
-    cout << endl << "token -> " << this->token_value;
+    //cout << endl << "token -> " << this->token_value;
   }
 
   bool match(string c){
@@ -288,8 +297,6 @@ public:
 };
 
 bool Scanner::expression(Term* parent){
-  for(vector<string>::iterator i=operators.begin(); i != operators.end(); i++)
-    cout << endl << *i;
   token();
   if(match_operator()){
     Compound * c = new Compound(token_value);
@@ -313,7 +320,7 @@ bool Scanner::expression(Term* parent){
 }
 
 void Scanner::list(Term * parent){
-    cout << endl << "list ->" << token_value;
+  // cout << endl << "list ->" << token_value;
     List* l = new List(token_value);
     token();
     match("(");
@@ -369,8 +376,62 @@ public:
 
 SubstitutionMap* unify(Term* , Term* , SubstitutionMap* , Pool *);
 
+void print_term(ostringstream& ss, Term * term){
+  ss << "[";
+  if(NULL != term)
+    ss << term->str();
+  ss << "]";
+}
+
+
+void print_substitution(ostringstream& ss, SubstitutionMap * subs){
+  if(NULL == subs)
+    return;
+  ss << "{";
+  int c = 1;
+  for(SubstitutionMap::iterator i = subs->begin(); i != subs->end(); i++, c++){
+    if(c > 1)
+      ss << ", ";
+    ss << i->first <<  "/" << i->second;
+  }
+  ss << "}";
+}
+
+
+void print_substitution(SubstitutionMap * subs){
+  //cout << endl << "size : " << subs->size();
+  for(SubstitutionMap::iterator i = subs->begin(); i != subs->end(); i++){
+    cout << endl << i->first <<  "/" << i->second;
+  }
+}
+
+void print_unify(Term* x, Term *y, SubstitutionMap* subs){
+  ostringstream ss;
+  ss << "Unify(";
+  print_term(ss, x);
+  ss << ", ";
+  print_term(ss, y);
+  ss << ", ";
+  print_substitution(ss, subs);
+  ss << ")";
+  cout << endl << ss.str();
+}
+
+void print_unify_var(Term* x, Term *y, SubstitutionMap* subs){
+  ostringstream ss;
+  ss << "Unify-Var(";
+  print_term(ss, x);
+  ss << ", ";
+  print_term(ss, y);
+  ss << ", ";
+  print_substitution(ss, subs);
+  ss << ")";
+  cout << endl << "\t" << ss.str();
+}
+
 SubstitutionMap* unify_var(Term* var, Term* x, SubstitutionMap* subs, Pool* pool){
   string val = "";
+  print_unify_var(var, x, subs);
   if(instanceof<Term, Variable>(var) && has_key(subs, var->name())){
     val = (*subs)[var->name()];
     return unify(pool->make_constant(val), x, subs, pool);
@@ -378,7 +439,7 @@ SubstitutionMap* unify_var(Term* var, Term* x, SubstitutionMap* subs, Pool* pool
     val = (*subs)[x->name()];
     return unify(var, pool->make_constant(val), subs, pool);
   }else{
-    cout << endl << "adding : " << var->name() << "=" << x->name();
+    //cout << endl << "adding : " << var->name() << "=" << x->name();
     (*subs)[var->name()] = x->name();
   }
   return subs;
@@ -386,7 +447,9 @@ SubstitutionMap* unify_var(Term* var, Term* x, SubstitutionMap* subs, Pool* pool
 
 bool failure = false;
 
+
 SubstitutionMap* unify(Term *x, Term* y, SubstitutionMap* subs, Pool* pool){
+  print_unify(x, y, subs);
   if(failure)
     return NULL;
   else if(NULL == subs){
@@ -426,14 +489,8 @@ void store(vector<string>& r, const char* s, ...){
   va_end(argptr);
 } 
 
-void print_substitution(SubstitutionMap * subs){
-  cout << endl << "size : " << subs->size();
-  for(SubstitutionMap::iterator i = subs->begin(); i != subs->end(); i++){
-    cout << endl << i->first <<  "/" << i->second;
-  }
-}
 
-void solve_expression(const string& s1, const string& s2,
+SubstitutionMap * solve_expression(const string& s1, const string& s2,
 		      vector<string>& variables,
 		      vector<string>& constants,
 		      vector<string>& lists,
@@ -451,13 +508,13 @@ void solve_expression(const string& s1, const string& s2,
   Pool * pool = new Pool();
   
   unify(e1, e2, subs, pool);
-  print_substitution(subs);
+  //print_substitution(subs);
 
-  delete subs;
   delete scanner1;
   delete scanner2;
   delete pool;
 
+  return subs;
 }
 
 /*int main(int argc, char** argv){
@@ -595,7 +652,15 @@ int main(int argc, char** argv){
 
   file.close();
 
-  dump_information();
-  solve_expression(lhs, rhs, variables, constants, lists, operators);
+  //dump_information();
+
+  SubstitutionMap *subs = solve_expression(lhs, rhs, variables, constants, lists, operators);
+  cout << endl << "LHS: " << lhs;
+  cout << endl << "RHS: " << rhs;
+
+  ostringstream ss;
+  print_substitution(ss , subs);
+
+  cout << endl << "Substitution: " << ss.str();
   return 0;
 }
