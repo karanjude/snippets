@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <map>
 #include <cstdarg>
+#include <fstream>
 
 using namespace std;
 
@@ -432,22 +433,12 @@ void print_substitution(SubstitutionMap * subs){
   }
 }
 
-int main(int argc, char** argv){
-  vector<string> variables, constants, lists, operators; 
-  variables.push_back("x"); 
-  variables.push_back("y"); 
-  variables.push_back("a"); 
-  variables.push_back("b"); 
+void solve_expression(const string& s1, const string& s2,
+		      vector<string>& variables,
+		      vector<string>& constants,
+		      vector<string>& lists,
+		      vector<string>& operators){
 
-  constants.push_back("10");
-  constants.push_back("MyAge");
-
-  operators.push_back("+");
-  operators.push_back("<");
-  operators.push_back("-");
-  
-  string s1 = "< ( x + ( y x ) )";
-  string s2 = "< ( 10 + ( a b ) )";
   Scanner * scanner1 = new Scanner(s1, variables, constants, lists, operators);
   scanner1->expression(NULL);
   Term * e1 = scanner1->root;
@@ -466,6 +457,135 @@ int main(int argc, char** argv){
   delete scanner1;
   delete scanner2;
   delete pool;
+
+}
+
+/*int main(int argc, char** argv){
+  vector<string> variables, constants, lists, operators; 
+  variables.push_back("x"); 
+  variables.push_back("y"); 
+  variables.push_back("a"); 
+  variables.push_back("b"); 
+
+  constants.push_back("10");
+  constants.push_back("MyAge");
+
+  operators.push_back("+");
+  operators.push_back("<");
+  operators.push_back("-");
+  
+  string s1 = "< ( x + ( y x ) )";
+  string s2 = "< ( 10 + ( a b ) )";
+  solve_expression(s1, s2, variables, constants, lists, operators);
+
+  return 0;
+  }*/
+
+bool trace = false;
+bool noOccurCheck = false;
+string file_name = "";
+enum input_type {OPERATORS, VARIABLES, CONSTANTS, LHS, RHS};
+vector<string> variables, constants, lists, operators;
+string lhs, rhs;
+
+void process_line(const string& line, input_type data_type){
+  switch(data_type){
+  case OPERATORS:
+    operators.push_back(line);
+    break;
+  case VARIABLES:
+    variables.push_back(line);
+    break;
+  case CONSTANTS:
+    constants.push_back(line);
+    break;
+  case LHS:
+    lhs += " " + line;
+    break;
+  case RHS:
+    rhs += " " + line;
+    break;
+  }
+}
+
+template<typename T>
+void print_vector(vector<T>& v, const string& label){
+  cout << endl << label;
+  for(typename vector<T>::iterator i = v.begin(); i!= v.end(); i++)
+    cout << " " << *i; 
+}
+
+void dump_information(){
+  print_vector(operators, "operators");
+  print_vector(constants, "constants");
+  print_vector(lists, "lists");
+  cout << endl << "LHS:" << lhs;
+  cout << endl << "RHS:" << rhs;
+}
+
+
+int main(int argc, char** argv){
+  string file_name;
+  if(argc > 1){
+    int i = 1;
+    while(i < argc){
+      string option = argv[i];
+      if("-noOccurCheck" == option)
+	noOccurCheck = true;
+      else if("-trace" == option)
+	trace = true;
+      else
+	file_name = option;
+
+      i++;
+    }
+  }
+
+  if(file_name.length() == 0){
+    cerr << endl << "no file provided, please provide file";
+    return -1;
+  }
+
+  ifstream file(file_name.c_str());
+  if(!file.good()){
+    cerr << endl << "Error opening file :" << file_name;
+    return -1;
+  }
+
+  input_type data_type;
+
+  string line;
+  while(!file.eof()){
+    line = "";
+    file >> line;
+    cout << endl << line;
+    if("@OPERATORS:" == line){
+      data_type = OPERATORS;
+      continue;
+    }
+    else if("@VARIABLES:" == line){
+      data_type = VARIABLES;
+      continue;
+    }
+    else if("@CONSTANTS:" == line){
+      data_type = CONSTANTS;
+      continue;
+    }
+    else if("@LHS:" == line){
+      data_type = LHS;
+      continue;
+    }
+    else if("@RHS:" == line){
+      data_type = RHS;
+      continue;
+    }
+    if(line.length() > 0)
+      process_line(line, data_type);
+  }
+
+  file.close();
+
+  dump_information();
 
   return 0;
 }
