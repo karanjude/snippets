@@ -25,7 +25,7 @@ public:
     marked = false;
   }
 
-  string name(){
+  virtual string name(){
     return this->op;
   }
 
@@ -35,6 +35,13 @@ public:
 
   void safe_delete(){
     children.clear();
+  }
+
+  virtual bool contains(Term * var){
+    for(vector<Term*>::iterator i = children.begin(); i != children.end(); i++)
+      if((*i)->contains(var))
+	return true;
+    return false;
   }
 
   virtual string str () = 0;
@@ -60,6 +67,10 @@ public:
   string str(){
     return op;
   }
+
+  virtual bool contains(Term* var){
+    return var->name() == this->name();
+  }
 };
 
 class Variable: public Term{
@@ -68,6 +79,9 @@ public:
     Term(op_){
   }
 
+  virtual bool contains(Term* var){
+    return var->name() == this->name();
+  }
 
   string str(){
     return op;
@@ -100,6 +114,19 @@ public:
     return l;
   }
 
+  string name(){
+    ostringstream ss;
+    ss << op << "(";
+    int c = 1;
+    for(vector<Term*>::iterator i = children.begin(); i != children.end(); i++, c++){
+      if(c > 1)
+	ss << ", ";
+      ss << (*i)->str();
+    }
+    ss << ")";
+    return ss.str();
+  }
+
   string str(){
     ostringstream ss;
     ss << "[";
@@ -121,6 +148,10 @@ public:
   Compound(const string& op_):
     Term(op_)
   {
+  }
+
+  string name(){
+    return this->str();
   }
 
   List* args(){
@@ -252,17 +283,19 @@ public:
   
   void list(Term *);
   void variable(Term *parent){
+    Variable * c = new Variable(token_value);
     if(NULL == parent){
+      this->root = c;
     }else{
-      Variable * c = new Variable(token_value);
       parent->addChild(c);
     }
   }
 
   void constant(Term *parent){
+    Constant * c = new Constant(token_value);
     if(NULL == parent){
+      this->root = c;
     }else{
-      Constant * c = new Constant(token_value);
       parent->addChild(c);
     }
   }
@@ -399,6 +432,11 @@ string print_term1(ostringstream& ss, Term * term){
 void print_substitution(ostringstream& ss, SubstitutionMap * subs){
   if(NULL == subs)
     return;
+  if(subs->size() == 0){
+    ss << "NO SUBSTITUTION POSSIBLE";
+    return;
+  }
+
   ss << "{";
   int c = 1;
   for(SubstitutionMap::iterator i = subs->begin(); i != subs->end(); i++, c++){
@@ -441,6 +479,15 @@ void print_unify_var(Term* x, Term *y, SubstitutionMap* subs){
   cout << "\t" << ss.str() << endl;
 }
 
+bool occur_check(Term * var, Term * x){
+  if(x->contains(var)){
+    return true;
+  }
+  return false;
+}
+
+bool failure = false;
+
 SubstitutionMap* unify_var(Term* var, Term* x, SubstitutionMap* subs, Pool* pool){
   string val = "";
   print_unify_var(var, x, subs);
@@ -450,22 +497,22 @@ SubstitutionMap* unify_var(Term* var, Term* x, SubstitutionMap* subs, Pool* pool
   }else if(instanceof<Term, Variable>(x) && has_key(subs, x->name())){
     val = (*subs)[x->name()];
     return unify(var, pool->make_constant(val), subs, pool);
-  }else{
+  }else if(occur_check(var, x)){
+    failure = true;
+    return NULL;
+  }
+  else{
     //cout << endl << "adding : " << var->name() << "=" << x->name();
     (*subs)[var->name()] = x->name();
   }
   return subs;
 }
 
-bool failure = false;
-
-
 SubstitutionMap* unify(Term *x, Term* y, SubstitutionMap* subs, Pool* pool){
   print_unify(x, y, subs);
   if(failure)
     return NULL;
   else if(NULL == subs){
-    cout << endl << "Failure";
     failure = true;
   }else if(NULL == x || NULL == y)
     return subs;
@@ -526,6 +573,8 @@ SubstitutionMap * solve_expression(const string& s1, const string& s2,
   lhs = ssl.str();
   print_term1(ssr, e2);
   rhs = ssr.str();
+  if(failure)
+    cout << "Failure" << endl;
 
   //print_substitution(subs);
 
@@ -535,27 +584,6 @@ SubstitutionMap * solve_expression(const string& s1, const string& s2,
 
   return subs;
 }
-
-/*int main(int argc, char** argv){
-  vector<string> variables, constants, lists, operators; 
-  variables.push_back("x"); 
-  variables.push_back("y"); 
-  variables.push_back("a"); 
-  variables.push_back("b"); 
-
-  constants.push_back("10");
-  constants.push_back("MyAge");
-
-  operators.push_back("+");
-  operators.push_back("<");
-  operators.push_back("-");
-  
-  string s1 = "< ( x + ( y x ) )";
-  string s2 = "< ( 10 + ( a b ) )";
-  solve_expression(s1, s2, variables, constants, lists, operators);
-
-  return 0;
-  }*/
 
 bool trace = false;
 bool noOccurCheck = false;
