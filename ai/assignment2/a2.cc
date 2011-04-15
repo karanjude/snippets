@@ -330,7 +330,7 @@ template<class B, class A>
 bool instanceof(B * x){
   if(NULL == x)
     return false;
-  cout << endl << "name : " << x->name();
+  //cout << endl << "name : " << x->name();
   A* v = dynamic_cast<A*>(x);
   return v != 0;
 }
@@ -484,7 +484,7 @@ void solve_expression(const string& s1, const string& s2,
 bool trace = false;
 bool noOccurCheck = false;
 string file_name = "";
-enum input_type {OPERATORS, VARIABLES, CONSTANTS, LHS, RHS};
+enum input_type {OPERATORS, VARIABLES, CONSTANTS, LISTS, LHS, RHS};
 vector<string> variables, constants, lists, operators;
 string lhs, rhs;
 
@@ -498,6 +498,9 @@ void process_line(const string& line, input_type data_type){
     break;
   case CONSTANTS:
     constants.push_back(line);
+    break;
+  case LISTS:
+    lists.push_back(line);
     break;
   case LHS:
     lhs += " " + line;
@@ -516,6 +519,7 @@ void print_vector(vector<T>& v, const string& label){
 }
 
 void dump_information(){
+  print_vector(variables, "variables");
   print_vector(operators, "operators");
   print_vector(constants, "constants");
   print_vector(lists, "lists");
@@ -558,7 +562,9 @@ int main(int argc, char** argv){
   while(!file.eof()){
     line = "";
     file >> line;
-    cout << endl << line;
+    
+    //cout << endl << line;
+
     if("@OPERATORS:" == line){
       data_type = OPERATORS;
       continue;
@@ -569,6 +575,10 @@ int main(int argc, char** argv){
     }
     else if("@CONSTANTS:" == line){
       data_type = CONSTANTS;
+      continue;
+    }
+    else if("@LISTS:" == line){
+      data_type = LISTS;
       continue;
     }
     else if("@LHS:" == line){
@@ -586,6 +596,6 @@ int main(int argc, char** argv){
   file.close();
 
   dump_information();
-
+  solve_expression(lhs, rhs, variables, constants, lists, operators);
   return 0;
 }
