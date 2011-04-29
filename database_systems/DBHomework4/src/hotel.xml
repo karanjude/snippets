@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:hotels xmlns:tns="http://www.example.org/student" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/student hotel.xsd ">
+  <tns:hotel>
+    <tns:chainname>tns:chainname</tns:chainname>
+    <tns:branchname>tns:branchname</tns:branchname>
+    <tns:address>
+      <tns:city>tns:city</tns:city>
+      <tns:zip>tns:zip</tns:zip>
+      <tns:state>tns:state</tns:state>
+      <tns:streetno>tns:streetno</tns:streetno>
+      <tns:streetname>tns:streetname</tns:streetname>
+    </tns:address>
+    <tns:capacity>tns:capacity</tns:capacity>
+    <tns:latitude>tns:latitude</tns:latitude>
+    <tns:longitude>tns:longitude</tns:longitude>
+    <tns:longitude>tns:longitude</tns:longitude>
+    <tns:latitude>tns:latitude</tns:latitude>
+  </tns:hotel>
+</tns:hotels>

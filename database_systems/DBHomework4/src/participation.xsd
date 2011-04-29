@@ -1,23 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/student" xmlns:tns="http://www.example.org/student" elementFormDefault="qualified">
-	<element name="participation">
-   <complexType>
-    	<sequence>
-    		<element name="ssn" type="string" maxOccurs="1"
-    			minOccurs="1">
-    		</element>
-    		<element name="conferencename" type="string" maxOccurs="1"
-    			minOccurs="1">
-    		</element>
-    		<element name="conferenceyear" type="int" maxOccurs="1"
-    			minOccurs="1">
-    		</element>
-    		<element name="regfee" type="float" maxOccurs="1"
-    			minOccurs="0">
-    		</element>
-    		<element name="regno" type="string" maxOccurs="1" minOccurs="1"></element>
-    	</sequence>
-    </complexType>
-	</element>
- 
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/student"
+	xmlns:tns="http://www.example.org/student" elementFormDefault="qualified">
+	<element name="participations" type="tns:participations"></element>
+
+	<complexType name="participations">
+		<sequence>
+			<element name="participation" type="tns:participationType"
+				maxOccurs="unbounded" minOccurs="1">
+			</element>
+		</sequence>
+	</complexType>
+
+	<complexType name="participationType">
+		<sequence>
+			<element name="ssn" type="string" maxOccurs="1" minOccurs="1">
+			</element>
+			<element name="conferencename" type="string" maxOccurs="1"
+				minOccurs="1">
+			</element>
+			<element name="conferenceyear" type="int" maxOccurs="1"
+				minOccurs="1">
+			</element>
+			<element name="regfee" type="float" maxOccurs="1" minOccurs="0">
+			</element>
+			<element name="regno" type="string" maxOccurs="1" minOccurs="1"></element>
+		</sequence>
+	</complexType>
+
+
 </schema>

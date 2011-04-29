@@ -1,47 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/student"
 	xmlns:tns="http://www.example.org/student" elementFormDefault="qualified">
-	<element name="hotel">
-		<complexType>
-			<sequence>
-				<element name="chainname" type="string" maxOccurs="1"
-					minOccurs="1">
-				</element>
-				<element name="branchname" type="string" maxOccurs="1"
-					minOccurs="1">
-				</element>
-				<element name="address" maxOccurs="1" minOccurs="1">
-					<complexType>
-						<sequence>
-							<element name="city" type="string" maxOccurs="1"
-								minOccurs="1"></element>
-							<element name="zip" type="string" maxOccurs="1"
-								minOccurs="1"></element>
-							<element name="state" type="string" maxOccurs="1"
-								minOccurs="1"></element>
-							<element name="streetno" type="string" maxOccurs="1"
-								minOccurs="1"></element>
-							<element name="streetname" type="string" maxOccurs="1"
-								minOccurs="1"></element>
-						</sequence>
-					</complexType>
+	<element name="hotels" type="tns:hotels"></element>
 
-				</element>
-				<element name="capacity" type="string" maxOccurs="1"
-					minOccurs="1">
-				</element>
-				<element name="latitude" type="string" maxOccurs="1"
-					minOccurs="1">
-				</element>
-				<element name="longitude" type="string" maxOccurs="1"
-					minOccurs="1">
-				</element>
-				<element name="longitude" type="string"></element>
-				<element name="latitude" type="string"></element>
-			</sequence>
-		</complexType>
+	<complexType name="hotels">
+		<sequence>
+			<element name="hotel" type="tns:hotelType" maxOccurs="unbounded"
+				minOccurs="1">
+			</element>
+		</sequence>
+	</complexType>
 
-	</element>
+	<complexType name="hotelType">
+		<sequence>
+			<element name="chainname" type="string" maxOccurs="1"
+				minOccurs="1">
+			</element>
+			<element name="branchname" type="string" maxOccurs="1"
+				minOccurs="1">
+			</element>
+			<element name="address" maxOccurs="1" minOccurs="1">
+				<complexType>
+					<sequence>
+						<element name="city" type="string" maxOccurs="1"
+							minOccurs="1"></element>
+						<element name="zip" type="string" maxOccurs="1" minOccurs="1"></element>
+						<element name="state" type="string" maxOccurs="1"
+							minOccurs="1"></element>
+						<element name="streetno" type="string" maxOccurs="1"
+							minOccurs="1"></element>
+						<element name="streetname" type="string" maxOccurs="1"
+							minOccurs="1"></element>
+					</sequence>
+				</complexType>
+
+			</element>
+			<element name="capacity" type="string" maxOccurs="1"
+				minOccurs="1">
+			</element>
+			<element name="latitude" type="string" maxOccurs="1"
+				minOccurs="1">
+			</element>
+			<element name="longitude" type="string" maxOccurs="1"
+				minOccurs="1">
+			</element>
+			<element name="longitude" type="string"></element>
+			<element name="latitude" type="string"></element>
+		</sequence>
+	</complexType>
 
 
 </schema>
