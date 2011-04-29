@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.example.org/student"
+	xmlns:tns="http://www.example.org/student" elementFormDefault="qualified">
+	<element name="conference">
+		<complexType>
+			<sequence>
+				<element name="name" type="string" maxOccurs="1" minOccurs="1">
+				</element>
+				<element name="year" type="int" maxOccurs="1" minOccurs="1">
+				</element>
+				<element name="chair" type="string" maxOccurs="unbounded"
+					minOccurs="1">
+				</element>
+				<element name="topic" type="string" maxOccurs="1" minOccurs="1">
+				</element>
+				<element name="city" type="string" maxOccurs="1" minOccurs="1">
+				</element>
+				<element name="country" type="string" maxOccurs="1"
+					minOccurs="1">
+				</element>
+				<element name="hotelchainname" type="string" maxOccurs="1"
+					minOccurs="1">
+				</element>
+				<element name="hotelbranchname" type="string" maxOccurs="1"
+					minOccurs="1"></element>
+			</sequence>
+		</complexType>
+
+	</element>
+
+</schema>

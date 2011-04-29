@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:participation xmlns:tns="http://www.example.org/student" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/student participation.xsd ">
+  <tns:ssn>tns:ssn</tns:ssn>
+  <tns:conferencename>tns:conferencename</tns:conferencename>
+  <tns:conferenceyear>0</tns:conferenceyear>
+  <tns:regno>tns:regno</tns:regno>
+</tns:participation>
