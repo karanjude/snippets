@@ -1,356 +1,354 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tns:Students xmlns:tns="http://www.example.org/student" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/student student.xsd ">
+<Students xmlns="http://www.example.org/student" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.example.org/student student.xsd">
+	<student>
+		<ssn>620-16-0198</ssn>
+		<institution>Texas</institution>
+		<age>42</age>
+		<email>Goran@yahoo.com</email>
+		<name>
+			<firstname>Goran</firstname>
+			<lastname>Alav</lastname>
+		</name>
+	</student>
 
 
-
-<tns:student>
-    <tns:ssn>620-16-0198</tns:ssn>
-    <tns:institution>Texas</tns:institution>
-    <tns:age>42</tns:age>
-   <tns:email>Goran@yahoo.com</tns:email>
-    <tns:name>
-      <tns:firstname>Goran</tns:firstname>
-      <tns:lastname>Alav</tns:lastname>
-    </tns:name>
-  </tns:student>
-
-
-<tns:student>
-    <tns:ssn>618-54-6905</tns:ssn>
-    <tns:institution>Delft</tns:institution>
-    <tns:age>32</tns:age>
-   <tns:email>Micheal@hotmail.com</tns:email>
-    <tns:name>
-      <tns:firstname>Micheal</tns:firstname>
-      <tns:lastname>Davidson</tns:lastname>
-    </tns:name>
-  </tns:student>
+	<student>
+		<ssn>618-54-6905</ssn>
+		<institution>Delft</institution>
+		<age>32</age>
+		<email>Micheal@hotmail.com</email>
+		<name>
+			<firstname>Micheal</firstname>
+			<lastname>Davidson</lastname>
+		</name>
+	</student>
 
 
-<tns:student>
-    <tns:ssn>612-05-8786</tns:ssn>
-    <tns:institution>UCSB</tns:institution>
-    <tns:age>22</tns:age>
-   <tns:email>Luis@yahoo.com</tns:email>
-<tns:email>Luis@hotmail.com</tns:email>
-<tns:email>Luis@gmail.com</tns:email>
-<tns:email>Luis@aol.com</tns:email>
-    <tns:name>
-      <tns:firstname>Luis</tns:firstname>
-      <tns:lastname>Smith</tns:lastname>
-    </tns:name>
-  </tns:student>
+	<student>
+		<ssn>612-05-8786</ssn>
+		<institution>UCSB</institution>
+		<age>22</age>
+		<email>Luis@yahoo.com</email>
+		<email>Luis@hotmail.com</email>
+		<email>Luis@gmail.com</email>
+		<email>Luis@aol.com</email>
+		<name>
+			<firstname>Luis</firstname>
+			<lastname>Smith</lastname>
+		</name>
+	</student>
 
 
-<tns:student>
-    <tns:ssn>630-09-3217</tns:ssn>
-    <tns:institution>USC</tns:institution>
-    <tns:age>51</tns:age>
-   <tns:email>Ivan@yahoo.com</tns:email>
-    <tns:name>
-      <tns:firstname>Ivan</tns:firstname>
-      <tns:lastname>Benjamin</tns:lastname>
-    </tns:name>
-  </tns:student>
+	<student>
+		<ssn>630-09-3217</ssn>
+		<institution>USC</institution>
+		<age>51</age>
+		<email>Ivan@yahoo.com</email>
+		<name>
+			<firstname>Ivan</firstname>
+			<lastname>Benjamin</lastname>
+		</name>
+	</student>
 
 
-<tns:student>
-    <tns:ssn>628-42-4276</tns:ssn>
-    <tns:institution>Delaware</tns:institution>
-    <tns:age>50</tns:age>
-   <tns:email>Juan@yahoo.com</tns:email>
-    <tns:name>
-      <tns:firstname>Juan</tns:firstname>
-      <tns:lastname>Lopez</tns:lastname>
-    </tns:name>
-  </tns:student>
+	<student>
+		<ssn>628-42-4276</ssn>
+		<institution>Delaware</institution>
+		<age>50</age>
+		<email>Juan@yahoo.com</email>
+		<name>
+			<firstname>Juan</firstname>
+			<lastname>Lopez</lastname>
+		</name>
+	</student>
 
 
-<tns:student>
-    <tns:ssn>627-48-8192</tns:ssn>
-    <tns:institution>UCLA</tns:institution>
-    <tns:age>39</tns:age>
-   <tns:email>David@yahoo.com</tns:email>
-<tns:email>David@hotmail.com</tns:email>
-    <tns:name>
-      <tns:firstname>David</tns:firstname>
-      <tns:lastname>Deber</tns:lastname>
-    </tns:name>
-  </tns:student>
+	<student>
+		<ssn>627-48-8192</ssn>
+		<institution>UCLA</institution>
+		<age>39</age>
+		<email>David@yahoo.com</email>
+		<email>David@hotmail.com</email>
+		<name>
+			<firstname>David</firstname>
+			<lastname>Deber</lastname>
+		</name>
+	</student>
 
 
-<tns:student>
-    <tns:ssn>613-84-8679</tns:ssn>
-    <tns:institution>Caltech</tns:institution>
-    <tns:age>20</tns:age>
-   <tns:email>Ashish@yahoo.com</tns:email>
-    <tns:name>
-      <tns:firstname>Ashish</tns:firstname>
-      <tns:lastname>Moore</tns:lastname>
-    </tns:name>
-  </tns:student>
+	<student>
+		<ssn>613-84-8679</ssn>
+		<institution>Caltech</institution>
+		<age>20</age>
+		<email>Ashish@yahoo.com</email>
+		<name>
+			<firstname>Ashish</firstname>
+			<lastname>Moore</lastname>
+		</name>
+	</student>
 
 
-<tns:student>
-    <tns:ssn>616-18-5901</tns:ssn>
-    <tns:institution>MIT</tns:institution>
-    <tns:age>28</tns:age>
-   <tns:email>Jack@yahoo.com</tns:email>
-<tns:email>Jack@hotmail.com</tns:email>
-<tns:email>Jack@gmail.com</tns:email>
-<tns:email>Jack@aol.com</tns:email>
-    <tns:name>
-      <tns:firstname>Jack</tns:firstname>
-      <tns:lastname>Neuman</tns:lastname>
-    </tns:name>
-  </tns:student>
+	<student>
+		<ssn>616-18-5901</ssn>
+		<institution>MIT</institution>
+		<age>28</age>
+		<email>Jack@yahoo.com</email>
+		<email>Jack@hotmail.com</email>
+		<email>Jack@gmail.com</email>
+		<email>Jack@aol.com</email>
+		<name>
+			<firstname>Jack</firstname>
+			<lastname>Neuman</lastname>
+		</name>
+	</student>
 
 
-<tns:student>
-    <tns:ssn>613-45-9153</tns:ssn>
-    <tns:institution>UCSF</tns:institution>
-    <tns:age>27</tns:age>
-   <tns:email>Henrik@yahoo.com</tns:email>
-    <tns:name>
-      <tns:firstname>Henrik</tns:firstname>
-      <tns:lastname>Ashish</tns:lastname>
-    </tns:name>
-  </tns:student>
+	<student>
+		<ssn>613-45-9153</ssn>
+		<institution>UCSF</institution>
+		<age>27</age>
+		<email>Henrik@yahoo.com</email>
+		<name>
+			<firstname>Henrik</firstname>
+			<lastname>Ashish</lastname>
+		</name>
+	</student>
 
 
-<tns:student>
-    <tns:ssn>622-66-5110</tns:ssn>
-    <tns:institution>Harvard</tns:institution>
-    <tns:age>51</tns:age>
-   <tns:email>John@yahoo.com</tns:email>
-<tns:email>John@hotmail.com</tns:email>
-    <tns:name>
-      <tns:firstname>John</tns:firstname>
-      <tns:lastname>Shin</tns:lastname>
-    </tns:name>
-  </tns:student>
+	<student>
+		<ssn>622-66-5110</ssn>
+		<institution>Harvard</institution>
+		<age>51</age>
+		<email>John@yahoo.com</email>
+		<email>John@hotmail.com</email>
+		<name>
+			<firstname>John</firstname>
+			<lastname>Shin</lastname>
+		</name>
+	</student>
 
 
-<tns:student>
-    <tns:ssn>624-40-5028</tns:ssn>
-    <tns:institution>Google</tns:institution>
-    <tns:age>46</tns:age>
-   <tns:email>Dimitris@hotmail.com</tns:email>
-    <tns:name>
-      <tns:firstname>Dimitris</tns:firstname>
-      <tns:lastname>Harel</tns:lastname>
-    </tns:name>
-  </tns:student>
+	<student>
+		<ssn>624-40-5028</ssn>
+		<institution>Google</institution>
+		<age>46</age>
+		<email>Dimitris@hotmail.com</email>
+		<name>
+			<firstname>Dimitris</firstname>
+			<lastname>Harel</lastname>
+		</name>
+	</student>
 
 
-<tns:student>
-    <tns:ssn>615-38-0956</tns:ssn>
-    <tns:institution>Minessota</tns:institution>
-    <tns:age>35</tns:age>
-   <tns:email>Kun@yahoo.com</tns:email>
-<tns:email>Kun@hotmail.com</tns:email>
-    <tns:name>
-      <tns:firstname>Kun</tns:firstname>
-      <tns:lastname>Gassr</tns:lastname>
-    </tns:name>
-  </tns:student>
+	<student>
+		<ssn>615-38-0956</ssn>
+		<institution>Minessota</institution>
+		<age>35</age>
+		<email>Kun@yahoo.com</email>
+		<email>Kun@hotmail.com</email>
+		<name>
+			<firstname>Kun</firstname>
+			<lastname>Gassr</lastname>
+		</name>
+	</student>
 
 
-<tns:student>
-    <tns:ssn>625-88-5088</tns:ssn>
-    <tns:institution>Iowa</tns:institution>
-    <tns:age>23</tns:age>
-   <tns:email>Benjamin@yahoo.com</tns:email>
-<tns:email>Benjamin@gmail.com</tns:email>
-    <tns:name>
-      <tns:firstname>Benjamin</tns:firstname>
-      <tns:lastname>Timber</tns:lastname>
-    </tns:name>
-  </tns:student>
+	<student>
+		<ssn>625-88-5088</ssn>
+		<institution>Iowa</institution>
+		<age>23</age>
+		<email>Benjamin@yahoo.com</email>
+		<email>Benjamin@gmail.com</email>
+		<name>
+			<firstname>Benjamin</firstname>
+			<lastname>Timber</lastname>
+		</name>
+	</student>
 
 
-<tns:student>
-    <tns:ssn>617-71-1016</tns:ssn>
-    <tns:institution>ISI</tns:institution>
-    <tns:age>49</tns:age>
-   <tns:email>Maria@yahoo.com</tns:email>
-    <tns:name>
-      <tns:firstname>Maria</tns:firstname>
-      <tns:lastname>Ghosh</tns:lastname>
-    </tns:name>
-  </tns:student>
+	<student>
+		<ssn>617-71-1016</ssn>
+		<institution>ISI</institution>
+		<age>49</age>
+		<email>Maria@yahoo.com</email>
+		<name>
+			<firstname>Maria</firstname>
+			<lastname>Ghosh</lastname>
+		</name>
+	</student>
 
 
-<tns:student>
-    <tns:ssn>612-58-6604</tns:ssn>
-    <tns:institution>Bell</tns:institution>
-    <tns:age>23</tns:age>
-   <tns:email>Harry@hotmail.com</tns:email>
-    <tns:name>
-      <tns:firstname>Harry</tns:firstname>
-      <tns:lastname>Antonio</tns:lastname>
-    </tns:name>
-  </tns:student>
+	<student>
+		<ssn>612-58-6604</ssn>
+		<institution>Bell</institution>
+		<age>23</age>
+		<email>Harry@hotmail.com</email>
+		<name>
+			<firstname>Harry</firstname>
+			<lastname>Antonio</lastname>
+		</name>
+	</student>
 
 
-<tns:student>
-    <tns:ssn>615-07-7886</tns:ssn>
-    <tns:institution>Harvard</tns:institution>
-    <tns:age>28</tns:age>
-   <tns:email>Jose@yahoo.com</tns:email>
-<tns:email>Jose@hotmail.com</tns:email>
-    <tns:name>
-      <tns:firstname>Jose</tns:firstname>
-      <tns:lastname>Barnes</tns:lastname>
-    </tns:name>
-  </tns:student>
+	<student>
+		<ssn>615-07-7886</ssn>
+		<institution>Harvard</institution>
+		<age>28</age>
+		<email>Jose@yahoo.com</email>
+		<email>Jose@hotmail.com</email>
+		<name>
+			<firstname>Jose</firstname>
+			<lastname>Barnes</lastname>
+		</name>
+	</student>
 
 
-<tns:student>
-    <tns:ssn>623-53-0255</tns:ssn>
-    <tns:institution>CMU</tns:institution>
-    <tns:age>36</tns:age>
-   <tns:email>Mark@yahoo.com</tns:email>
-<tns:email>Mark@hotmail.com</tns:email>
-    <tns:name>
-      <tns:firstname>Mark</tns:firstname>
-      <tns:lastname>Marr</tns:lastname>
-    </tns:name>
-  </tns:student>
+	<student>
+		<ssn>623-53-0255</ssn>
+		<institution>CMU</institution>
+		<age>36</age>
+		<email>Mark@yahoo.com</email>
+		<email>Mark@hotmail.com</email>
+		<name>
+			<firstname>Mark</firstname>
+			<lastname>Marr</lastname>
+		</name>
+	</student>
 
 
-<tns:student>
-    <tns:ssn>617-27-3364</tns:ssn>
-    <tns:institution>UMD</tns:institution>
-    <tns:age>48</tns:age>
-   <tns:email>Lee@yahoo.com</tns:email>
-    <tns:name>
-      <tns:firstname>Lee</tns:firstname>
-      <tns:lastname>Liew</tns:lastname>
-    </tns:name>
-  </tns:student>
+	<student>
+		<ssn>617-27-3364</ssn>
+		<institution>UMD</institution>
+		<age>48</age>
+		<email>Lee@yahoo.com</email>
+		<name>
+			<firstname>Lee</firstname>
+			<lastname>Liew</lastname>
+		</name>
+	</student>
 
 
-<tns:student>
-    <tns:ssn>623-62-7824</tns:ssn>
-    <tns:institution>MIT</tns:institution>
-    <tns:age>34</tns:age>
-   <tns:email>Antonio@yahoo.com</tns:email>
-    <tns:name>
-      <tns:firstname>Antonio</tns:firstname>
-      <tns:lastname>Milsh</tns:lastname>
-    </tns:name>
-  </tns:student>
+	<student>
+		<ssn>623-62-7824</ssn>
+		<institution>MIT</institution>
+		<age>34</age>
+		<email>Antonio@yahoo.com</email>
+		<name>
+			<firstname>Antonio</firstname>
+			<lastname>Milsh</lastname>
+		</name>
+	</student>
 
 
-<tns:student>
-    <tns:ssn>620-06-4581</tns:ssn>
-    <tns:institution>ICT</tns:institution>
-    <tns:age>39</tns:age>
-   <tns:email>Marcus@yahoo.com</tns:email>
-    <tns:name>
-      <tns:firstname>Marcus</tns:firstname>
-      <tns:lastname>Stacker</tns:lastname>
-    </tns:name>
-  </tns:student>
+	<student>
+		<ssn>620-06-4581</ssn>
+		<institution>ICT</institution>
+		<age>39</age>
+		<email>Marcus@yahoo.com</email>
+		<name>
+			<firstname>Marcus</firstname>
+			<lastname>Stacker</lastname>
+		</name>
+	</student>
 
 
-<tns:student>
-    <tns:ssn>622-12-5748</tns:ssn>
-    <tns:institution>UCSF</tns:institution>
-    <tns:age>26</tns:age>
-   <tns:email>Alexander@yahoo.com</tns:email>
-    <tns:name>
-      <tns:firstname>Alexander</tns:firstname>
-      <tns:lastname>Mart</tns:lastname>
-    </tns:name>
-  </tns:student>
+	<student>
+		<ssn>622-12-5748</ssn>
+		<institution>UCSF</institution>
+		<age>26</age>
+		<email>Alexander@yahoo.com</email>
+		<name>
+			<firstname>Alexander</firstname>
+			<lastname>Mart</lastname>
+		</name>
+	</student>
 
 
-<tns:student>
-    <tns:ssn>628-58-8156</tns:ssn>
-    <tns:institution>USC</tns:institution>
-    <tns:age>53</tns:age>
-   <tns:email>Carlos@yahoo.com</tns:email>
-    <tns:name>
-      <tns:firstname>Carlos</tns:firstname>
-      <tns:lastname>Gomez</tns:lastname>
-    </tns:name>
-  </tns:student>
+	<student>
+		<ssn>628-58-8156</ssn>
+		<institution>USC</institution>
+		<age>53</age>
+		<email>Carlos@yahoo.com</email>
+		<name>
+			<firstname>Carlos</firstname>
+			<lastname>Gomez</lastname>
+		</name>
+	</student>
 
 
-<tns:student>
-    <tns:ssn>630-44-3532</tns:ssn>
-    <tns:institution>UC</tns:institution>
-    <tns:age>42</tns:age>
-   <tns:email>Ali@yahoo.com</tns:email>
-<tns:email>Ali@hotmail.com</tns:email>
-    <tns:name>
-      <tns:firstname>Ali</tns:firstname>
-      <tns:lastname>Daria</tns:lastname>
-    </tns:name>
-  </tns:student>
+	<student>
+		<ssn>630-44-3532</ssn>
+		<institution>UC</institution>
+		<age>42</age>
+		<email>Ali@yahoo.com</email>
+		<email>Ali@hotmail.com</email>
+		<name>
+			<firstname>Ali</firstname>
+			<lastname>Daria</lastname>
+		</name>
+	</student>
 
 
-<tns:student>
-    <tns:ssn>618-58-4662</tns:ssn>
-    <tns:institution>Stanford</tns:institution>
-    <tns:age>18</tns:age>
-   <tns:email>Amir@yahoo.com</tns:email>
-    <tns:name>
-      <tns:firstname>Amir</tns:firstname>
-      <tns:lastname>Tark</tns:lastname>
-    </tns:name>
-  </tns:student>
+	<student>
+		<ssn>618-58-4662</ssn>
+		<institution>Stanford</institution>
+		<age>18</age>
+		<email>Amir@yahoo.com</email>
+		<name>
+			<firstname>Amir</firstname>
+			<lastname>Tark</lastname>
+		</name>
+	</student>
 
 
-<tns:student>
-    <tns:ssn>625-42-8940</tns:ssn>
-    <tns:institution>USC</tns:institution>
-    <tns:age>46</tns:age>
-   <tns:email>Bob@hotmail.com</tns:email>
-    <tns:name>
-      <tns:firstname>Bob</tns:firstname>
-      <tns:lastname>Shruder</tns:lastname>
-    </tns:name>
-  </tns:student>
+	<student>
+		<ssn>625-42-8940</ssn>
+		<institution>USC</institution>
+		<age>46</age>
+		<email>Bob@hotmail.com</email>
+		<name>
+			<firstname>Bob</firstname>
+			<lastname>Shruder</lastname>
+		</name>
+	</student>
 
 
-<tns:student>
-    <tns:ssn>622-93-3200</tns:ssn>
-    <tns:institution>AT&amp;T</tns:institution>
-    <tns:age>36</tns:age>
-   <tns:email>Hans@yahoo.com</tns:email>
-    <tns:name>
-      <tns:firstname>Hans</tns:firstname>
-      <tns:lastname>Amiri</tns:lastname>
-    </tns:name>
-  </tns:student>
+	<student>
+		<ssn>622-93-3200</ssn>
+		<institution>AT&amp;T</institution>
+		<age>36</age>
+		<email>Hans@yahoo.com</email>
+		<name>
+			<firstname>Hans</firstname>
+			<lastname>Amiri</lastname>
+		</name>
+	</student>
 
 
-<tns:student>
-    <tns:ssn>616-55-3688</tns:ssn>
-    <tns:institution>Google</tns:institution>
-    <tns:age>48</tns:age>
-   <tns:email>Fernando@yahoo.com</tns:email>
-    <tns:name>
-      <tns:firstname>Fernando</tns:firstname>
-      <tns:lastname>Alexander</tns:lastname>
-    </tns:name>
-  </tns:student>
+	<student>
+		<ssn>616-55-3688</ssn>
+		<institution>Google</institution>
+		<age>48</age>
+		<email>Fernando@yahoo.com</email>
+		<name>
+			<firstname>Fernando</firstname>
+			<lastname>Alexander</lastname>
+		</name>
+	</student>
 
 
-<tns:student>
-    <tns:ssn>628-67-3227</tns:ssn>
-    <tns:institution>MIT</tns:institution>
-    <tns:age>40</tns:age>
-   <tns:email>Jason@yahoo.com</tns:email>
-<tns:email>Jason@hotmail.com</tns:email>
-    <tns:name>
-      <tns:firstname>Jason</tns:firstname>
-      <tns:lastname>Koch</tns:lastname>
-    </tns:name>
-  </tns:student>
-  
-  </tns:Students>
+	<student>
+		<ssn>628-67-3227</ssn>
+		<institution>MIT</institution>
+		<age>40</age>
+		<email>Jason@yahoo.com</email>
+		<email>Jason@hotmail.com</email>
+		<name>
+			<firstname>Jason</firstname>
+			<lastname>Koch</lastname>
+		</name>
+	</student>
+
+</Students>
 

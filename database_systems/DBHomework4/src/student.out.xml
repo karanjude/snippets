@@ -1,0 +1,10 @@
+<html>
+<body>
+<h2>Students</h2>
+<table border="1">
+<tr bgcolor="yellow">
+<th>Title</th><th>Artist</th>
+</tr>
+</table>
+</body>
+</html>
