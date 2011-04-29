@@ -21,7 +21,7 @@
 			<element name="conferenceyear" type="int" maxOccurs="1"
 				minOccurs="1">
 			</element>
-			<element name="regfee" type="float" maxOccurs="1" minOccurs="0">
+			<element name="regfee" type="string" maxOccurs="1" minOccurs="0">
 			</element>
 			<element name="regno" type="string" maxOccurs="1" minOccurs="1"></element>
 		</sequence>

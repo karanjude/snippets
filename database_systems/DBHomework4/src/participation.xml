@@ -1,10 +1,394 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tns:participations xmlns:tns="http://www.example.org/student" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/student participation.xsd ">
-  <tns:participation>
-    <tns:ssn>tns:ssn</tns:ssn>
-    <tns:conferencename>tns:conferencename</tns:conferencename>
-    <tns:conferenceyear>0</tns:conferenceyear>
-    <tns:regfee>0.0</tns:regfee>
-    <tns:regno>tns:regno</tns:regno>
+
+
+
+ <tns:participation>
+    <tns:ssn>622-12-5748</tns:ssn>
+    <tns:conferencename>ACL</tns:conferencename>
+    <tns:conferenceyear>2010</tns:conferenceyear>
+    <tns:regfee>100$
+</tns:regfee>
+    <tns:regno>2010100</tns:regno>
   </tns:participation>
-</tns:participations>
+
+
+ <tns:participation>
+    <tns:ssn>622-12-5748</tns:ssn>
+    <tns:conferencename>ACL</tns:conferencename>
+    <tns:conferenceyear>2011</tns:conferenceyear>
+    <tns:regfee>120$
+</tns:regfee>
+    <tns:regno>2011890</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>622-12-5748</tns:ssn>
+    <tns:conferencename>ACM Sigdial</tns:conferencename>
+    <tns:conferenceyear>2010</tns:conferenceyear>
+    <tns:regfee>170$
+</tns:regfee>
+    <tns:regno>S9769</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>630-44-3532</tns:ssn>
+    <tns:conferencename>CVPR</tns:conferencename>
+    <tns:conferenceyear>2011</tns:conferenceyear>
+    <tns:regfee>400$
+</tns:regfee>
+    <tns:regno>P0000001</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>618-58-4662</tns:ssn>
+    <tns:conferencename>CVPR</tns:conferencename>
+    <tns:conferenceyear>2011</tns:conferenceyear>
+    <tns:regfee>400$
+</tns:regfee>
+    <tns:regno>P0000005</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>623-62-7824</tns:ssn>
+    <tns:conferencename>VLDB</tns:conferencename>
+    <tns:conferenceyear>2010</tns:conferenceyear>
+    <tns:regfee>300$
+</tns:regfee>
+    <tns:regno>VL5742</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>613-84-8679</tns:ssn>
+    <tns:conferencename>ACM Siggraph</tns:conferencename>
+    <tns:conferenceyear>2010</tns:conferenceyear>
+    <tns:regfee>600$
+</tns:regfee>
+    <tns:regno>SIG009</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>625-88-5088</tns:ssn>
+    <tns:conferencename>ACM Sigdial</tns:conferencename>
+    <tns:conferenceyear>2011</tns:conferenceyear>
+    <tns:regfee>270$
+</tns:regfee>
+    <tns:regno>S7976</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>625-42-8940</tns:ssn>
+    <tns:conferencename>ACL</tns:conferencename>
+    <tns:conferenceyear>2010</tns:conferenceyear>
+    <tns:regfee>100$
+</tns:regfee>
+    <tns:regno>2010</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>625-42-8940</tns:ssn>
+    <tns:conferencename>ACM Sigir</tns:conferencename>
+    <tns:conferenceyear>2011</tns:conferenceyear>
+    <tns:regfee>200$
+</tns:regfee>
+    <tns:regno>124</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>628-58-8156</tns:ssn>
+    <tns:conferencename>ACM Siggraph</tns:conferencename>
+    <tns:conferenceyear>2010</tns:conferenceyear>
+    <tns:regfee>600$
+</tns:regfee>
+    <tns:regno>SIG0089</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>627-48-8192</tns:ssn>
+    <tns:conferencename>VLDB</tns:conferencename>
+    <tns:conferenceyear>2010</tns:conferenceyear>
+    <tns:regfee>300$
+</tns:regfee>
+    <tns:regno>VL1841</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>624-40-5028</tns:ssn>
+    <tns:conferencename>ACL</tns:conferencename>
+    <tns:conferenceyear>2010</tns:conferenceyear>
+    <tns:regfee>100$
+</tns:regfee>
+    <tns:regno>2010</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>616-55-3688</tns:ssn>
+    <tns:conferencename>CVPR</tns:conferencename>
+    <tns:conferenceyear>2010</tns:conferenceyear>
+    <tns:regfee>400$
+</tns:regfee>
+    <tns:regno>P0000008</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>616-55-3688</tns:ssn>
+    <tns:conferencename>ACM Sigdial</tns:conferencename>
+    <tns:conferenceyear>2010</tns:conferenceyear>
+    <tns:regfee>190$
+</tns:regfee>
+    <tns:regno>S9080</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>620-16-0198</tns:ssn>
+    <tns:conferencename>ACM Sigir</tns:conferencename>
+    <tns:conferenceyear>2011</tns:conferenceyear>
+    <tns:regfee>200$
+</tns:regfee>
+    <tns:regno>194</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>622-93-3200</tns:ssn>
+    <tns:conferencename>ACL</tns:conferencename>
+    <tns:conferenceyear>2011</tns:conferenceyear>
+    <tns:regfee>120$
+</tns:regfee>
+    <tns:regno>20118734</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>612-58-6604</tns:ssn>
+    <tns:conferencename>ECCV</tns:conferencename>
+    <tns:conferenceyear>2011</tns:conferenceyear>
+    <tns:regfee>200$
+</tns:regfee>
+    <tns:regno>1</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>613-45-9153</tns:ssn>
+    <tns:conferencename>ACM Sigir</tns:conferencename>
+    <tns:conferenceyear>2010</tns:conferenceyear>
+    <tns:regfee>200$
+</tns:regfee>
+    <tns:regno>198</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>613-45-9153</tns:ssn>
+    <tns:conferencename>ACM Siggraph</tns:conferencename>
+    <tns:conferenceyear>2011</tns:conferenceyear>
+    <tns:regfee>700$
+</tns:regfee>
+    <tns:regno>SIG006</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>630-09-3217</tns:ssn>
+    <tns:conferencename>ACM Siggraph</tns:conferencename>
+    <tns:conferenceyear>2011</tns:conferenceyear>
+    <tns:regfee>700$
+</tns:regfee>
+    <tns:regno>SIG004</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>616-18-5901</tns:ssn>
+    <tns:conferencename>ECCV</tns:conferencename>
+    <tns:conferenceyear>2011</tns:conferenceyear>
+    <tns:regfee>200$
+</tns:regfee>
+    <tns:regno>2</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>628-67-3227</tns:ssn>
+    <tns:conferencename>VLDB</tns:conferencename>
+    <tns:conferenceyear>2010</tns:conferenceyear>
+    <tns:regfee>300$
+</tns:regfee>
+    <tns:regno>VL8770</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>622-66-5110</tns:ssn>
+    <tns:conferencename>VLDB</tns:conferencename>
+    <tns:conferenceyear>2011</tns:conferenceyear>
+    <tns:regfee>330$
+</tns:regfee>
+    <tns:regno>VL9070</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>615-07-7886</tns:ssn>
+    <tns:conferencename>ACM Sigdial</tns:conferencename>
+    <tns:conferenceyear>2011</tns:conferenceyear>
+    <tns:regfee>250$
+</tns:regfee>
+    <tns:regno>S9070</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>615-07-7886</tns:ssn>
+    <tns:conferencename>ACL</tns:conferencename>
+    <tns:conferenceyear>2010</tns:conferenceyear>
+    <tns:regfee>100$
+</tns:regfee>
+    <tns:regno>2010231</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>615-07-7886</tns:ssn>
+    <tns:conferencename>ACL</tns:conferencename>
+    <tns:conferenceyear>2011</tns:conferenceyear>
+    <tns:regfee>120$
+</tns:regfee>
+    <tns:regno>2011342</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>615-07-7886</tns:ssn>
+    <tns:conferencename>ACM Sigdial</tns:conferencename>
+    <tns:conferenceyear>2010</tns:conferenceyear>
+    <tns:regfee>200$
+</tns:regfee>
+    <tns:regno>1000001</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>628-42-4276</tns:ssn>
+    <tns:conferencename>ACL</tns:conferencename>
+    <tns:conferenceyear>2010</tns:conferenceyear>
+    <tns:regfee>100$
+</tns:regfee>
+    <tns:regno>20105234</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>615-38-0956</tns:ssn>
+    <tns:conferencename>ECCV</tns:conferencename>
+    <tns:conferenceyear>2010</tns:conferenceyear>
+    <tns:regfee>200$
+</tns:regfee>
+    <tns:regno>3</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>617-27-3364</tns:ssn>
+    <tns:conferencename>VLDB</tns:conferencename>
+    <tns:conferenceyear>2010</tns:conferenceyear>
+    <tns:regfee>300$
+</tns:regfee>
+    <tns:regno>VL1740</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>612-05-8786</tns:ssn>
+    <tns:conferencename>ACM Sigir</tns:conferencename>
+    <tns:conferenceyear>2011</tns:conferenceyear>
+    <tns:regfee>200$
+</tns:regfee>
+    <tns:regno>187</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>612-05-8786</tns:ssn>
+    <tns:conferencename>CVPR</tns:conferencename>
+    <tns:conferenceyear>2011</tns:conferenceyear>
+    <tns:regfee>400$
+</tns:regfee>
+    <tns:regno>P000098</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>620-06-4581</tns:ssn>
+    <tns:conferencename>ACL</tns:conferencename>
+    <tns:conferenceyear>2010</tns:conferenceyear>
+    <tns:regfee>100$
+</tns:regfee>
+    <tns:regno>2010324</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>617-71-1016</tns:ssn>
+    <tns:conferencename>ACM Siggraph</tns:conferencename>
+    <tns:conferenceyear>2011</tns:conferenceyear>
+    <tns:regfee>700$
+</tns:regfee>
+    <tns:regno>SIG002</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>617-71-1016</tns:ssn>
+    <tns:conferencename>VLDB</tns:conferencename>
+    <tns:conferenceyear>2011</tns:conferenceyear>
+    <tns:regfee>330$
+</tns:regfee>
+    <tns:regno>VL1740</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>617-71-1016</tns:ssn>
+    <tns:conferencename>VLDB</tns:conferencename>
+    <tns:conferenceyear>2010</tns:conferenceyear>
+    <tns:regfee>300$
+</tns:regfee>
+    <tns:regno>VL1000</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>623-53-0255</tns:ssn>
+    <tns:conferencename>CVPR</tns:conferencename>
+    <tns:conferenceyear>2010</tns:conferenceyear>
+    <tns:regfee>400$
+</tns:regfee>
+    <tns:regno>P000089</tns:regno>
+  </tns:participation>
+
+
+ <tns:participation>
+    <tns:ssn>618-54-6905</tns:ssn>
+    <tns:conferencename>ACM Siggraph</tns:conferencename>
+    <tns:conferenceyear>2011</tns:conferenceyear>
+    <tns:regfee>700$
+</tns:regfee>
+    <tns:regno>SIG021</tns:regno>
+  </tns:participation>
+  </tns:participations>
