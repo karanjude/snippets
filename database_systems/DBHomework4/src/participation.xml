@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tns:participations xmlns:tns="http://www.example.org/student" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/student src/participation.xsd ">
+<tns:participations xmlns:tns="http://www.example.org/student" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/student participation.xsd ">
   <tns:participation>
     <tns:ssn>tns:ssn</tns:ssn>
     <tns:conferencename>tns:conferencename</tns:conferencename>

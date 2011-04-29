@@ -1,0 +1,27 @@
+Hilton,B1,47.6062095,-122.3078,300,406,Washington,Seattle,WA,98104
+Doubletree,B2,14.020137,-118.29,900,132,Main,Los Angeles,CA,90007 
+Hilton,B3,37.3297849,-121.8996,100,300,Almaden Boulevard,San Jose,CA,95110
+Hyatt,B4,14.026535,-118.265,500,148,Exposition,Los Angeles,CA,90007
+Hilton,B5,30.120635,-70.27,150,678,East Monroe Street,Chicago,IL,60603
+Doubletree,B7,40.7142691,-74.239,600,160,Main,New York,NY,11209
+Doubletree,B8,35.055635,-120.30,1300,2050,Gateway Place,San Jose,CA,95110
+Caesars,B9,44.026535,-121.265,900,797,California,Portland,OR,97405
+Caesars,B10,46.120635,-122.6008,500,314,3rd,Seattle,WA,98104
+Ario,B11,40.7142691,-74.8288,130,649,3rd,New York,NY,11209
+Ario,B12,44.020137,-76.29,200,863,Main,Seattle,WA,98104
+Carlton,B13,34.055635,-110.30,120,991,Vermont,Los Angeles,CA,90089
+Carlton,B14,37.026535,-120.265,100,282,Magnolia,San Jose,CA,94086
+Marriott,B15,17.120635,-116.27,300,504,Adams,Los Angeles,CA,90089
+Marriott,B16,40.542691,-76.28,700,660,Main,New York,NY,11209
+Hilton,B17,40.7142691,-73.29,500,755,Rose,New York,NY,11209
+Hyatt,B18,41.7142691,-73.30,900,998,Magnolia,New York,NY,11209
+Westin,B19,40.142691,-74.265,900,412,Main,New York,NY,11209
+Best Western,B20,45.120635,-122.27,400,819,Washington,Portland,OR,97405
+Doubletree,B21,30.024547,-122.288,80,595,Magnolia,Portland,OR,97405
+Hilton,B22,64.020137,-108.29,110,349,Magnolia,Portland,OR,97405
+Hilton,B23,45.5234515,-121.30,800,252,Rose,Portland,OR,97405
+Holidays Inn,B24,34.024547,-117.288,150,980,Washington,Los Angeles,CA,90007
+Holidays Inn,B25,40.691,-73.29,40,503,Magnolia,New York,NY,11209
+Westbound,B26,40.2691,-74.09729,100,532,Ocean,New York,NY,11209
+Westin,B27,47.362095,-122.5708,80,134,Main,Seattle,WA,98104,
+Best Western,B28,34.120635,-118.27,130,852,Main,Los Angeles,CA,90007

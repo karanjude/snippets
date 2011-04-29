@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<tns:name xmlns:tns="http://www.example.org/student" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/student src/student.xsd ">
-  <tns:firstname>tns:firstname</tns:firstname>
-  <tns:lastname>tns:lastname</tns:lastname>
-</tns:name>

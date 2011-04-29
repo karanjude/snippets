@@ -1,8 +1,0 @@
-<!ELEMENT bookstore (name,topic*)> 
- <!ELEMENT topic (name,book*)> 
- <!ELEMENT name (#PCDATA)> 
- <!ELEMENT book (title,author,price)> 
- <!ELEMENT title (#PCDATA)> 
- <!ELEMENT author (#PCDATA)> 
- <!ELEMENT price (#PCDATA)> 
- <!ATTLIST book isbn CDATA "0" >

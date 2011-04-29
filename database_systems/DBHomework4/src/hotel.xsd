@@ -44,8 +44,6 @@
 			<element name="longitude" type="string" maxOccurs="1"
 				minOccurs="1">
 			</element>
-			<element name="longitude" type="string"></element>
-			<element name="latitude" type="string"></element>
 		</sequence>
 	</complexType>
 
