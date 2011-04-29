@@ -1,4 +1,4 @@
-ACM;Siggraph;2010;Computer Graphics;Debevec,Baylis;Boston;USA;Hilton;B1
+ACM Siggraph;2010;Computer Graphics;Debevec,Baylis;Boston;USA;Hilton;B1
 ACM Sigir;2010;Information Retrieval;Jordon;Moscow;Russia;Westbound;B26
 ACL;2010;Computational Linguistics;Traum;Los Angeles;USA;Marriott;B16
 ACM Sigdial;2010;Dialogue;Leuski Arkinson;Madrid;Spain;Westin;B19

@@ -1,13 +1,195 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tns:conferences xmlns:tns="http://www.example.org/student" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.example.org/student conference.xsd ">
-  <tns:conference>
-    <tns:name>tns:name</tns:name>
-    <tns:year>0</tns:year>
-    <tns:chair>tns:chair</tns:chair>
-    <tns:topic>tns:topic</tns:topic>
-    <tns:city>tns:city</tns:city>
-    <tns:country>tns:country</tns:country>
-    <tns:hotelchainname>tns:hotelchainname</tns:hotelchainname>
-    <tns:hotelbranchname>tns:hotelbranchname</tns:hotelbranchname>
+ 
+
+ <tns:conference>
+    <tns:name>ACM Siggraph</tns:name>
+    <tns:year>2010</tns:year>
+    <tns:chair>Debevec</tns:chair>
+<tns:chair>Baylis</tns:chair>
+    <tns:topic>Computer Graphics</tns:topic>
+    <tns:city>Boston</tns:city>
+    <tns:country>USA</tns:country>
+    <tns:hotelchainname>Hilton</tns:hotelchainname>
+    <tns:hotelbranchname>B1
+</tns:hotelbranchname>
   </tns:conference>
-</tns:conferences>
+
+
+ <tns:conference>
+    <tns:name>ACM Sigir</tns:name>
+    <tns:year>2010</tns:year>
+    <tns:chair>Jordon</tns:chair>
+    <tns:topic>Information Retrieval</tns:topic>
+    <tns:city>Moscow</tns:city>
+    <tns:country>Russia</tns:country>
+    <tns:hotelchainname>Westbound</tns:hotelchainname>
+    <tns:hotelbranchname>B26
+</tns:hotelbranchname>
+  </tns:conference>
+
+
+ <tns:conference>
+    <tns:name>ACL</tns:name>
+    <tns:year>2010</tns:year>
+    <tns:chair>Traum</tns:chair>
+    <tns:topic>Computational Linguistics</tns:topic>
+    <tns:city>Los Angeles</tns:city>
+    <tns:country>USA</tns:country>
+    <tns:hotelchainname>Marriott</tns:hotelchainname>
+    <tns:hotelbranchname>B16
+</tns:hotelbranchname>
+  </tns:conference>
+
+
+ <tns:conference>
+    <tns:name>ACM Sigdial</tns:name>
+    <tns:year>2010</tns:year>
+    <tns:chair>Leuski Arkinson</tns:chair>
+    <tns:topic>Dialogue</tns:topic>
+    <tns:city>Madrid</tns:city>
+    <tns:country>Spain</tns:country>
+    <tns:hotelchainname>Westin</tns:hotelchainname>
+    <tns:hotelbranchname>B19
+</tns:hotelbranchname>
+  </tns:conference>
+
+
+ <tns:conference>
+    <tns:name>CVPR</tns:name>
+    <tns:year>2010</tns:year>
+    <tns:chair>Medioni</tns:chair>
+<tns:chair> Feifei</tns:chair>
+    <tns:topic>Computer Vision</tns:topic>
+    <tns:city>Portland</tns:city>
+    <tns:country>USA</tns:country>
+    <tns:hotelchainname>Hilton</tns:hotelchainname>
+    <tns:hotelbranchname>B3
+</tns:hotelbranchname>
+  </tns:conference>
+
+
+ <tns:conference>
+    <tns:name>ECCV</tns:name>
+    <tns:year>2010</tns:year>
+    <tns:chair>Belongie</tns:chair>
+    <tns:topic>Computer Vision</tns:topic>
+    <tns:city>San Diego</tns:city>
+    <tns:country>USA</tns:country>
+    <tns:hotelchainname>Holidays Inn</tns:hotelchainname>
+    <tns:hotelbranchname>B24
+</tns:hotelbranchname>
+  </tns:conference>
+
+
+ <tns:conference>
+    <tns:name>VLDB</tns:name>
+    <tns:year>2010</tns:year>
+    <tns:chair>Shamsian</tns:chair>
+<tns:chair> Shahabi</tns:chair>
+    <tns:topic>Databases</tns:topic>
+    <tns:city>Tehran</tns:city>
+    <tns:country>Iran</tns:country>
+    <tns:hotelchainname>Hyatt</tns:hotelchainname>
+    <tns:hotelbranchname>B18
+</tns:hotelbranchname>
+  </tns:conference>
+
+
+ <tns:conference>
+    <tns:name>ACM Siggraph</tns:name>
+    <tns:year>2011</tns:year>
+    <tns:chair>Neumann</tns:chair>
+<tns:chair>Baylis</tns:chair>
+<tns:chair>Ghosh</tns:chair>
+    <tns:topic>Computer Graphics</tns:topic>
+    <tns:city>London</tns:city>
+    <tns:country>UK</tns:country>
+    <tns:hotelchainname>Carlton</tns:hotelchainname>
+    <tns:hotelbranchname>B13
+</tns:hotelbranchname>
+  </tns:conference>
+
+
+ <tns:conference>
+    <tns:name>ACM Sigir</tns:name>
+    <tns:year>2011</tns:year>
+    <tns:chair>Greyson</tns:chair>
+    <tns:topic>Information Retrieval</tns:topic>
+    <tns:city>New Orleans</tns:city>
+    <tns:country>USA</tns:country>
+    <tns:hotelchainname>Hilton</tns:hotelchainname>
+    <tns:hotelbranchname>B3
+</tns:hotelbranchname>
+  </tns:conference>
+
+
+ <tns:conference>
+    <tns:name>ACL</tns:name>
+    <tns:year>2011</tns:year>
+    <tns:chair>Knight</tns:chair>
+    <tns:topic>Computational Linguists</tns:topic>
+    <tns:city>New York</tns:city>
+    <tns:country>USA</tns:country>
+    <tns:hotelchainname>Doubletree</tns:hotelchainname>
+    <tns:hotelbranchname>B8
+</tns:hotelbranchname>
+  </tns:conference>
+
+
+ <tns:conference>
+    <tns:name>ACM Sigdial</tns:name>
+    <tns:year>2011</tns:year>
+    <tns:chair>Traum</tns:chair>
+<tns:chair>Morency</tns:chair>
+    <tns:topic>Dialogue</tns:topic>
+    <tns:city>Chicago</tns:city>
+    <tns:country>USA</tns:country>
+    <tns:hotelchainname>Hilton</tns:hotelchainname>
+    <tns:hotelbranchname>B17
+</tns:hotelbranchname>
+  </tns:conference>
+
+
+ <tns:conference>
+    <tns:name>CVPR</tns:name>
+    <tns:year>2011</tns:year>
+    <tns:chair>Morency</tns:chair>
+<tns:chair>Medioni</tns:chair>
+<tns:chair>Navatia</tns:chair>
+    <tns:topic>Computer Vision</tns:topic>
+    <tns:city>Atlanta</tns:city>
+    <tns:country>USA</tns:country>
+    <tns:hotelchainname>Carlton</tns:hotelchainname>
+    <tns:hotelbranchname>B14
+</tns:hotelbranchname>
+  </tns:conference>
+
+
+ <tns:conference>
+    <tns:name>ECCV</tns:name>
+    <tns:year>2011</tns:year>
+    <tns:chair>Koller</tns:chair>
+    <tns:topic>Computer Vision</tns:topic>
+    <tns:city>Los Angeles</tns:city>
+    <tns:country>USA</tns:country>
+    <tns:hotelchainname>Hyatt</tns:hotelchainname>
+    <tns:hotelbranchname>B18
+</tns:hotelbranchname>
+  </tns:conference>
+
+
+ <tns:conference>
+    <tns:name>VLDB</tns:name>
+    <tns:year>2011</tns:year>
+    <tns:chair>Grey</tns:chair>
+    <tns:topic>Databases</tns:topic>
+    <tns:city>Seattle</tns:city>
+    <tns:country>USA</tns:country>
+    <tns:hotelchainname>Hilton</tns:hotelchainname>
+    <tns:hotelbranchname>B3
+</tns:hotelbranchname>
+  </tns:conference>
+  
+  </tns:conferences>
+
