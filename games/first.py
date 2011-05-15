@@ -12,16 +12,22 @@ class GameEngine:
         self.debug = debug
         self.render = True
         self.surfaces = {}
-
-    def create_surface(self,x,y):
-        surface = pygame.Surface(self.display.get_size())
-        surface.fill((255,255,255))
+    
+    def create_surface(self,width,height,name, x,y):
+        surface = pygame.Surface((width, height))
         surface = surface.convert()        
-        self.surfaces[(x,y)] = surface
+        self.surfaces[name] = (surface,(x,y))
+
+    def init_background(self):
+        self.background = pygame.Surface(self.display.get_size())
+        self.background.fill((255,255,255))
+        self.background = self.background.convert()
+        self.surfaces["background"] = (self.background, (0,0))
 
     def start(self):
         pygame.init()
         self.display = pygame.display.set_mode((self.width, self.height))
+        self.init_background()
 
     def process_events(self):
         for event in pygame.event.get():
@@ -45,17 +51,35 @@ class GameEngine:
             pygame.display.flip()          # flip the screen like in a flip book
         
 
+    def draw_circle(self, r, g, b, width, height, radius, surface_name):
+        surface = self.surfaces[surface_name][0]
+        pygame.draw.circle(surface, (r,g,b), (width, height), radius)
+
+    def draw_rectangle(self, r, g, b, x1, y1, width, height, surface_name):
+        surface = self.surfaces[surface_name][0]
+        pygame.draw.rect(surface, (r,g,b), (x1,y1, width, height))
+        
     def draw_surfaces(self):
-        for coords , surface in self.surfaces.iteritems():
+        self.display.blit(self.background, (0,0))
+        print self.surfaces
+        for k,v in self.surfaces.iteritems():
+            if k == "background":
+                continue
+            surface = v[0]
+            coords = v[1]
             self.display.blit(surface, (coords[0],coords[1]))
 
     def stop(self):
+        self.surfaces.clear()
         pygame.quit()
 
 if __name__ == "__main__":
     engine = GameEngine(640,480,30)
     engine.start()
-    engine.create_surface(0,0)
+    engine.create_surface(50,50,"ballsurface", 320, 240)
+    engine.draw_circle(0, 0, 255, 25, 25, 25, "ballsurface")
+    engine.draw_circle(0,200,0, 200,50, 35,"background")
+    engine.draw_rectangle(0, 255, 0, 50, 50, 100, 25, "background")
     engine.process()
     engine.stop()
 
