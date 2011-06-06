@@ -1,0 +1,12 @@
+2. Hardy decides to start running to work in San Francisco city to get in shape. He
+prefers a route that goes entirely uphill and then entirely downhill so that he could work up
+a sweat uphill and get a nice, cool breeze at the end of his run as he runs faster downhill. He
+starts running from his home and ends at his workplace. To guide his run, he prints out a
+Google Maps report detailing the roads with m road segments (any existing road between two
+intersections) and k intersections. Each road segment has unit length, and each intersection
+has a distinct elevation. Assuming that every road segment is either fully uphill or fully
+downhill, give an efficient algorithm to find the shortest path (route) that meets Hardy’s
+specifications. If no such path meets Hardy’s specifications, your algorithm should determine
+this. Justify your answer.
+
+

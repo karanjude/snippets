@@ -1,0 +1,16 @@
+DROP TABLE ANIMALS
+/
+DROP TABLE TRUCKS
+/
+DROP TABLE VACCINES
+/
+DROP TABLE VACCINE_ANIMALS
+/
+DROP TABLE TRUCK_VACCINES 
+/
+DELETE from user_sdo_geom_metadata
+/
+DROP INDEX animal_location_index
+/
+DROP INDEX truck_location_index
+/

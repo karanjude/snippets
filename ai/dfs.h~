@@ -1,0 +1,6 @@
+#ifndef DFS_H
+
+#include "strategy.h"
+
+#define DFS_H
+#endif

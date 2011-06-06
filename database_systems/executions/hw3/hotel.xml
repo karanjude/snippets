@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xml" href="hotel.xsl"?>
+<tns:hotels xmlns:tns="http://www.example.org/student"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.example.org/student hotel.xsd ">
+
+	<tns:hotel>
+		<tns:chainname>Hilton</tns:chainname>
+		<tns:branchname>B1</tns:branchname>
+		<tns:address>
+			<tns:city>Seattle</tns:city>
+			<tns:zip>98104
+</tns:zip>
+			<tns:state>WA</tns:state>
+			<tns:streetno>406</tns:streetno>
+			<tns:streetname>Washington</tns:streetname>
+		</tns:address>
+		<tns:capacity>300</tns:capacity>
+		<tns:latitude>47.6062095</tns:latitude>
+		<tns:longitude>-122.3078</tns:longitude>
+	</tns:hotel>
+
+	<tns:hotel>
+		<tns:chainname>Doubletree</tns:chainname>
+		<tns:branchname>B2</tns:branchname>
+		<tns:address>
+			<tns:city>Los Angeles</tns:city>
+			<tns:zip>90007 
+</tns:zip>
+			<tns:state>CA</tns:state>
+			<tns:streetno>132</tns:streetno>
+			<tns:streetname>Main</tns:streetname>
+		</tns:address>
+		<tns:capacity>900</tns:capacity>
+		<tns:latitude>14.020137</tns:latitude>
+		<tns:longitude>-118.29</tns:longitude>
+	</tns:hotel>
+
+	<tns:hotel>
+		<tns:chainname>Hilton</tns:chainname>
+		<tns:branchname>B3</tns:branchname>
+		<tns:address>
+			<tns:city>San Jose</tns:city>
+			<tns:zip>95110
+</tns:zip>
+			<tns:state>CA</tns:state>
+			<tns:streetno>300</tns:streetno>
+			<tns:streetname>Almaden Boulevard</tns:streetname>
+		</tns:address>
+		<tns:capacity>100</tns:capacity>
+		<tns:latitude>37.3297849</tns:latitude>
+		<tns:longitude>-121.8996</tns:longitude>
+	</tns:hotel>
+
+	<tns:hotel>
+		<tns:chainname>Hyatt</tns:chainname>
+		<tns:branchname>B4</tns:branchname>
+		<tns:address>
+			<tns:city>Los Angeles</tns:city>
+			<tns:zip>90007
+</tns:zip>
+			<tns:state>CA</tns:state>
+			<tns:streetno>148</tns:streetno>
+			<tns:streetname>Exposition</tns:streetname>
+		</tns:address>
+		<tns:capacity>500</tns:capacity>
+		<tns:latitude>14.026535</tns:latitude>
+		<tns:longitude>-118.265</tns:longitude>
+	</tns:hotel>
+
+	<tns:hotel>
+		<tns:chainname>Hilton</tns:chainname>
+		<tns:branchname>B5</tns:branchname>
+		<tns:address>
+			<tns:city>Chicago</tns:city>
+			<tns:zip>60603
+</tns:zip>
+			<tns:state>IL</tns:state>
+			<tns:streetno>678</tns:streetno>
+			<tns:streetname>East Monroe Street</tns:streetname>
+		</tns:address>
+		<tns:capacity>150</tns:capacity>
+		<tns:latitude>30.120635</tns:latitude>
+		<tns:longitude>-70.27</tns:longitude>
+	</tns:hotel>
+
+	<tns:hotel>
+		<tns:chainname>Doubletree</tns:chainname>
+		<tns:branchname>B7</tns:branchname>
+		<tns:address>
+			<tns:city>New York</tns:city>
+			<tns:zip>11209
+</tns:zip>
+			<tns:state>NY</tns:state>
+			<tns:streetno>160</tns:streetno>
+			<tns:streetname>Main</tns:streetname>
+		</tns:address>
+		<tns:capacity>600</tns:capacity>
+		<tns:latitude>40.7142691</tns:latitude>
+		<tns:longitude>-74.239</tns:longitude>
+	</tns:hotel>
+
+	<tns:hotel>
+		<tns:chainname>Doubletree</tns:chainname>
+		<tns:branchname>B8</tns:branchname>
+		<tns:address>
+			<tns:city>San Jose</tns:city>
+			<tns:zip>95110
+</tns:zip>
+			<tns:state>CA</tns:state>
+			<tns:streetno>2050</tns:streetno>
+			<tns:streetname>Gateway Place</tns:streetname>
+		</tns:address>
+		<tns:capacity>1300</tns:capacity>
+		<tns:latitude>35.055635</tns:latitude>
+		<tns:longitude>-120.30</tns:longitude>
+	</tns:hotel>
+
+	<tns:hotel>
+		<tns:chainname>Caesars</tns:chainname>
+		<tns:branchname>B9</tns:branchname>
+		<tns:address>
+			<tns:city>Portland</tns:city>
+			<tns:zip>97405
+</tns:zip>
+			<tns:state>OR</tns:state>
+			<tns:streetno>797</tns:streetno>
+			<tns:streetname>California</tns:streetname>
+		</tns:address>
+		<tns:capacity>900</tns:capacity>
+		<tns:latitude>44.026535</tns:latitude>
+		<tns:longitude>-121.265</tns:longitude>
+	</tns:hotel>
+
+	<tns:hotel>
+		<tns:chainname>Caesars</tns:chainname>
+		<tns:branchname>B10</tns:branchname>
+		<tns:address>
+			<tns:city>Seattle</tns:city>
+			<tns:zip>98104
+</tns:zip>
+			<tns:state>WA</tns:state>
+			<tns:streetno>314</tns:streetno>
+			<tns:streetname>3rd</tns:streetname>
+		</tns:address>
+		<tns:capacity>500</tns:capacity>
+		<tns:latitude>46.120635</tns:latitude>
+		<tns:longitude>-122.6008</tns:longitude>
+	</tns:hotel>
+
+	<tns:hotel>
+		<tns:chainname>Ario</tns:chainname>
+		<tns:branchname>B11</tns:branchname>
+		<tns:address>
+			<tns:city>New York</tns:city>
+			<tns:zip>11209
+</tns:zip>
+			<tns:state>NY</tns:state>
+			<tns:streetno>649</tns:streetno>
+			<tns:streetname>3rd</tns:streetname>
+		</tns:address>
+		<tns:capacity>130</tns:capacity>
+		<tns:latitude>40.7142691</tns:latitude>
+		<tns:longitude>-74.8288</tns:longitude>
+	</tns:hotel>
+
+	<tns:hotel>
+		<tns:chainname>Ario</tns:chainname>
+		<tns:branchname>B12</tns:branchname>
+		<tns:address>
+			<tns:city>Seattle</tns:city>
+			<tns:zip>98104
+</tns:zip>
+			<tns:state>WA</tns:state>
+			<tns:streetno>863</tns:streetno>
+			<tns:streetname>Main</tns:streetname>
+		</tns:address>
+		<tns:capacity>200</tns:capacity>
+		<tns:latitude>44.020137</tns:latitude>
+		<tns:longitude>-76.29</tns:longitude>
+	</tns:hotel>
+
+	<tns:hotel>
+		<tns:chainname>Carlton</tns:chainname>
+		<tns:branchname>B13</tns:branchname>
+		<tns:address>
+			<tns:city>Los Angeles</tns:city>
+			<tns:zip>90089
+</tns:zip>
+			<tns:state>CA</tns:state>
+			<tns:streetno>991</tns:streetno>
+			<tns:streetname>Vermont</tns:streetname>
+		</tns:address>
+		<tns:capacity>120</tns:capacity>
+		<tns:latitude>34.055635</tns:latitude>
+		<tns:longitude>-110.30</tns:longitude>
+	</tns:hotel>
+
+	<tns:hotel>
+		<tns:chainname>Carlton</tns:chainname>
+		<tns:branchname>B14</tns:branchname>
+		<tns:address>
+			<tns:city>San Jose</tns:city>
+			<tns:zip>94086
+</tns:zip>
+			<tns:state>CA</tns:state>
+			<tns:streetno>282</tns:streetno>
+			<tns:streetname>Magnolia</tns:streetname>
+		</tns:address>
+		<tns:capacity>100</tns:capacity>
+		<tns:latitude>37.026535</tns:latitude>
+		<tns:longitude>-120.265</tns:longitude>
+	</tns:hotel>
+
+	<tns:hotel>
+		<tns:chainname>Marriott</tns:chainname>
+		<tns:branchname>B15</tns:branchname>
+		<tns:address>
+			<tns:city>Los Angeles</tns:city>
+			<tns:zip>90089
+</tns:zip>
+			<tns:state>CA</tns:state>
+			<tns:streetno>504</tns:streetno>
+			<tns:streetname>Adams</tns:streetname>
+		</tns:address>
+		<tns:capacity>300</tns:capacity>
+		<tns:latitude>17.120635</tns:latitude>
+		<tns:longitude>-116.27</tns:longitude>
+	</tns:hotel>
+
+	<tns:hotel>
+		<tns:chainname>Marriott</tns:chainname>
+		<tns:branchname>B16</tns:branchname>
+		<tns:address>
+			<tns:city>New York</tns:city>
+			<tns:zip>11209
+</tns:zip>
+			<tns:state>NY</tns:state>
+			<tns:streetno>660</tns:streetno>
+			<tns:streetname>Main</tns:streetname>
+		</tns:address>
+		<tns:capacity>700</tns:capacity>
+		<tns:latitude>40.542691</tns:latitude>
+		<tns:longitude>-76.28</tns:longitude>
+	</tns:hotel>
+
+	<tns:hotel>
+		<tns:chainname>Hilton</tns:chainname>
+		<tns:branchname>B17</tns:branchname>
+		<tns:address>
+			<tns:city>New York</tns:city>
+			<tns:zip>11209
+</tns:zip>
+			<tns:state>NY</tns:state>
+			<tns:streetno>755</tns:streetno>
+			<tns:streetname>Rose</tns:streetname>
+		</tns:address>
+		<tns:capacity>500</tns:capacity>
+		<tns:latitude>40.7142691</tns:latitude>
+		<tns:longitude>-73.29</tns:longitude>
+	</tns:hotel>
+
+	<tns:hotel>
+		<tns:chainname>Hyatt</tns:chainname>
+		<tns:branchname>B18</tns:branchname>
+		<tns:address>
+			<tns:city>New York</tns:city>
+			<tns:zip>11209
+</tns:zip>
+			<tns:state>NY</tns:state>
+			<tns:streetno>998</tns:streetno>
+			<tns:streetname>Magnolia</tns:streetname>
+		</tns:address>
+		<tns:capacity>900</tns:capacity>
+		<tns:latitude>41.7142691</tns:latitude>
+		<tns:longitude>-73.30</tns:longitude>
+	</tns:hotel>
+
+	<tns:hotel>
+		<tns:chainname>Westin</tns:chainname>
+		<tns:branchname>B19</tns:branchname>
+		<tns:address>
+			<tns:city>New York</tns:city>
+			<tns:zip>11209
+</tns:zip>
+			<tns:state>NY</tns:state>
+			<tns:streetno>412</tns:streetno>
+			<tns:streetname>Main</tns:streetname>
+		</tns:address>
+		<tns:capacity>900</tns:capacity>
+		<tns:latitude>40.142691</tns:latitude>
+		<tns:longitude>-74.265</tns:longitude>
+	</tns:hotel>
+
+	<tns:hotel>
+		<tns:chainname>Best Western</tns:chainname>
+		<tns:branchname>B20</tns:branchname>
+		<tns:address>
+			<tns:city>Portland</tns:city>
+			<tns:zip>97405
+</tns:zip>
+			<tns:state>OR</tns:state>
+			<tns:streetno>819</tns:streetno>
+			<tns:streetname>Washington</tns:streetname>
+		</tns:address>
+		<tns:capacity>400</tns:capacity>
+		<tns:latitude>45.120635</tns:latitude>
+		<tns:longitude>-122.27</tns:longitude>
+	</tns:hotel>
+
+	<tns:hotel>
+		<tns:chainname>Doubletree</tns:chainname>
+		<tns:branchname>B21</tns:branchname>
+		<tns:address>
+			<tns:city>Portland</tns:city>
+			<tns:zip>97405
+</tns:zip>
+			<tns:state>OR</tns:state>
+			<tns:streetno>595</tns:streetno>
+			<tns:streetname>Magnolia</tns:streetname>
+		</tns:address>
+		<tns:capacity>80</tns:capacity>
+		<tns:latitude>30.024547</tns:latitude>
+		<tns:longitude>-122.288</tns:longitude>
+	</tns:hotel>
+
+	<tns:hotel>
+		<tns:chainname>Hilton</tns:chainname>
+		<tns:branchname>B22</tns:branchname>
+		<tns:address>
+			<tns:city>Portland</tns:city>
+			<tns:zip>97405
+</tns:zip>
+			<tns:state>OR</tns:state>
+			<tns:streetno>349</tns:streetno>
+			<tns:streetname>Magnolia</tns:streetname>
+		</tns:address>
+		<tns:capacity>110</tns:capacity>
+		<tns:latitude>64.020137</tns:latitude>
+		<tns:longitude>-108.29</tns:longitude>
+	</tns:hotel>
+
+	<tns:hotel>
+		<tns:chainname>Hilton</tns:chainname>
+		<tns:branchname>B23</tns:branchname>
+		<tns:address>
+			<tns:city>Portland</tns:city>
+			<tns:zip>97405
+</tns:zip>
+			<tns:state>OR</tns:state>
+			<tns:streetno>252</tns:streetno>
+			<tns:streetname>Rose</tns:streetname>
+		</tns:address>
+		<tns:capacity>800</tns:capacity>
+		<tns:latitude>45.5234515</tns:latitude>
+		<tns:longitude>-121.30</tns:longitude>
+	</tns:hotel>
+
+	<tns:hotel>
+		<tns:chainname>Holidays Inn</tns:chainname>
+		<tns:branchname>B24</tns:branchname>
+		<tns:address>
+			<tns:city>Los Angeles</tns:city>
+			<tns:zip>90007
+</tns:zip>
+			<tns:state>CA</tns:state>
+			<tns:streetno>980</tns:streetno>
+			<tns:streetname>Washington</tns:streetname>
+		</tns:address>
+		<tns:capacity>150</tns:capacity>
+		<tns:latitude>34.024547</tns:latitude>
+		<tns:longitude>-117.288</tns:longitude>
+	</tns:hotel>
+
+	<tns:hotel>
+		<tns:chainname>Holidays Inn</tns:chainname>
+		<tns:branchname>B25</tns:branchname>
+		<tns:address>
+			<tns:city>New York</tns:city>
+			<tns:zip>11209
+</tns:zip>
+			<tns:state>NY</tns:state>
+			<tns:streetno>503</tns:streetno>
+			<tns:streetname>Magnolia</tns:streetname>
+		</tns:address>
+		<tns:capacity>40</tns:capacity>
+		<tns:latitude>40.691</tns:latitude>
+		<tns:longitude>-73.29</tns:longitude>
+	</tns:hotel>
+
+	<tns:hotel>
+		<tns:chainname>Westbound</tns:chainname>
+		<tns:branchname>B26</tns:branchname>
+		<tns:address>
+			<tns:city>New York</tns:city>
+			<tns:zip>11209
+</tns:zip>
+			<tns:state>NY</tns:state>
+			<tns:streetno>532</tns:streetno>
+			<tns:streetname>Ocean</tns:streetname>
+		</tns:address>
+		<tns:capacity>100</tns:capacity>
+		<tns:latitude>40.2691</tns:latitude>
+		<tns:longitude>-74.09729</tns:longitude>
+	</tns:hotel>
+
+	<tns:hotel>
+		<tns:chainname>Westin</tns:chainname>
+		<tns:branchname>B27</tns:branchname>
+		<tns:address>
+			<tns:city>Seattle</tns:city>
+			<tns:zip>98104</tns:zip>
+			<tns:state>WA</tns:state>
+			<tns:streetno>134</tns:streetno>
+			<tns:streetname>Main</tns:streetname>
+		</tns:address>
+		<tns:capacity>80</tns:capacity>
+		<tns:latitude>47.362095</tns:latitude>
+		<tns:longitude>-122.5708</tns:longitude>
+	</tns:hotel>
+
+	<tns:hotel>
+		<tns:chainname>Best Western</tns:chainname>
+		<tns:branchname>B28</tns:branchname>
+		<tns:address>
+			<tns:city>Los Angeles</tns:city>
+			<tns:zip>90007
+</tns:zip>
+			<tns:state>CA</tns:state>
+			<tns:streetno>852</tns:streetno>
+			<tns:streetname>Main</tns:streetname>
+		</tns:address>
+		<tns:capacity>130</tns:capacity>
+		<tns:latitude>34.120635</tns:latitude>
+		<tns:longitude>-118.27</tns:longitude>
+	</tns:hotel>
+</tns:hotels>

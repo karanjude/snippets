@@ -1,0 +1,53 @@
+
+Question 4
+----------
+
+Answer 1
+---------
+
+A hueristic of my design, the one that I have chosen is one that takes the MIN of dx, or dy.
+
+where dx = currentx - endx, and dy = currenty - endy. 
+
+The reason this hueristic is admissable because it enever estimates the path to the destination, it tries to choose always the lesser of the dx or dy values and hence will never over shoot the destination.
+
+Question 2
+-----------
+Suppose you were instead given several end locations, and your task was to place a wire that began at the start location, and ended at any one of the end locations the algorithm prefers. Note that all, none, or a subset of the end locations may be reachable. One obvious extension of the Manhattan-distance heuristic would be the Manhattan distance from the new wire’s current ending location to the closest end location:
+
+    h((x, y)) = min |x − x | + |y − y |
+
+
+Answer 2
+---------
+
+part (a)
+--------
+H(x,y)= for all (x,y)   min(|x - x'| +	|y - y'|)
+
+No this hueristic is not admissable, 
+
+part (b)
+--------
+
+Its not admissible as at every node it will try to find the minimum manhattan distance to all end locations.
+The smallest manhattan distance may not be best huersitic as it may lead to a path which leads to a blocked path. 
+
+part (c)
+--------
+We can improve this hueristic by adding blocked_count to it, where blocked count is the count of the blocked tiles on the rectange formed by the manhattan distance from the current location to the destination. So the new hueristic would become
+
+H(x,y)= for all (x,y)   min(|x - x'| +	|y - y'| + b')
+
+b' = number of blocked tiles in the rectangular area formed by the manhattan distance.
+
+This hueristic will give a new hueristic which provides the best manhattan distance that increses the probability of reaching the 
+destiantion. As it always chooses a region that has fewer number of blocked tiles and hence incresing its chances of reaching the destination.
+
+
+Answer 3
+--------
+ I built my code in a step by step manner. I added a lot of debug statements which show the state of the program at various 
+points of execution. I have included the -graph option to show the current graph.  Also i have included the -D option that
+makes it easy to show the debug output. Also I have structure the code in a place which enables and makes changes easier.
+

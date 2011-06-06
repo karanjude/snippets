@@ -1,0 +1,56 @@
+#ifndef UTIL_H
+
+#include <vector>
+#include <map>
+#include <string>
+
+using namespace std;
+
+vector< vector<int> > maze;
+int x,y, width, height, sx, sy, ex, ey;
+map< pair<int, int>, bool > visited;
+
+inline int abs(int x){
+  if( x < 0)
+    return -1 * x;
+  return x;
+}
+
+void get_x_y(const string& xy, int& x, int& y){
+  string xy_string(xy);
+  xy_string.replace(xy.find(','), 1, 1, ' ');
+  istringstream iss(xy_string);
+  iss >> x >> y;
+}
+
+void print_maze(vector< pair<int,int> > with_path = vector< pair<int,int> >()){
+  cout << endl;
+  map< pair<int, int>, bool > v;
+  
+  if(with_path.size() > 0){
+    for(vector< pair<int,int> >::iterator i = with_path.begin(); i != with_path.end(); i++){
+      v.insert(make_pair(make_pair(i->first, i->second),true));
+    }
+  }
+			   
+  for(int y = 0; y != maze.size(); y++){
+    for(int x = 0; x != maze[0].size(); x++){
+      char c;
+      if( sx == x && sy ==  y)
+	c = 'S';
+      else if( ex == x && ey == y)
+	c = 'E';
+      else{ 
+	c = maze[y][x] == -1 ? 'N' : '*';
+	if(v.size() > 0 && v.find(make_pair(x,y)) != v.end() ){
+	  c = 'P';
+	}
+      }
+      cout << c << "  ";
+    }
+    cout << endl;
+  }
+}
+
+#define UTIL_H
+#endif
