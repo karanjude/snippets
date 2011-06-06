@@ -1,0 +1,26 @@
+
+--This line, and those below, will be ignored--
+
+A    denscraper
+A    denscraper/config.py
+A    denscraper/denscraper.py
+A    svn-commit.tmp~
+A    svn-commit.2.tmp~
+A    svn-commit.2.tmp
+A    svn-commit.4.tmp~
+A    svn-commit.tmp
+AM   games/engine.pyc
+A    games/third.py~
+A    games/second.py~
+A    games/third.py
+A    games/004_alphademo.py~
+A    games/004_alphademo.py
+A    games/data
+AM   games/data/800px-La_naissance_de_Venus.jpg
+AM   games/data/colormonster.jpg
+AM   games/data/colormonster.png
+A    games/engine.py~
+A    games/engine.py
+A    games/TAGS
+A    svn-commit.3.tmp
+A    README

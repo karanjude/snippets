@@ -1,0 +1,36 @@
+
+004_alphademo.py,85
+def get_alphaed(14,342
+def bounce(26,784
+def write(43,1340
+def alphademo(49,1551
+
+engine.py,452
+class GameEngine:GameEngine5,40
+    def __init__(6,58
+    def create_surface(16,350
+    def init_background(22,641
+    def start(29,955
+    def process_events(34,1104
+    def render_surface_at(42,1390
+    def process(46,1535
+    def draw_circle(62,2336
+    def draw_line(66,2529
+    def draw_rectangle(70,2704
+    def draw_surfaces(74,2905
+    def stop(84,3251
+class Scene:Scene88,3324
+    def __init__(89,3337
+    def render(92,3407
+
+second.py,66
+class MyScene(6,54
+    def __init__(7,83
+    def render(13,283
+
+third.py,66
+class MyScene(6,54
+    def __init__(7,83
+    def render(13,283
+
+first.py,0
